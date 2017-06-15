@@ -14,7 +14,7 @@
  * @param esy
  */
 function timer(esy){
-	esy.block(/^(interval|timeout)(?:\s+(?=\d+)(\d+))?(?:\s*<(.*)>)?(?:\s*\(([\w,]+)\))?$/ig, (matches, block, parent, offset) => {
+	esy.block(/^(interval|timeout)(?:\s+(?=\d+)(\d+))?(?:\s*<(.*)>)?(?:\s*\(([\w\s,]*)\))?$/ig, (matches, block, parent, offset) => {
 		var func        = matches[1].toLowerCase() == 'timeout' ? 'setTimeout' : 'setInterval';
 		var callback    = esy.compile(block.body);
 		var delay       = matches[2] || 0;
