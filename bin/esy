@@ -1,0 +1,38 @@
+#!/usr/bin/env node
+/**
+ *    _____ __
+ *   / ___// /_  _____
+ *   \__ \/ / / / / _ \
+ *  ___/ / / /_/ /  __/
+ * /____/_/\__, /\___/
+ *       /____/
+ *       Copyright 2017 Slye Development Team. All Rights Reserved.
+ *       Licence: MIT License
+ */
+
+// the start() shortcut returns an instance of PrettyError ...
+pe = require('pretty-error').start();
+const head = 
+`   _____ __              ______          
+  / ___// /_  _____     / ____/______  __
+  \\__ \\/ / / / / _ \\   / __/ / ___/ / / /
+ ___/ / / /_/ /  __/  / /___(__  ) /_/ / 
+/____/_/\\__, /\\___/  /_____/____/\\__, /  
+       /____/                   /____/   \n`;
+
+var yargs = require('yargs')
+	.commandDir('commands')
+	.usage(head + "Esy is a new JS preprocessor allows you to use custom block structures.")
+	.help()
+	.epilogue('for more information, find our manual at:\n    https://github.com/Slye-team/esy-language')
+	.option('config', {
+		describe: 'config.json src',
+		default: 'esy.json',
+		type: 'string',
+		alias: 'c'
+	}),
+	argv    = yargs.argv;
+
+if(argv._.length == 0) {
+	yargs.showHelp('log');
+}
