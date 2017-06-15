@@ -15,6 +15,8 @@ const modules   = require('./core/modules');
 const blocks    = require('./core/blocks');
 const configs   = require('./core/config');
 const cache     = require('./core/cache');
+const glob      = require('glob');
+const path      = require('path');
 
 var esy_lang  = {
 	tree    : tree,
@@ -22,7 +24,16 @@ var esy_lang  = {
 	cache   : cache,
 	configs : configs,
 	block   : blocks.add,
-	modules : modules._esy(esy_lang)
 };
+esy_lang['modules'] = modules._esy(esy_lang);
+
+// Load modules
+(function () {
+	var modules = glob.sync('../modules/*/index.js', {cwd: __dirname}),
+		len     = modules.length,
+		i       = 0;
+	for(;i < len;i++)
+		esy_lang.modules.load(path.join(__dirname, modules[i]))
+})();
 
 module.exports = esy_lang;
