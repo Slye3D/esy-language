@@ -41,7 +41,11 @@ function load(name){
 	// Only replace module if it's newer than the current installed version
 	// VersionCompare example: ('1.0.0', '1.0.1') -> -1
 	// VersionCompare example: ('10.2.0-alpha', '10.2.0-beta') -> 1
-	if(VersionCompare(global.modules[module.name].version,module.version) == -1){
+	if(global.modules[module.name]){
+		if(VersionCompare(global.modules[module.name].version,module.version) == -1){
+			global.modules[module.name]    = module;
+		}
+	}else {
 		global.modules[module.name]    = module;
 	}
 }
