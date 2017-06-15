@@ -38,7 +38,7 @@ function tree(code, start_point, end_point, isQuote){
 		end_point   = end_point || code.length;
 		isQuote     = isQuote || quotations(code).inQuote;
 
-		var isAlphabets = letter => letter >= 'A' && letter <= 'z';
+		var isAlphabets = letter => (letter >= 'A' && letter <= 'z') || (letter >= '0' && letter <= '9');
 
 		var re  =   [];
 
