@@ -51,8 +51,8 @@ Esy
  
     This project is not complete yet, we're working on the following abbilities.
  ## General Blocks
- - [ ] Timeout
- - [ ] Interval
+ - [x] Timeout
+ - [x] Interval
  - [ ] Env
  - [ ] Encrypt
  - [ ] Wait [for] sth() as [(data)]{...}error{...}
