@@ -143,5 +143,6 @@ module.exports  = {
 	load: load,
 	set : set,
 	get : get,
-	def : def
+	def: def,
+	file: () => global.configs.file
 };
