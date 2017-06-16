@@ -83,8 +83,8 @@ Esy
  - [x] esy cache enable
  - [x] esy config get \<key>
  - [x] esy config set \<key> \<value>
- - [ ] esy config push \<key> \<value>
- - [ ] esy config rem \<key> \<value>
+ - [x] esy config lpush \<key> \<values..>
+ - [x] esy config lrem \<key> \<values..>
  - [x] esy compile \<file>
  - [ ] esy build [env]
  - [ ] esy todo [owner]
