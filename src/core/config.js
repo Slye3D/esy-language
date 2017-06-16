@@ -16,7 +16,8 @@ const EsyError  = require('../libs/errors/esy_error');
 global.configs  = global.configs    || {
 		file    : 'esy.json',
 		configs : {},
-		defaults: {}
+		defaults: {},
+		run: {}
 	};
 
 /**
@@ -75,9 +76,11 @@ function setByPath(data, name, value){
  * @param save
  */
 function set(name, value, save = true) {
+	if (!save)
+		return run(name, value);
 	setByPath(global.configs.configs, name, value);
 	// Save change instantly
-	if (global.configs.file && save)
+	if (global.configs.file)
 		fs.writeFile(global.configs.file, JSON.stringify(global.configs.configs, null, 4))
 }
 
@@ -117,18 +120,22 @@ function getByPath(data, name){
  * @returns {*}
  */
 function get(name) {
-	var re  = getByPath(global.configs.configs, name);
-	var def = getByPath(global.configs.defaults, name);
-	if(re === undefined)
-		return def;
-	if(typeof re == 'object' && typeof def == 'object'){
-		var keys    = Object.keys(def);
-		for(var key of keys){
-			if(!re.hasOwnProperty(key))
-				re[key] = def[key]
+	var run = getByPath(global.configs.run, name);
+	if (run === undefined) {
+		var re = getByPath(global.configs.configs, name);
+		var def = getByPath(global.configs.defaults, name);
+		if (re === undefined)
+			return def;
+		if (typeof re == 'object' && typeof def == 'object') {
+			var keys = Object.keys(def);
+			for (var key of keys) {
+				if (!re.hasOwnProperty(key))
+					re[key] = def[key]
+			}
 		}
+		return re;
 	}
-	return re;
+	return run;
 }
 
 /**
@@ -140,10 +147,20 @@ function def(name, value){
 	setByPath(global.configs.defaults, name, value);
 }
 
+/**
+ * Set a config value but don't save it to config's file, (just in run time)
+ * @param name
+ * @param value
+ */
+function run(name, value) {
+	setByPath(global.configs.run, name, value);
+}
+
 module.exports  = {
 	load: load,
 	set : set,
 	get : get,
 	def: def,
+	run: run,
 	file: () => global.configs.file
 };
