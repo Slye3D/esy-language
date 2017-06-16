@@ -78,6 +78,8 @@ Esy
  List of all commands:
  - [x] esy cache dir
  - [x] esy cache clean
+ - [ ] esy cache disable
+ - [ ] esy cache enable
  - [x] esy config get \<key>
  - [x] esy config set \<key> \<value>
  - [x] esy compile \<file>
@@ -85,9 +87,9 @@ Esy
  - [ ] esy todo [owner]
  - [ ] esy docs [env]
  - [ ] esy test
- - [ ] esy modules list
- - [ ] esy modules install \<name>
- - [ ] esy modules uninstall \<name>
+ - [x] esy modules list
+ - [x] esy modules install \<name>
+ - [x] esy modules uninstall \<name>
 
 Use `--config` option to set path of `esy.json` file manually.
 
