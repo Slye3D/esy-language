@@ -86,7 +86,7 @@ Esy
  - [x] esy config lpush \<key> \<values..>
  - [x] esy config lrem \<key> \<values..>
  - [x] esy compile \<file>
- - [ ] esy build [env]
+ - [x] esy build [env]
  - [ ] esy todo [owner]
  - [ ] esy docs [env]
  - [ ] esy test
@@ -107,13 +107,16 @@ and you can use `--help` option to get help about a command,
 Esy is a new JS preprocessor allows you to use custom block structures.
 
 Commands:
-  cache <command>   Mange cache storage
-  compile <file>    Compile Esy file to JavaScript
-  config <command>  Manage config values
+  build [platforms..]  Compile files from build configs
+  cache <command>      Mange cache storage
+  compile <files..>    Compile Esy file to JavaScript
+  config <command>     Manage config values
+  modules <command>    Manage Esy modules
 
 Options:
-  --help        Show help                                              [boolean]
-  --config, -c  config.json src                   [string] [default: "esy.json"]
+  --help              Show help                                        [boolean]
+  --config, -c        config.json src             [string] [default: "esy.json"]
+  --environments, -e  Set project's environments                         [array]
 
 for more information, find our manual at:
     https://github.com/Slye-team/esy-language
