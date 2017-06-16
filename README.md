@@ -53,7 +53,7 @@ Esy
  ## General Blocks
  - [x] Timeout
  - [x] Interval
- - [ ] Env
+ - [x] Env
  - [ ] Encrypt
  - [ ] Wait [for] sth() as [(data)]{...}error{...}
  - [ ] Promise sth(a1,a2,...)[(resolve, reject)]{....}
@@ -83,6 +83,8 @@ Esy
  - [x] esy cache enable
  - [x] esy config get \<key>
  - [x] esy config set \<key> \<value>
+ - [ ] esy config push \<key> \<value>
+ - [ ] esy config rem \<key> \<value>
  - [x] esy compile \<file>
  - [ ] esy build [env]
  - [ ] esy todo [owner]
