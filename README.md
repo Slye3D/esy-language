@@ -55,8 +55,8 @@ Esy
  - [x] Interval
  - [x] Env
  - [x] Encrypt
- - [ ] Wait [for] sth() as [(data)]{...}error{...}
- - [ ] Promise sth(a1,a2,...)[(resolve, reject)]{....}
+ - [x] Wait [for] sth() as [(data)]{...}error{...}
+ - [x] Promise sth(a1,a2,...)[(resolve, reject)]{....}
  - [ ] Cache [lifetime] sth(a1,a2,...){...}[key{...}]
  - [ ] Class
  - [ ] Block
