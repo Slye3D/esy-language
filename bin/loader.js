@@ -17,6 +17,15 @@ function load(argv) {
 	const esy   = require('../src/index');
 	esy.configs.load(argv['config']);
 	esy.cache.load();
+	var modules = esy.configs.get('modules');
+	for (var module of modules) {
+		try {
+			esy.modules.load(module)
+		} catch (e) {
+			console.error(`Can not load module <${module}>`);
+			throw e;
+		}
+	}
 	return esy;
 }
 module.exports  = load;
