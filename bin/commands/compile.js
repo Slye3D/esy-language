@@ -52,8 +52,10 @@ exports.handler = function (argv) {
 		fs.writeFileSync(path.join(process.cwd(), argv.out), js)
 	}else {
 	 	if(argv.save){
-	 		var file    = argv.file.substr(0, argv.file.lastIndexOf(".")) + '.esy.' + (argv.tree ? 'json' : 'js');
-		    fs.writeFileSync(path.join(process.cwd(), file), js);
+		    var file = path.join(process.cwd(), argv.file.substr(0, argv.file.lastIndexOf(".")) + '.esy.' + (argv.tree ? 'json' : 'js'));
+		    if (typeof argv.save == 'string')
+			    file = argv.save;
+		    fs.writeFileSync(file, js);
 		    console.log(`Output saved to \`${file}\``);
 	    }else {
 		    console.log(js)
