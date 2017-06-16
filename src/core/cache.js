@@ -17,6 +17,8 @@ const EsyError  = require('../libs/errors/esy_error');
 const rimraf    = require('rimraf');
 // Set config default value
 configs.def('cache_dir', '.cache');
+// Cache is active by default
+configs.def('cache', true);
 
 // Save cache objects
 global.cahce    = [];   // List of all available files in cache directory
@@ -107,6 +109,8 @@ function save_file(file, data){
  * @returns {*}
  */
 function cache(functionality, inputs, func, only = []){
+	if (!configs.get('cache'))
+		return func(...inputs);
 	var key, keys, i;
 	if(typeof inputs == 'string')
 		inputs = [inputs];
