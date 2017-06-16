@@ -78,8 +78,9 @@ Esy
  List of all commands:
  - [x] esy cache dir
  - [x] esy cache clean
- - [ ] esy cache disable
- - [ ] esy cache enable
+ - [x] esy cache status
+ - [x] esy cache disable
+ - [x] esy cache enable
  - [x] esy config get \<key>
  - [x] esy config set \<key> \<value>
  - [x] esy compile \<file>
