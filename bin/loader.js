@@ -17,6 +17,8 @@ function load(argv) {
 	const esy   = require('../src/index');
 	esy.configs.load(argv['config']);
 	esy.cache.load();
+	if (argv.environments)
+		esy.configs.set('environments', argv.environments, false);
 	var modules = esy.configs.get('modules');
 	if (typeof modules !== 'object' || modules.length === undefined)
 		modules = [];

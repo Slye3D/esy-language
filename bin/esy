@@ -30,7 +30,13 @@ var yargs = require('yargs')
 		default: 'esy.json',
 		type: 'string',
 		alias: 'c'
-	}),
+	})
+		.option('environments', {
+			describe: 'Set project\'s environments',
+			type: 'array',
+			alias: 'e'
+		})
+		.array('environments'),
 	argv    = yargs.argv;
 
 if(argv._.length == 0) {
