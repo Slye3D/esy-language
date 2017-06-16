@@ -71,11 +71,12 @@ function setByPath(data, name, value){
  * Set a config's element to an special value
  * @param name
  * @param value
+ * @param save
  */
-function set(name, value){
+function set(name, value, save = true) {
 	setByPath(global.configs.configs, name, value);
 	// Save change instantly
-	if(global.configs.file)
+	if (global.configs.file && save)
 		fs.writeFile(global.configs.file, JSON.stringify(global.configs.configs, null, 4))
 }
 
