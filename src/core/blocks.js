@@ -27,7 +27,7 @@ global.patterns = global.patterns   || [];
 function add(pattern, callback){
 	if(typeof callback !== 'function')
 		throw new EsyError('Error adding new block parser, callback must be type of function');
-	global.patterns.push(new RegExp(pattern));
+	global.patterns.push(pattern);
 	global.blocks.push(callback);
 }
 
@@ -39,12 +39,13 @@ function add(pattern, callback){
 function search(headline) {
 	var i;
 	for(i = global.patterns.length - 1; i >= 0;i--){
-		if(global.patterns[i].test(headline)){
+		var p   = new RegExp(global.patterns[i]);
+		if(p.test(headline)){
 			// I don't have any idea why it's happening!?
 			// the RegExp.exec always returns null at first call :|
-			var matches = global.patterns[i].exec(headline);
+			var matches = p.exec(headline);
 			while(matches == null){
-				matches = global.patterns[i].exec(headline);
+				matches = p.exec(headline);
 			}
 			return {
 				matches : matches,
