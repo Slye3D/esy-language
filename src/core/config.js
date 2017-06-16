@@ -10,6 +10,7 @@
  */
 
 const fs        = require('fs');
+const path = require('path');
 const EsyError  = require('../libs/errors/esy_error');
 
 global.configs  = global.configs    || {
@@ -39,7 +40,7 @@ function load(filename = 'esy.json'){
 	}else{
 		fs.writeFileSync(filename, JSON.stringify({}, null, 4))
 	}
-	global.configs.file   = filename;
+	global.configs.file = path.join(process.cwd(), filename);
 }
 
 /**
