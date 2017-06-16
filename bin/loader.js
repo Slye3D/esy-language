@@ -18,6 +18,8 @@ function load(argv) {
 	esy.configs.load(argv['config']);
 	esy.cache.load();
 	var modules = esy.configs.get('modules');
+	if (typeof modules !== 'object' || modules.length === undefined)
+		modules = [];
 	for (var module of modules) {
 		try {
 			esy.modules.load(module)
