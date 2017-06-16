@@ -54,7 +54,7 @@ Esy
  - [x] Timeout
  - [x] Interval
  - [x] Env
- - [ ] Encrypt
+ - [x] Encrypt
  - [ ] Wait [for] sth() as [(data)]{...}error{...}
  - [ ] Promise sth(a1,a2,...)[(resolve, reject)]{....}
  - [ ] Cache [lifetime] sth(a1,a2,...){...}[key{...}]
