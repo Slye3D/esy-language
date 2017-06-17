@@ -22,7 +22,7 @@ function spaces(code){
 	var needSpace   = letter => [
 		';','{','}','(',')','=', '[', ']',
 		'+', '-', '*', '/', '^',
-		'?', ':', ',',
+		'?', ':', ',','.',
 		'!', '%', '&', '<', '>', '|'
 	].indexOf(letter) == -1;
 	var isAlphabets = letter => letter >= 'A' && letter <= 'z';
