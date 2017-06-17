@@ -25,6 +25,8 @@ function spaces(code){
 		'?', ':', ',','.',
 		'!', '%', '&', '<', '>', '|'
 	].indexOf(letter) == -1;
+	//The five restricted productions are return, throw, break, continue, and post-increment/decrement
+	const RP    = ['return', 'throw', 'break', 'continue'];
 	var isAlphabets = letter => letter >= 'A' && letter <= 'z';
 	var oc  = {
 		'(': 0,
@@ -58,6 +60,22 @@ function spaces(code){
 				}
 				continue;
 			}
+
+			if(code[offset] == '\n'){
+				var s   = re.length - re.trim().length;
+				//&& re.substr(re.length - (s + 6)).trim() == 'return'
+				for(var w of RP){
+					if(re.substr(re.length - (s + w.length)).trim() == w){
+						re = re.trim() + ';';
+						break;
+					}
+				}
+				s = code.substr(offset).trim().substr(0,2);
+				if(s == '++'  || s == '--'){
+					re = re.trim() + ';';
+				}
+			}
+
 			if(re.length > 0 && code[offset] == '\n' && notIn() && re[re.length - 1] !== ';' && code[next] !== '{' && code[pre] !== '}' && code[pre] !== ';')
 				re += ';';
 			if(!(offset > 0 && re[re.length - 1] == ' ' && isSpace(code[offset]))){
