@@ -100,7 +100,7 @@ function tree(code, start_point, end_point, isQuote){
 						if(o == c && lt == gt && code[t] == ','){
 							break;
 						}
-						if(code[t] == '=' && code[t+1] != '>'){
+						if(o == c && code[t] == '=' && code[t+1] != '>'){
 							break;
 						}
 						if((o == c && lt == gt && code[t] !== '(' && o >= 1) || (c + 1 == o) && code[t] == '(') {
