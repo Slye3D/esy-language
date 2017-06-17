@@ -10,6 +10,8 @@
  */
 
 const quotations    = require('./quotations');
+const isSpace       = require('../characters/space');
+
 /**
  * Convert the following pattern to a more readable format for other steps
  *  var square = n => n^2;
@@ -21,7 +23,6 @@ function func(code){
 	var isQuote     = quotations(code).inQuote;
 	var re          = '';
 	var isIn        = false;
-	var isSpace     = letter => [' ', '\t', '\n', '\r'].indexOf(letter) > -1;
 	var offset ,letter, next;
 	for(offset = 0; offset < code.length;offset++){
 		if(isQuote(offset)){

@@ -10,6 +10,7 @@
  */
 
 const quotations    = require('./quotations');
+const isSpace       = require('../characters/space');
 
 /**
  * Remove all spaces from source code and put all semicolons
@@ -18,7 +19,6 @@ const quotations    = require('./quotations');
 function spaces(code){
 	var isQuote     = quotations(code).inQuote;
 	var re          = '';
-	var isSpace     = letter => [' ', '\t', '\n', '\r'].indexOf(letter) > -1;
 	var needSpace   = letter => [
 		';','{','}','(',')','=', '[', ']',
 		'+', '-', '*', '/', '^',
