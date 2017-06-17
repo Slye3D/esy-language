@@ -22,10 +22,14 @@ const TIMEOUT   = 3000;
 esy.configs.load('../tmp/esy.json');
 esy.configs.set('cache_dir', '../tmp/.cache');
 esy.cache.load();
-
+var _console    = Object.assign({}, console);
+for(var name in console){
+	if(typeof console[name] == 'function')
+		console[name]   = function () {};
+}
 glob('*/*.js', {cwd: __dirname}, function (err, files) {
 	if(files.length == 0)
-		return console.error((xmark + "No test available!").red);
+		return _console.error((xmark + "No test available!").red);
 	var passed  = 0;
 	var failed  = 0;
 	var i       = 0;
@@ -46,16 +50,16 @@ glob('*/*.js', {cwd: __dirname}, function (err, files) {
 			clearTimeout(timeout);
 			if(result){
 				passed++;
-				console.log(`${checkmark}Test #${i}<${file}> passed.`.cyan)
+				_console.log(`${checkmark}Test #${i}<${file}> passed.`.cyan)
 			}else {
 				failed++;
-				console.error(`${xmark}Test #${i}<${file}> failed.`.red)
+				_console.error(`${xmark}Test #${i}<${file}> failed.`.red)
 			}
 			i++;
 			test();
 		};
 		try {
-			require(path.join(__dirname, file))(callback);
+			require(path.join(__dirname, file))(callback, _console);
 		}catch (e){
 			callback(false);
 		}
