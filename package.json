@@ -4,7 +4,7 @@
   "description": "Esy is a new JS preprocessor allows you to use custom block structures.",
   "main": "src/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node tests/test.js"
   },
   "author": "Slye Develoment Team",
   "license": "MIT",
@@ -23,7 +23,9 @@
   "bin": {
     "esy": "./bin/esy"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "colors": "^1.1.2"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Slye-team/esy-language.git"
