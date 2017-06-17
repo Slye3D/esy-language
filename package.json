@@ -4,7 +4,7 @@
   "description": "Esy is a new JS preprocessor allows you to use custom block structures.",
   "main": "src/index.js",
   "scripts": {
-    "test": "node tests/test.js"
+    "test": "cd tests; node test.js"
   },
   "author": "Slye Develoment Team",
   "license": "MIT",
