@@ -1,13 +1,10 @@
 # Esy Docs
 
 ### Table of contents:
-1. [Introduction](https://github.com/Slye-team/esy-language/blob/master/docs/01-introduction/README.md)
-2. [Installation](https://github.com/Slye-team/esy-language/blob/master/docs/02-installation/README.md)
-3. [CLI](https://github.com/Slye-team/esy-language/blob/master/docs/03-CLI/README.md)
-4. [Blocks](./04-blocks)
-    1. [General Blocks](./04-blocks/general)
-    2. [~~Angular~~](./04-blocks/angular)
-    2. [~~Redis~~](./04-blocks/redis)
-5. [~~Core API~~](./05-api)
+1. [Introduction](https://github.com/Slye-team/esy-language/tree/master/docs/01-introduction)
+2. [Installation](https://github.com/Slye-team/esy-language/tree/master/docs/02-installation)
+3. [CLI](https://github.com/Slye-team/esy-language/tree/master/docs/03-CLI)
+4. [Blocks](https://github.com/Slye-team/esy-language/tree/master/docs/04-blocks)
+<!-- 5. [~~Core API~~](https://github.com/Slye-team/esy-language/tree/master/docs/05-api) -->
 ____________________
 > This project is not complete yet, see [here](https://github.com/Slye-team/esy-language/blob/master/README.md) fot more info.
