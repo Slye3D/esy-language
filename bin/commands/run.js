@@ -14,7 +14,7 @@ function run(code) {
 }
 
 exports.command = '* [file]';
-exports.desc = 'Manage config values';
+exports.desc = 'Run esy file';
 exports.builder = function (yargs) {};
 exports.handler = function (argv) {
 	if(!argv.file)
