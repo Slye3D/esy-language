@@ -14,7 +14,7 @@
  *  http://www.ecma-international.org/publications/files/ECMA-ST/Ecma-262.pdf (11.2)
  * @param letter
  */
-exports = letter => [
+module.exports = letter => [
 	'\u0009',   // CHARACTER TABULATION
 	'\u000b',   // LINE TABULATION
 	'\u000c',   // FORM FEED (FF)
