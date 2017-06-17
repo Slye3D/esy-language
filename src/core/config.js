@@ -35,8 +35,9 @@ function load(filename = 'esy.json'){
 		try {
 			global.configs.configs  = JSON.parse(file);
 		} catch (e){
-			e   = new EsyError('Config file is not a valid JSON string.');
-			throw e;
+			// e   = new EsyError('Config file is not a valid JSON string.');
+			// throw e;
+			fs.writeFileSync(filename, JSON.stringify({}, null, 4));
 		}
 	}else{
 		fs.writeFileSync(filename, JSON.stringify({}, null, 4))
