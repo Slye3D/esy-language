@@ -17,6 +17,8 @@ const path      = require('path');
 const xmark     = '✗ ',
 	checkmark   = '✓ ';
 
+const TIMEOUT   = 30000;
+
 esy.configs.load('../tmp/esy.json');
 esy.configs.set('cache_dir', '../tmp/.cache');
 esy.cache.load();
@@ -31,7 +33,17 @@ glob('*/*.js', {cwd: __dirname}, function (err, files) {
 		if(i    == files.length)
 			return;
 		var file    = files[i];
+		var called  = false;
+		var timeout = setTimeout(function () {
+			if(!called){
+				callback(false);
+			}
+		}, TIMEOUT);
 		var callback    = function(result){
+			if(called)
+				return;
+			called  = true;
+			clearTimeout(timeout);
 			if(result){
 				passed++;
 				console.log(`${checkmark}Test #${i}<${file}> passed.`.cyan)
