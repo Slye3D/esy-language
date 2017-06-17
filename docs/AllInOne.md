@@ -2,14 +2,11 @@
 # Esy Docs
 
 ### Table of contents:
-1. [Introduction](https://github.com/Slye-team/esy-language/blob/master/docs/01-introduction/README.md)
-2. [Installation](https://github.com/Slye-team/esy-language/blob/master/docs/02-installation/README.md)
-3. [CLI](https://github.com/Slye-team/esy-language/blob/master/docs/03-CLI/README.md)
-4. [Blocks](./04-blocks)
-    1. [General Blocks](./04-blocks/general)
-    2. [~~Angular~~](./04-blocks/angular)
-    2. [~~Redis~~](./04-blocks/redis)
-5. [~~Core API~~](./05-api)
+1. [Introduction](https://github.com/Slye-team/esy-language/tree/master/docs/01-introduction)
+2. [Installation](https://github.com/Slye-team/esy-language/tree/master/docs/02-installation)
+3. [CLI](https://github.com/Slye-team/esy-language/tree/master/docs/03-CLI)
+4. [Blocks](https://github.com/Slye-team/esy-language/tree/master/docs/04-blocks)
+<!-- 5. [~~Core API~~](https://github.com/Slye-team/esy-language/tree/master/docs/05-api) -->
 ____________________
 > This project is not complete yet, see [here](https://github.com/Slye-team/esy-language/blob/master/README.md) fot more info.<!---  ./01-introduction  -->
 # Introduction
@@ -391,4 +388,39 @@ Enable cache functionality.
 ## Status
 Usage: `esy cache status`
 
-Determine cache system status, `active` or `deactive`
+Determine cache system status, `active` or `deactive`# Modules
+Usage: `esy modules <command> [..]`
+
+Esy is completely modular even the main functionalities are defined to esy engine as modules.
+
+## Install
+Usage `esy modules install <name>`
+
+You can install an external module by running this command where `name` is name of your package or a JS file, imagine you 
+want to pass this name to Node `require` function, because that's just what happens backstage.
+
+## Uninstall
+Usage `esy modules uninstall <name>`
+
+Uninstall an external module from esy
+
+## List
+List all active modules
+
+#### Options:
+**--json, -j**: Just like config's `--json` option, prints output in JSON format.
+
+**--beauty, -b**: Print JSON data in human-readable mode.
+> Note: `--beauty` only works with `--json` option<!---  ./04-blocks  -->
+# Blocks
+Custom Blocks are main part of `Esy` and the reason of why something like `Esy` even exist.
+
+There are many blocks we want to make ([see this](https://github.com/Slye-team/esy-language/blob/master/README.md)), but 
+till now we have these blocks:
+
+1. Timeout
+2. Interval
+3. Env
+4. Enc
+5. Wait
+6. Promise<!---  ./.cache  -->
