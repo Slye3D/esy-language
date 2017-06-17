@@ -1,5 +1,5 @@
 # Build
-> :warning: To understand this manual please read [this]() first.
+> :warning: To understand this manual please read [this](../04-blocks/02-env.md) first.
 
 Imagine you're working on a web application, you have multiple builds, in this case you might have a JS version for `Electron` 
 and one JS code for your online app.
