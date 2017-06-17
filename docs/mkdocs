@@ -1,0 +1,13 @@
+#!/bin/bash
+rm AllInOne.md
+touch AllInOne.md
+function dir {
+    echo "<!--- " $1 " -->" >> AllInOne.md
+    find $1  -maxdepth 1 -name "README.md" | xargs cat >> AllInOne.md
+    find $1  -maxdepth 1 -name "*.md" ! -name "README.md" ! -name "AllInOne.md" | sort | xargs cat >> AllInOne.md
+}
+IFS=$'\n'       # make newlines the only separator
+for d in $(find . -type d | sort)
+do
+    dir "$d"
+done
