@@ -17,7 +17,7 @@ const path      = require('path');
 const xmark     = '✗ ',
 	checkmark   = '✓ ';
 
-const TIMEOUT   = 30000;
+const TIMEOUT   = 3000;
 
 esy.configs.load('../tmp/esy.json');
 esy.configs.set('cache_dir', '../tmp/.cache');
