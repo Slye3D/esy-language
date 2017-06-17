@@ -12,6 +12,7 @@
 const glob      = require('glob');
 const esy       = require('../src');
 const colors    = require('colors');
+const path      = require('path');
 
 const xmark     = '✗ ',
 	checkmark   = '✓ ';
@@ -33,7 +34,7 @@ glob('*/*.js', {cwd: __dirname}, function (err, files) {
 		var callback    = function(result){
 			if(result){
 				passed++;
-				console.log(`${checkmark}Test #${i}<${file}> passed.`.green)
+				console.log(`${checkmark}Test #${i}<${file}> passed.`.cyan)
 			}else {
 				failed++;
 				console.error(`${xmark}Test #${i}<${file}> failed.`.red)
@@ -42,7 +43,7 @@ glob('*/*.js', {cwd: __dirname}, function (err, files) {
 			test();
 		};
 		try {
-			require(file)(callback);
+			require(path.join(__dirname, file))(callback);
 		}catch (e){
 			callback(false);
 		}
