@@ -17,7 +17,7 @@ exports.handler = function (argv) {
 	var esy = require('../../loader')(argv);
 	var isArray = array => typeof array == 'object' && array.length !== undefined;
 	var current = esy.configs.get(argv.key);
-	if (typeof current === undefined)
+	if (current === undefined)
 		current = [];
 	if (!isArray(current))
 		return console.error(`<${argv.key}> is not an array`);
