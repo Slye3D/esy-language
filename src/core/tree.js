@@ -47,10 +47,12 @@ function tree(code, start_point, end_point, isQuote){
 			')': 0,
 			'[': 0,
 			']': 0,
+			'<': 0,
+			'>': 0,
 		};
 		var keys    = Object.keys(oc);
 		var notIn       = () => {
-			return (oc['('] == oc[')']) && (oc['['] == oc[']']) ;
+			return (oc['('] == oc[')']) && (oc['['] == oc[']']) && ((oc['<'] == oc['>']));
 		};
 
 		var last_code   = '';
@@ -66,6 +68,8 @@ function tree(code, start_point, end_point, isQuote){
 			if(letter == '{'){
 				var o = 0;
 				var c = 0;
+				var lt = 0;
+				var gt = 0;
 				var j;
 				for(j = offset;j < end_point;j++){
 					if(!isQuote(j)){
@@ -82,20 +86,24 @@ function tree(code, start_point, end_point, isQuote){
 				if(last_code[0] == ';')
 					last_code = last_code.substr(1);
 
-				o = c = 0;
+				o = c = lt = gt = 0;
 				for(var t = offset - 1, s = 0;t >= 0 && s < last_code.length;t--,s++){
 					if(!isQuote(t)){
 						if(code[t] == '(')
 							o++;
 						if(code[t] == ')')
 							c++;
-						if(o == c && code[t] == ','){
+						if(code[t] == '<')
+							lt++;
+						if(code[t] == '>')
+							gt++;
+						if(o == c && lt == gt && code[t] == ','){
 							break;
 						}
-						if(code[t] == '=' && code[t+1] == '>'){
+						if(code[t] == '=' && code[t+1] != '>'){
 							break;
 						}
-						if((o == c && code[t] !== '(' && o >= 1) || (c + 1 == o) && code[t] == '(') {
+						if((o == c && lt == gt && code[t] !== '(' && o >= 1) || (c + 1 == o) && code[t] == '(') {
 							if ((code[t] !== ' ' && code[t] !== '.' && code[t] + code[t+1] !== '=>') && !isAlphabets(code[t])) {
 								break;
 							}

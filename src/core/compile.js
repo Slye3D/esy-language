@@ -53,10 +53,22 @@ function compile(tree){
 	var re  = Cache.cache('compile', tree, function () {
 		var offset  = 0,
 			re      = '';
+		var needS   = letter => [
+			';','{', '=', '[', ']',
+			'+', '-', '*', '/', '^',
+			'?', ':', ',',
+			'!', '%', '&', '<', '>', '|',
+			'`', '"', "'"
+		].indexOf(letter) == -1;
 		for(; offset < tree.length;offset++){
 			if(typeof tree[offset] == 'string'){
 				// Now we don't support any replace process on codes, now we just replace blocks
-				re  += tree[offset] + ';';
+				if(tree[offset] == ';'){
+					if(needS(re[re.length - 1]))
+						re += ';'
+				}else {
+					re  += tree[offset] + (needS(tree[offset][tree[offset].length - 1]) ? ';' : '');
+				}
 			}else {
 				var block   = tree[offset];
 				var b       = Blocks.search(block.head);
