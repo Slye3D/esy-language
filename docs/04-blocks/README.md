@@ -6,6 +6,6 @@ till now we have these blocks:
 
 1. [Timers](./01-timers.md) (Timeout/Interval)
 2. [Env](./02-env.md)
-3. Enc
+3. [Enc](./03-enc.md)
 4. Wait
 5. Promise

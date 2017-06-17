@@ -299,7 +299,7 @@ Usage: `esy config lrem <key> <values..>`
 
 It's completely like `lpush` command but it removes a value from a list.
 > Read `lpush` section to find more about this command# Build
-> :warning: To understand this manual please read [this]() first.
+> :warning: To understand this manual please read [this](../04-blocks/02-env.md) first.
 
 Imagine you're working on a web application, you have multiple builds, in this case you might have a JS version for `Electron` 
 and one JS code for your online app.
@@ -418,9 +418,144 @@ Custom Blocks are main part of `Esy` and the reason of why something like `Esy` 
 There are many blocks we want to make ([see this](https://github.com/Slye-team/esy-language/blob/master/README.md)), but 
 till now we have these blocks:
 
-1. Timeout
-2. Interval
-3. Env
-4. Enc
-5. Wait
-6. Promise<!---  ./.cache  -->
+1. [Timers](./01-timers.md) (Timeout/Interval)
+2. [Env](./02-env.md)
+3. [Enc](./03-enc.md)
+4. Wait
+5. Promise# Timers
+Syntax:
+```esy
+(timeout|interval) [dely] [<pass1,pass2,..>] [(arg1,arg2,..)]{
+    // body
+}
+```
+Look at examples if you're confused!
+## Basic Usage:
+```esy
+timeout 500{
+    console.log("Hi");
+}
+```
+
+## Passing argument
+```esy
+var a   = {a:"Hello",b:" World!"};
+interval 1000 <a.a, a.b> (a,b){
+    console.log(a,b);
+}
+```
+
+## Variable assignment
+To clear a timeout/interval event you can assign it to variable and use one of `clearInterval` or `clearTimeout` functions.
+### Example
+```esy
+var a   = {a:"Hello",b:"World!"};
+vsr i   = interval 1000 <a.a, a.b> (a,b){
+    console.log(a,b);
+    clearInterval(i);
+}
+```# Env
+Syntax:
+```esy
+env [names..]{
+    // code to run in specified env
+}else{
+    // otherwise
+}
+```
+With this block you can classify your code which means you can specify to have with code in your build.
+
+Example:
+
+`a.esy`:
+```esy
+var square  = n => n^2;
+env test{
+    console.log(square(5) == 25)
+}
+```
+To compile this code just run:
+```bash
+esy compile a.esy -s -e test
+```
+Even you can turn `test` env on by default:
+```bash
+esy config lpush environment test
+esy compile a.esy -s 
+```
+# Enc
+Syntax:
+```esy
+enc{
+    //code to encrypt
+}
+```
+Imagine in your project you have a special section (like your login section) that you want to make it harder for other 
+people to understand it, it this case you can use this block.
+
+> We use `javascript-obfuscator` to do this.
+
+## Example
+```esy
+enc{
+    console.log("Hello World!")
+}
+```
+After compile with default configs:
+```js
+var _0xa998 = [
+    'log',
+    'Hello\x20World\x21'
+];
+(function(_0x41f284, _0x183dad) {
+    var _0x1c80cb = function(_0xa108b9) {
+        while (--_0xa108b9) {
+            _0x41f284['\x70\x75\x73\x68'](_0x41f284['\x73\x68\x69\x66\x74']());
+        }
+    };
+    _0x1c80cb(++_0x183dad);
+}(_0xa998, 0x1da));
+var _0x8a99 = function(_0x4fd26d, _0x511002) {
+    _0x4fd26d = _0x4fd26d - 0x0;
+    var _0x39d70c = _0xa998[_0x4fd26d];
+    return _0x39d70c;
+};
+console[_0x8a99('0x0')](_0x8a99('0x1'));
+```
+## Configs
+The config key is `obfuscator`
+
+Default values:
+```json
+{
+    "compact": false,
+    "controlFlowFlattening": false,
+    "controlFlowFlatteningThreshold": 0.75,
+    "deadCodeInjection": false,
+    "deadCodeInjectionThreshold": 0.4,
+    "debugProtection": false,
+    "debugProtectionInterval": false,
+    "disableConsoleOutput": false,
+    "mangle": false,
+    "reservedNames": [],
+    "rotateStringArray": true,
+    "seed": 0,
+    "selfDefending": false,
+    "sourceMap": false,
+    "sourceMapBaseUrl": "",
+    "sourceMapFileName": "",
+    "sourceMapMode": "separate",
+    "stringArray": true,
+    "stringArrayEncoding": false,
+    "stringArrayThreshold": 0.75,
+    "unicodeEscapeSequence": false
+}
+```
+This is the output of following command:
+ ```bash
+ esy config get obfuscator -jb
+ ```
+ To change a config like `controlFlowFlattening` run this code:
+ ```bash
+ esy config set obfuscator.controlFlowFlattening true
+ ```
