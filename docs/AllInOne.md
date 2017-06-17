@@ -421,8 +421,8 @@ till now we have these blocks:
 1. [Timers](./01-timers.md) (Timeout/Interval)
 2. [Env](./02-env.md)
 3. [Enc](./03-enc.md)
-4. Wait
-5. Promise# Timers
+4. [Wait](./04-wait.md)
+5. [Promise](./05-promise.md)# Timers
 Syntax:
 ```esy
 (timeout|interval) [dely] [<pass1,pass2,..>] [(arg1,arg2,..)]{
@@ -558,4 +558,58 @@ This is the output of following command:
  To change a config like `controlFlowFlattening` run this code:
  ```bash
  esy config set obfuscator.controlFlowFlattening true
- ```
+ ```# Wait
+Syntax:
+```esy
+wait [for] sth(a,b,...) [as result]{
+    // Success 
+} (error|catch) [(reason)] {
+    // Fail managment
+}
+```
+Use this block instead of .then() (Promise), the second part is optional and you can leave it.
+
+> The `for` in expression `wait for` is optional and you can don't write it.
+
+## Example
+Sample example with promise:
+```esy
+promise sum(a,b) <resolve>{
+    resolve(a + b)
+}
+wait for sum(5,10){
+    // We didn't passed name of result variable 
+    // so it'll be `result` by default
+    console.log("Sum:", result)
+}
+```
+Result:
+`Sum: 15`# Promise
+Syntax:
+```esy
+promise function(a1,a2,...) [<resolve[,reject]>]{
+    // Function body
+}
+```
+Use this block to create a function that returns a promise:
+
+## Example
+```esy
+promise sum(a,b){
+    // We didn't passed name of resolve variable 
+    // so it'll be `resolve` by default
+    resolve(a + b)
+}
+wait for sum(5,10) as result{
+    console.log("Sum:", result)
+}
+```
+Passing the resolve name:
+```esy
+promise sum(a,b) <resolve>{
+    resolve(a + b)
+}
+promise wrong(a,b) <resolve, reject>{
+    reject("Test")
+}
+```
