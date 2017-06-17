@@ -20,8 +20,8 @@ esy.configs.load('../tmp/esy.json');
 esy.configs.set('cache_dir', '../tmp/.cache');
 esy.cache.load();
 
-glob('*/*.js', {cwd: __dirname}, function (files) {
-	if(!files)
+glob('*/*.js', {cwd: __dirname}, function (err, files) {
+	if(files.length == 0)
 		return console.error((xmark + "No test available!").red);
 	var passed  = 0;
 	var failed  = 0;
