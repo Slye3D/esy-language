@@ -1,0 +1,21 @@
+/**
+ *    _____ __
+ *   / ___// /_  _____
+ *   \__ \/ / / / / _ \
+ *  ___/ / / /_/ /  __/
+ * /____/_/\__, /\___/
+ *       /____/
+ *       Copyright 2017 Slye Development Team. All Rights Reserved.
+ *       Licence: MIT License
+ */
+
+/**
+ * Return whatever a character is a line terminator or not
+ * @param letter
+ */
+module.exports  = letter => [
+	'\u000A',   // LINE FEED            <LF>
+	'\u000D',   // CARRIAGE RETURN      <CR>
+	'\u2028',   // LINE SEPARATOR       <LS>
+	'\u2029'    // PARAGRAPH SEPARATION <PS>
+].indexOf(letter) > -1;
