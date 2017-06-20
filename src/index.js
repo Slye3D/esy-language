@@ -22,9 +22,9 @@ var esy_lang  = {
 	tree    : tree,
 	compile : compile,
 	cache   : cache,
-	configs : configs,
-	block   : blocks.add,
+	configs : configs
 };
+esy_lang['block']   = blocks.add(esy_lang);
 esy_lang['modules'] = modules._esy(esy_lang);
 
 // Load modules

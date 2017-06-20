@@ -20,15 +20,27 @@ global.blocks   = global.blocks     || [];
 global.patterns = global.patterns   || [];
 
 /**
- * Add a new block recognizer with custom headline pattern
- * @param pattern   Regex pattern to identify the header
- * @param callback  method(matches, block, parent, offset)
+ *
+ * @param esy
  */
-function add(pattern, callback){
-	if(typeof callback !== 'function')
-		throw new EsyError('Error adding new block parser, callback must be type of function');
-	global.patterns.push(pattern);
-	global.blocks.push(callback);
+function add(esy){
+	/**
+	 * Add a new block recognizer with custom headline pattern
+	 * @param pattern   Regex pattern to identify the header
+	 * @param callback  method(matches, block, parent, offset)
+	 */
+	function Block(pattern, callback){
+		if(typeof callback !== 'function')
+			throw new EsyError('Error adding new block parser, callback must be type of function');
+		global.patterns.push(pattern);
+		global.blocks.push(callback);
+	}
+	Block.prototype.self    = (pattern) => {
+		Block(pattern, (matches, block, parent, offset) => {
+			return block.head + '{' + esy.compile(block.body) + '}';
+		})
+	};
+	return Block;
 }
 
 /**
