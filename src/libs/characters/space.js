@@ -48,5 +48,5 @@ function IsSpace(character){
 }
 
 IsSpace.regex   = '['+spaces.join('')+']';
-
+IsSpace.chars   = spaces;
 module.exports  = IsSpace;

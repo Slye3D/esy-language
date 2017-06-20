@@ -27,6 +27,6 @@ function IsEOL(character){
 	return EOLs.indexOf(character) > -1
 }
 
-IsEOL.regex   = '['+EOLs.join('')+']';
-
+IsEOL.regex = '['+EOLs.join('')+']';
+IsEOL.chars = EOLs;
 module.exports  = IsEOL;
