@@ -10,7 +10,7 @@
  */
 
 var punctuators = "{ ( ) [ ] . ... ; , < > <= >= == != === !== + ‐ * % ++ ‐‐ << >> >>> & | ^ ! ~ && || ? : = += ‐= *= %= <<= >>= >>>= &= |= ^= => ** **= / /= }".split(' ');
-punctuators.map(c => c.trim());
+punctuators = punctuators.map(c => c.trim());
 punctuators.sort((a,b) => {
 	return b.length - a.length;
 });
@@ -25,7 +25,7 @@ function IsPunctuator(char) {
 }
 
 IsPunctuator.chars  = punctuators;
-IsPunctuator.regex  = '(' + punctuators.join('|').replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, '\\$&') + ')';
+IsPunctuator.regex  = '(' + punctuators.map(a => a.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, '\\$&')).join('|') + ')';
 IsPunctuator.endsWith   = string => {
 	return (new RegExp(IsPunctuator.regex + '$', 'g')).test(string)
 };
