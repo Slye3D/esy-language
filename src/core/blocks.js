@@ -11,7 +11,6 @@
 
 // Load required modules
 const EsyError  = require('../libs/errors/esy_error');
-
 /**
  * Setup a global variable to store all blocks and it'll be accessible in all program's scope
  * @type []
