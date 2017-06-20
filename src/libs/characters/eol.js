@@ -9,13 +9,24 @@
  *       Licence: MIT License
  */
 
-/**
- * Return whatever a character is a line terminator or not
- * @param letter
- */
-module.exports  = letter => [
+// List of all line terminators
+var EOLs    = [
 	'\u000A',   // LINE FEED            <LF>
 	'\u000D',   // CARRIAGE RETURN      <CR>
 	'\u2028',   // LINE SEPARATOR       <LS>
 	'\u2029'    // PARAGRAPH SEPARATION <PS>
-].indexOf(letter) > -1;
+];
+
+
+/**
+ * Return whatever a character is a line terminator or not
+ * @param character
+ * @return {boolean}
+ */
+function IsEOL(character){
+	return EOLs.indexOf(character) > -1
+}
+
+IsEOL.regex   = '['+EOLs.join('')+']';
+
+module.exports  = IsEOL;

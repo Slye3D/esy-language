@@ -9,12 +9,8 @@
  *       Licence: MIT License
  */
 
-/**
- * Check if a character is blank space
- *  http://www.ecma-international.org/publications/files/ECMA-ST/Ecma-262.pdf (11.2)
- * @param letter
- */
-module.exports = letter => [
+// List of all spaces
+var spaces  = [
 	'\u0009',   // CHARACTER TABULATION
 	'\u000b',   // LINE TABULATION
 	'\u000c',   // FORM FEED (FF)
@@ -39,4 +35,18 @@ module.exports = letter => [
 	'\u202F',   // NARROW NO-BREAK SPACE
 	'\u205F',   // NARROW NO-BREAK SPACE
 	'\u3000',   // IDEOGRAPHIC SPACE
-].indexOf(letter) > -1;
+];
+
+/**
+ * Check if a character is blank space ot not
+ *  http://www.ecma-international.org/publications/files/ECMA-ST/Ecma-262.pdf (11.2)
+ * @param character
+ * @return {boolean}
+ */
+function IsSpace(character){
+	return spaces.indexOf(character) > -1
+}
+
+IsSpace.regex   = '['+spaces.join('')+']';
+
+module.exports  = IsSpace;
