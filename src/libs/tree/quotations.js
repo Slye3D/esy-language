@@ -63,7 +63,7 @@ function encode(code){
 			e   = indices[1],
 			i   = global.quotations.length,
 			c   = `\\q{${i.toString(36)}}`;
-		global.quotations[i]    = code.substring(s, e + 1);
+		global.quotations[i]    = code.substring(s - f, e + 1 - f);
 		code = code.replaceBetween(s - f, e + 1 - f, c);
 		f   += ((e + 1) - s) - c.length;
 	}
