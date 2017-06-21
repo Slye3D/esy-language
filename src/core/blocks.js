@@ -78,7 +78,7 @@ function find(code){
 			source  = pattern.source;
 		// Remove ^ from first of source
 		if(source[0] == '^')
-			source  = source.substr(1);
+			source  = '(?:[;\s]|^)' + source;
 		// Add $ to the end of source if not exists
 		if(!source.endsWith('$'))
 			source  += '$';
