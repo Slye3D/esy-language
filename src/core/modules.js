@@ -21,7 +21,7 @@ function load(name){
 	try {
 		var module = require(name)(esy);
 	}catch (e){
-		e   = new EsyError(`Can not find module <${name}>.`);
+		e   = new EsyError(`Can not load module <${name}>.\n${e}`);
 		throw e;
 	}
 	if(typeof module !== 'object'){
