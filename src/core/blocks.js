@@ -34,7 +34,7 @@ function add(esy){
 		global.patterns.push(pattern);
 		global.blocks.push(callback);
 	}
-	Block.prototype['self'] = (pattern) => {
+	Block['self'] = (pattern) => {
 		Block(pattern, (matches, block) => {
 			return block.head + '{' + esy.compile(block.body) + '}';
 		})
