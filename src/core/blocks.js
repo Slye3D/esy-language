@@ -66,7 +66,37 @@ function search(headline) {
 	}
 }
 
+/**
+ * Return the longest matched pattern for a code
+ * @see Tree (../libs/tree/index.js)
+ * @param code
+ * @return {number}
+ */
+function find(code){
+	var newRegExp   = pattern => {
+		var flags   = pattern.flags,
+			source  = pattern.source;
+		// Remove ^ from first of source
+		if(source[0] == '^')
+			source  = source.substr(1);
+		// Add $ to the end of source if not exists
+		if(!source.endsWith('$'))
+			source  += '$';
+		return new RegExp(source, flags);
+	};
+	var results     = [], i;
+	for(i = 0; i < global.patterns.length;i++){
+		var p   = newRegExp(global.patterns[i]);
+		if(p.test(code)){
+			var matches = p.exec(code);
+			results.push(matches[0]);
+		}
+	}
+	return Math.max(...results);
+}
+
 module.exports  = {
 	add     : add,
-	search  : search
+	search  : search,
+	find    : find
 };
