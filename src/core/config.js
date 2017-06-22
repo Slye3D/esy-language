@@ -63,7 +63,7 @@ function setByPath(data, name, value){
 		}
 		d   = d[path[i]];
 	}
-	if(typeof d[path[path.length - 1]] == 'object'){
+	if(typeof d[path[path.length - 1]] == 'object' && typeof value !== 'object'){
 		d[path[path.length - 1]].__val  = value;
 	}else {
 		d[path[path.length - 1]]    = value;
