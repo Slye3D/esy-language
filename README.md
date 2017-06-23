@@ -1,7 +1,6 @@
 Esy
 --------------
     Esy is a new JS preprocessor allows you to use custom block structures.
-- Now it's only an engine that doesn't do anything. (Work in progress)
 # What does it mean?
  Right now in JavaScript and many other languages that support the [block structure](https://en.wikipedia.org/wiki/Scope_(computer_science)#Block_scope), you're only able to use some predefined structures like:
  
