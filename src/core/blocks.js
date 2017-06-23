@@ -73,23 +73,49 @@ function search(headline) {
  * @return {number}
  */
 function find(code){
+	function isClosed(matched){
+		var oc  = {
+			'(': 0,
+			')': 0,
+			'[': 0,
+			']': 0
+		};
+		var keys    = Object.keys(oc);
+		for(var char of matched)
+
+			if(keys.indexOf(char) > -1)
+				oc[char]++;
+		return (oc['('] == oc[')']) && (oc['['] == oc[']']);
+	}
+	var h   = false;
 	var newRegExp   = pattern => {
+		h   = false;
 		var flags   = pattern.flags,
 			source  = pattern.source;
 		// Remove ^ from first of source
-		if(source[0] == '^')
-			source  = '(?:[;\s]|^)' + source;
+		if(source[0] == '^') {
+			source = source.substr(1);
+			h   = true;
+		}
 		// Add $ to the end of source if not exists
 		if(!source.endsWith('$'))
 			source  += '$';
 		return new RegExp(source, flags);
 	};
-	var results     = [], i;
+	var results     = [0], i;
 	for(i = 0; i < global.patterns.length;i++){
 		var p   = newRegExp(global.patterns[i]);
 		if(p.test(code)){
 			var matches = p.exec(code);
-			results.push(matches[0]);
+			while(matches == null){
+				matches = p.exec(code);
+			}
+			var j   = 0;
+			matches[j]  = matches[j].trim();
+			var len = matches[j].length;
+			if(isClosed(matches[j])) {
+				results.push(len);
+			}
 		}
 	}
 	return Math.max(...results);
