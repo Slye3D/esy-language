@@ -10,7 +10,7 @@
  */
 
 exports.command = 'list';
-exports.desc = 'List all active modules';
+exports.desc    = 'List all active modules';
 exports.builder = function (yargs) {
 	yargs
 		.option('json', {
@@ -25,16 +25,17 @@ exports.builder = function (yargs) {
 		});
 };
 exports.handler = function (argv) {
-	var esy = require('../../loader')(argv);
-	var val = esy.modules.list();
-	if (argv.json) {
-		if (argv.beauty) {
+	var {modules} = require('../../loader')(argv);
+	var val = modules.list();
+	var {beauty,json}   = argv;
+	if (json) {
+		if (beauty) {
 			console.log(JSON.stringify(val, null, 4))
 		} else {
 			console.log(JSON.stringify(val))
 		}
 	} else {
-		if (argv.beauty) {
+		if (beauty) {
 			console.error("--beauty option only works when you're in JSON mode (--json)")
 		}
 		console.log(`Active modules:`);

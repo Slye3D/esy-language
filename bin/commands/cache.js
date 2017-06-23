@@ -10,10 +10,10 @@
  */
 
 exports.command = 'cache <command>';
-exports.desc = 'Mange cache storage';
+exports.desc    = 'Mange cache storage';
 exports.builder = function (yargs) {
 	return yargs.commandDir('cache')
 };
-exports.handler = function (argv) {
+exports.handler = function () {
 	console.log("Command not found, you can only use:\n\t`esy cache dir`\n\t`esy cache clean`")
 };

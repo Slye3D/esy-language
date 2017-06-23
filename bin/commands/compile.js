@@ -9,11 +9,10 @@
  *       Licence: MIT License
  */
 
-var PrettyError = require('pretty-error');
 var UglifyJS;
 
 exports.command = 'compile <files..>';
-exports.desc = 'Compile Esy file to JavaScript';
+exports.desc    = 'Compile Esy file to JavaScript';
 exports.builder = function (yargs) {
 	yargs
 		.option('save', {

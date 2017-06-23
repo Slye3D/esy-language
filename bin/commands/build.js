@@ -43,7 +43,7 @@ function build(configs, platform, dest, cwd, esy) {
 	}
 	var name = platform,
 		files = [],
-		environments = [];
+		environments;
 	platform = configs[platform];
 	environments = (platform.environments ? (typeof platform.environments == 'string' ? [platform.environments] : platform.environments) : []);
 	esy.configs.run('environments', environments);
@@ -105,12 +105,13 @@ exports.builder = function (yargs) {
 exports.handler = function (argv) {
 	fs = fs || require('fs');
 	const esy = require('../loader')(argv),
+		{configs}   = esy,
 		readline = require('readline'),
 		cfg_file = esy.configs.file(),
 		cwd = cfg_file.substring(0, Math.max(cfg_file.lastIndexOf("/"), cfg_file.lastIndexOf("\\")));
-	esy.configs.def('build_dest', 'build');
-	esy.configs.def('builds', {});
-	var dest = esy.configs.get('build_dest');
+	configs.def('build_dest', 'build');
+	configs.def('builds', {});
+	var dest = configs.get('build_dest');
 	if (argv.add) {
 		const rl = readline.createInterface({
 			input: process.stdin,
@@ -130,7 +131,7 @@ exports.handler = function (argv) {
 					esy.configs.set(`builds.${name}`, {
 						files: files,
 						environments: environments
-					})
+					});
 					rl.close();
 				})
 			});
@@ -138,7 +139,7 @@ exports.handler = function (argv) {
 		});
 		ask_name();
 	} else {
-		var build_cfg = esy.configs.get('builds'),
+		var build_cfg = configs.get('builds'),
 			platforms;
 		if (argv.platforms.length == 0 && Object.keys(build_cfg).length == 0) {
 			return console.error("There is no build config available.\n    Use `--add` option to add one");

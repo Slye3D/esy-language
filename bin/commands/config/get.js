@@ -10,7 +10,7 @@
  */
 
 exports.command = 'get <key>';
-exports.desc = 'Set a config value';
+exports.desc    = 'Set a config value';
 exports.builder = function (yargs) {
 	yargs
 		.option('json', {
@@ -25,16 +25,17 @@ exports.builder = function (yargs) {
 		});
 };
 exports.handler = function (argv) {
-	var esy = require('../../loader')(argv);
-	var val = esy.configs.get(argv.key);
-	if(argv.json){
-		if(argv.beauty){
+	var {configs}       = require('../../loader')(argv);
+	var val             = configs.get(argv.key);
+	var {json, beauty}  = argv;
+	if(json){
+		if(beauty){
 			console.log(JSON.stringify(val, null, 4))
 		}else {
 			console.log(JSON.stringify(val))
 		}
 	}else{
-		if(argv.beauty){
+		if(beauty){
 			console.error("--beauty option only works when you're in JSON mode (--json)")
 		}
 		console.log(val)

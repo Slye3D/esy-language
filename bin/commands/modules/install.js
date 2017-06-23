@@ -10,11 +10,10 @@
  */
 
 exports.command = 'install <name>';
-exports.desc = 'Add a new module for current project';
-exports.builder = function (yargs) {
-};
+exports.desc    = 'Add a new module for current project';
+exports.builder = function () {};
 exports.handler = function (argv) {
-	var esy = require('../../loader')(argv);
+	var {modules, configs}  = require('../../loader')(argv);
 	var path = require('path');
 	var name = argv.name;
 	// check if name is a local path
@@ -22,15 +21,15 @@ exports.handler = function (argv) {
 		name = path.join(process.cwd(), name);
 	}
 	try {
-		esy.modules.load(name);
-		var actives = esy.configs.get('modules');
+		modules.load(name);
+		var actives = configs.get('modules');
 		if (typeof actives !== 'object' || actives.length === undefined)
 			actives = [];
 		if (actives.indexOf(name) > -1) {
 			console.error("Module is already installed.");
 		} else {
 			actives.push(name);
-			esy.configs.set('modules', actives);
+			configs.set('modules', actives);
 		}
 	} catch (e) {
 		console.error(`Can not install module <${name}>`);

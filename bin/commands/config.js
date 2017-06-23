@@ -10,10 +10,10 @@
  */
 
 exports.command = 'config <command>';
-exports.desc = 'Manage config values';
+exports.desc    = 'Manage config values';
 exports.builder = function (yargs) {
 	return yargs.commandDir('config')
 };
-exports.handler = function (argv) {
+exports.handler = function () {
 	console.log("Command not found, you can only use:\n\t`esy config set <key> <value>`\n\t`esy config get <key>`")
 };

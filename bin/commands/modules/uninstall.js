@@ -10,18 +10,17 @@
  */
 
 exports.command = 'uninstall <name>';
-exports.desc = 'Remove a local module from project';
-exports.builder = function (yargs) {
-};
+exports.desc    = 'Remove a local module from project';
+exports.builder = function () {};
 exports.handler = function (argv) {
-	var esy = require('../../loader')(argv);
+	var {configs} = require('../../loader')(argv);
 	var path = require('path');
 	var name = argv.name;
 	// check if name is a local path
 	if (name[0] == '/' || name[0] == '\\' || name.substr(0, 2) == '..') {
 		name = path.join(process.cwd(), name);
 	}
-	var actives = esy.configs.get('modules');
+	var actives = configs.get('modules');
 	if (typeof actives !== 'object' || actives.length === undefined)
 		actives = [];
 	var index = actives.indexOf(name);
@@ -30,6 +29,6 @@ exports.handler = function (argv) {
 		return;
 	}
 	actives.splice(index, 1);
-	esy.configs.set('modules', name);
+	configs.set('modules', name);
 	console.log("Nodule uninstalled successfully");
 };

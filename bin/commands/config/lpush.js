@@ -10,13 +10,12 @@
  */
 
 exports.command = 'lpush <key> <values..>';
-exports.desc = 'Push one ore more value to configs (Works on arrays)';
-exports.builder = function (yargs) {
-};
+exports.desc    = 'Push one ore more value to configs (Works on arrays)';
+exports.builder = function () {};
 exports.handler = function (argv) {
-	var esy = require('../../loader')(argv);
+	var {configs}   = require('../../loader')(argv);
 	var isArray = array => typeof array == 'object' && array.length !== undefined;
-	var current = esy.configs.get(argv.key);
+	var current = configs.get(argv.key);
 	if (current === undefined)
 		current = [];
 	if (!isArray(current))
@@ -25,6 +24,6 @@ exports.handler = function (argv) {
 		if (current.indexOf(value) == -1)
 			current.push(value)
 	}
-	esy.configs.set(argv.key, current);
+	configs.set(argv.key, current);
 	console.log("Value(s) pushed successfully");
 };

@@ -10,10 +10,10 @@
  */
 
 exports.command = 'modules <command>';
-exports.desc = 'Manage Esy modules';
+exports.desc    = 'Manage Esy modules';
 exports.builder = function (yargs) {
 	return yargs.commandDir('modules')
 };
-exports.handler = function (argv) {
+exports.handler = function () {
 	console.log("Command not found, use `esy modules --help` for more information")
 };

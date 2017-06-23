@@ -38,7 +38,7 @@ function obfuscator(esy) {
 		stringArrayThreshold: 0.75,
 		unicodeEscapeSequence: false
 	});
-	esy.block(/^enc$/ig, (matches, block, parent, offset) => {
+	esy.block(/^enc$/ig, (matches, block) => {
 		return JavaScriptObfuscator.obfuscate(esy.compile(block.body), esy.configs.get('obfuscator')).getObfuscatedCode();
 	});
 	return {

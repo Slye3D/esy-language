@@ -11,6 +11,10 @@
 
 const vm    = require('vm');
 
+/**
+ * Run code in a sandbox
+ * @param code
+ */
 function run(code) {
 	const script = new vm.Script(code);
 	var sandbox = {};
@@ -24,16 +28,15 @@ function run(code) {
 }
 
 exports.command = '* [file]';
-exports.desc = 'Run esy file';
+exports.desc    = 'Run esy file';
 exports.builder = function (yargs) {};
 exports.handler = function (argv) {
 	if(!argv.file)
 		return;
 	const fs    = require('fs'),
-		esy     = require('../loader')(argv);
+		{tree, compile} = require('../loader')(argv);
 	var file    = argv.file;
 	var data    = fs.readFileSync(file).toString();
-	var tree    = esy.tree(data);
-	var js      = esy.compile(tree);
+	var js      = compile(tree(data));
 	run(js);
 };
