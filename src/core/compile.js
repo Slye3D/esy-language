@@ -110,14 +110,12 @@ function compile(tree) {
 					parser  = keywords.get(name);
 					if(typeof parser == 'function'){
 						code    = parser(tree[offset].substr(name.length).trim());
-					}else {
-						throw new EsyError(`<${name}> is not a valid keyword.`);
 					}
 					insert(code);
 				}else {
 					insert(code);
 				}
-			}else {
+			}else if(code !== undefined){
 				parser = Blocks.search(code.head);
 				if(parser){
 					// Sth like passing a variable by it's reference
