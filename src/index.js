@@ -13,6 +13,7 @@ const tree      = require('./libs/tree');
 const compile   = require('./core/compile');
 const modules   = require('./core/modules');
 const blocks    = require('./core/blocks');
+const keyboards = require('./core/keyboards');
 const configs   = require('./core/config');
 const cache     = require('./core/cache');
 const glob      = require('glob');
@@ -22,7 +23,8 @@ var esy_lang  = {
 	tree    : tree,
 	compile : compile,
 	cache   : cache,
-	configs : configs
+	configs : configs,
+	keyboard: keyboards.add
 };
 esy_lang['block']   = blocks.add(esy_lang);
 esy_lang['modules'] = modules._esy(esy_lang);
