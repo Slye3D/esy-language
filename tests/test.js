@@ -27,6 +27,7 @@ for(var name in console){
 	if(console.hasOwnProperty(name) && typeof console[name] == 'function')
 		console[name]   = function () {};
 }
+global.log = _console.log;
 var queue   = [],
 	i       = 0,
 	names   = [],
