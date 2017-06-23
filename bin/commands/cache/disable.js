@@ -15,6 +15,6 @@ exports.builder = function (yargs) {
 };
 exports.handler = function (argv) {
 	var esy = require('../../loader')(argv);
-	esy.configs.set('cache', false);
+	esy.cache.disable();
 	console.log('Cache is now disable');
 };
