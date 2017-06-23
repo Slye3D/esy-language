@@ -47,7 +47,7 @@ function test() {
 	var called  = false;
 	var timeout = setTimeout(function () {
 		if(!called){
-			callback(false);
+			assert(false);
 		}
 	}, TIMEOUT);
 	var assert  = function(result){
@@ -79,15 +79,16 @@ glob('*/*.js', {cwd: __dirname}, function (err, files) {
 				names.push(file);
 				queue.push(tests)
 			}else {
-				tests   = tests.filter(name => name.startWith('$'));
-				for(name in tests) {
+				var keys = Object.keys(tests).filter(name => name.startsWith('$'));
+				for(var j = 0; j < keys.length;j++) {
+					name = keys[j];
 					names.push(file + ':' + name);
 					if(tests.hasOwnProperty(name))
 						queue.push(tests[name])
 				}
 			}
 		}catch (e){
-			_console.error(`Failed to load <${file}>`)
+			_console.error(`Failed to load <${file}>`, e)
 		}
 	}
 	_console.log(`${queue.length} tests are in queue.`);
