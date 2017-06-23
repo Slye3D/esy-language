@@ -39,32 +39,104 @@ function safeEval(code) {
 }
 
 /**
+ * Run code in javascript VM
+ * @param JsCode
+ * @param time
+ */
+function run(JsCode, time = 0){
+	return new Promise((resolve, reject) => {
+		var names   = [],
+			name;
+		for(name in global){
+			names.push(name)
+		}
+
+		var sandbox = {};
+		for(name of names){
+			if(name == 'global')
+				sandbox[name]   = sandbox;
+			else if(name !== 'log'){
+				if (typeof global[name] == 'object')
+					sandbox[name] = Object.assign({}, global[name]);
+				else
+					sandbox[name] = global[name]
+			}
+		}
+		// Make stdout & stderr
+		sandbox.stdout  = '';
+		sandbox.stderr  = '';
+
+		var console_keys    = [
+			'log'   , 'info',
+			'warn'  , 'dir',
+			'time'  , 'trace'
+		];
+		console_keys.forEach(key => {
+			sandbox.console[key]    = function () {
+				for(var t of arguments){
+					sandbox.stdout += t + ' ';
+				}
+				sandbox.stdout += '\n';
+			}
+		});
+		sandbox.console.error   = function(){
+			for(var t of arguments){
+				sandbox.stderr += t + ' ';
+			}
+			sandbox.stderr += '\n';
+		};
+
+		var re  = () => {
+			for(name in sandbox){
+				if(names.indexOf(name) > -1 && name !== 'i'){
+					delete sandbox[name]
+				}
+			}
+			resolve(sandbox)
+		};
+
+		try {
+			const script   = new vm.Script(JsCode);
+			script.runInNewContext(sandbox);
+			setTimeout(function () {
+				re()
+			}, time)
+		}catch (e){
+			reject();
+		}
+	})
+}
+
+/**
  * Compare result of Esy code and JS version
  */
-function compare(EsyCode, js){
+function compare(EsyCode, js, pendingTime = 0){
 	js      = js || EsyCode;
 	EsyCode = compile(EsyCode);
+	return new Promise((resolve, reject) => {
+		var sandbox1 = {}, sandbox2 = {},
+			pending = 2;
+		run(EsyCode, pendingTime).then(re => {
+			sandbox1 = re;
+			pending--;
+			if(pending == 0)
+				resolve(JSON.stringify(sandbox1) == JSON.stringify(sandbox2))
+		}, err => {
+			reject(err)
+		});
 
-	var sandbox1    = {},   // For Esy
-		sandbox2    = {};   // For JS
-
-	try {
-		const script1   = new vm.Script(EsyCode);
-		script1.runInNewContext(sandbox1);
-	}catch (e){
-		return false;
-	}
-
-	try {
-		const script2   = new vm.Script(js);
-		script2.runInNewContext(sandbox2);
-	}catch (e){
-		return false;
-	}
-
-	return JSON.stringify(sandbox1) == JSON.stringify(sandbox2);
+		run(js, pendingTime).then(re => {
+			sandbox2 = re;
+			pending--;
+			if(pending == 0)
+				resolve(JSON.stringify(sandbox1) == JSON.stringify(sandbox2))
+		}, err => {
+			reject(err);
+		});
+	})
 }
 
 module.exports.compile  = compile;
 module.exports.safeEval = safeEval;
 module.exports.compare  = compare;
+module.exports.run      = run;
