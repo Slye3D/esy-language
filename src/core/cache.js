@@ -23,7 +23,7 @@ configs.def('cache', {
 	// By default cache is enable
 	'active': true,
 	// On linux systems we save all of caches in just one directory
-	'dir'   : os.platform() == 'linux' ? '/var/cache/esy' : '.cache',
+	'dir'   : os.platform() == 'linux' && process.env['HOME'] ? path.join(process.env['HOME'], '/.cache/esy') : '.cache',
 	// Default cache size limit is 10MB
 	// 0 means unlimited
 	'limit' : '10M'
