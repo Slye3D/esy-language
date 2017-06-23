@@ -16,7 +16,7 @@ function one_line_blocks(tree){
 	for(offset = tree.length - 1;offset >= 0;offset--){
 		if(typeof tree[offset] == 'string'){
 			for(k = 0;k < len;k++){
-				if(keys[k] == tree[offset].substr(0, keys[k].length)){
+				if(tree[offset].startsWith(keys[k])){
 					tree[offset] = {
 						head: tree[offset],
 						body: [tree[offset+1]]

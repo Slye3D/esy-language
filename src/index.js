@@ -9,7 +9,7 @@
  *       Licence: MIT License
  */
 
-const tree      = require('./core/tree');
+const tree      = require('./libs/tree');
 const compile   = require('./core/compile');
 const modules   = require('./core/modules');
 const blocks    = require('./core/blocks');
