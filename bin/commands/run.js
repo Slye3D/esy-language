@@ -9,8 +9,18 @@
  *       Licence: MIT License
  */
 
+const vm    = require('vm');
+
 function run(code) {
-	eval(code);
+	const script = new vm.Script(code);
+	var sandbox = {};
+	for(var name of sandbox_names){
+		if(name !== 'global')
+			sandbox[name] = global[name];
+		else
+			sandbox[name]   = sandbox
+	}
+	script.runInNewContext(sandbox);
 }
 
 exports.command = '* [file]';

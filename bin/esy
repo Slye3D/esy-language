@@ -10,6 +10,12 @@
  *       Licence: MIT License
  */
 
+var names   = [];
+for(var name in global){
+	names.push(name)
+}
+global.sandbox_names = names;
+
 // the start() shortcut returns an instance of PrettyError ...
 pe = require('pretty-error').start();
 const head = 
