@@ -14,6 +14,7 @@ const Blocks    = require('./blocks');
 const Cache     = require('./cache');
 const Beautify  = require('js-beautify').js_beautify;
 const Configs   = require('./config');
+const isPunctuators = require('../libs/characters/punctuator');
 
 Configs.def('beautify', {
 	"indent_size": 4,
@@ -53,21 +54,23 @@ function compile(tree){
 	var re  = Cache.cache('compile', tree, function () {
 		var offset  = 0,
 			re      = '';
-		var needS   = letter => [
-			';','{', '=', '[', ']',
-			'+', '-', '*', '/', '^',
-			'?', ':', ',',
-			'!', '%', '&', '<', '>', '|',
-			'`', '"', "'"
-		].indexOf(letter) == -1;
+		var isComment = code => {
+			var regex   = /^(\/\*[\s\S]*?\*\/|\/\/[^\u000A\u000D\u2028\u2029]*|<!--[\s\S]*?-->)$/g;
+			return regex.test(code.trim());
+		};
 		for(; offset < tree.length;offset++){
 			if(typeof tree[offset] == 'string'){
 				// Now we don't support any replace process on codes, now we just replace blocks
-				if(tree[offset] == ';'){
-					if(needS(re[re.length - 1]))
-						re += ';'
+				if(isComment(tree[offset])){
+					re += tree[offset] + '\n'
 				}else {
-					re  += tree[offset] + (needS(tree[offset][tree[offset].length - 1]) ? ';' : '');
+					var lastChar    = tree[offset][tree[offset].length - 1];
+					re += tree[offset];
+					if([')', ']', '}'].indexOf(lastChar) > -1){
+						if(!isPunctuators.endsWith(tree[offset])){
+							re += ';\n'
+						}
+					}
 				}
 			}else {
 				var block   = tree[offset];
