@@ -37,8 +37,10 @@ function test() {
 		_console.log('_____________________'.gray, `\nResult:`);
 		if(failed == 0){
 			_console.log(`${checkmark} All tests passed.`.green)
+			process.exit();
 		}else {
 			_console.log(`${xmark} ${failed} test${failed == 1 ? '' : 's'} failed.`.red)
+			process.exit(1);
 		}
 		return;
 	}
