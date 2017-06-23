@@ -48,11 +48,19 @@ function compare(EsyCode, js){
 	var sandbox1    = {},   // For Esy
 		sandbox2    = {};   // For JS
 
-	const script1   = new vm.Script(EsyCode);
-	script1.runInNewContext(sandbox1);
+	try {
+		const script1   = new vm.Script(EsyCode);
+		script1.runInNewContext(sandbox1);
+	}catch (e){
+		return false;
+	}
 
-	const script2   = new vm.Script(js);
-	script2.runInNewContext(sandbox2);
+	try {
+		const script2   = new vm.Script(js);
+		script2.runInNewContext(sandbox2);
+	}catch (e){
+		return false;
+	}
 
 	return JSON.stringify(sandbox1) == JSON.stringify(sandbox2);
 }
