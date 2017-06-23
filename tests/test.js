@@ -47,10 +47,10 @@ function test() {
 	var called  = false;
 	var timeout = setTimeout(function () {
 		if(!called){
-			assert(false);
+			assert(false, true);
 		}
 	}, TIMEOUT);
-	var assert  = function(result){
+	var assert  = function(result, timeout = false){
 		if(called)
 			return;
 		called  = true;
@@ -60,7 +60,7 @@ function test() {
 			_console.log(`${checkmark}Test #${i}<${name}> passed.`.cyan)
 		}else {
 			failed++;
-			_console.error(`${xmark}Test #${i}<${name}> failed.`.red)
+			_console.error(`${xmark}Test #${i}<${name}> failed.${timeout ? ' (timeout)' : ''}`.red)
 		}
 		i++;
 		test();
