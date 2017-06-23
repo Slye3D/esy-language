@@ -93,8 +93,13 @@ function compile(tree) {
 		for(; offset < tree.length;offset++){
 			var code    = tree[offset];
 			if(typeof code == 'string'){
-				if(isComment(code)){
-					re += code + '\n';
+				if(isComment(code.trim())){
+					code = code.trim()
+					if(code[1] == '/'){
+						re += '/*'+code.substr(2)+'*/\n'
+					}else {
+						re += code + '\n';
+					}
 				}else if(iskeyword(code)){
 					var regex   = /^\s*(\w+)\s+/ig;
 					var exec    = regex.exec(tree[offset]);
@@ -108,8 +113,10 @@ function compile(tree) {
 					}else {
 						throw new EsyError(`<${name}> is not a valid keyword.`);
 					}
+					insert(code);
+				}else {
+					insert(code);
 				}
-				insert(code);
 			}else {
 				parser = Blocks.search(code.head);
 				if(parser){

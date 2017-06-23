@@ -56,7 +56,7 @@ function spaces(code){
 
 	for(;offset < code.length;offset++){
 		char    = code[offset];
-		if(((/\d$/g.test(re) && /^\D$/g.test(char)) || /(false|true|null)$/ig.test(re)) && !isPunctuators.startsWith(code.substr(offset).trim())){
+		if(((/\d$/g.test(re) && /^\D$/g.test(char) && isEOL(code[offset + 1])) || /(false|true|null)$/ig.test(re)) && !isPunctuators.startsWith(code.substr(offset).trim())){
 			insert();
 		}
 		if(!isEOL(char)){

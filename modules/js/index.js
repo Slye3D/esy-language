@@ -43,7 +43,7 @@ function js(esy) {
 	// functions and classes
 
 	//Default function
-	block.self(/^function\s*([$A-Z_][$A-Z_0-9]*)?\s*\((.+?)?\)\s*$/ig);
+	block.self(/^(async\s*)?function\s*([$A-Z_][$A-Z_0-9]*)?\s*\((.+?)?\)\s*$/ig);
 	//Arrow function
 	block.self(/^(\([^()]+?\)|\w+)\s*=>\s*$/ig);
 
@@ -59,7 +59,7 @@ function js(esy) {
 	block.self(/^set\s+([$A-Z_][$A-Z_0-9]*)\s*\([^,]+?\)$/ig);
 
 	// Generator deceleration
-	block.self(/^function\s*\*\s*([$A-Z_][$A-Z_0-9]*)?\s*\((.+?)?\)\s*$/ig);
+	block.self(/^(async\s*)?function\s*\*\s*([$A-Z_][$A-Z_0-9]*)?\s*\((.+?)?\)\s*$/ig);
 
 	// Class deceleration
 	block.self(/^class(\s+\S+)?(\s+extends\s+\S+)?$/ig);
@@ -90,7 +90,7 @@ function js(esy) {
 
 	return {
 		name: "Esy JavaScript",
-		version: "0.0.2",
+		version: "0.0.3",
 		author: "Slye Development Team"
 	};
 }
