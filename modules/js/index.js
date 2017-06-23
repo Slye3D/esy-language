@@ -22,7 +22,7 @@ function js(esy) {
 
 	// Do{}while(...) and while(...) statements
 	block.self(/^do$/ig);
-	block.self(/^while\s*\(.+?\)$/ig);
+	block.self(/^while\s*\([^;]+?\)$/ig);
 
 	// for expression
 	block.self(/^for\s*\(.+?\)\s*$/ig);
@@ -50,7 +50,7 @@ function js(esy) {
 	// Method definition:
 
 	// property
-	block.self(/^([$A-Z_][$A-Z_0-9]*)\s*\((.+?)?\)\s*$/ig);
+	block.self(/^([$A-Z_][$A-Z_0-9]*)\s*\(([^;]*?)?\)\s*$/ig);
 	// Generator method
 	block.self(/^\*\s*([$A-Z_][$A-Z_0-9]*)\s*\((.+?)?\)\s*$/ig);
 	// get
