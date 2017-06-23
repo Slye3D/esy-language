@@ -109,6 +109,10 @@ function run(JsCode, time = 0){
 
 /**
  * Compare result of Esy code and JS version
+ * @param EsyCode
+ * @param js
+ * @param pendingTime
+ * @return {Promise}
  */
 function compare(EsyCode, js, pendingTime = 0){
 	js      = js || EsyCode;
