@@ -9,7 +9,7 @@
  *       Licence: MIT License
  */
 
-const {compile}   = require('../tools');
+const {compile, compare}   = require('../tools');
 
 exports.$simple = function (assert) {
 	var j   = 0;
@@ -61,3 +61,14 @@ exports.$WithoutLastPart   = function (assert) {
 	}
 };
 
+exports.$ForIn  = function (assert) {
+	var code    = `
+	var a = {a:5, b: 6, c:8}
+	for(var name in a){
+		if(a.hasOwnProperty(name)){
+			a[name] = a[name] * 2
+		}
+	}
+`;
+	assert(compare(code))
+};

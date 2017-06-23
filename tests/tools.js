@@ -9,6 +9,8 @@
  *       Licence: MIT License
  */
 
+const vm    = require('vm');
+
 /**
  * Compile a esy code
  * @param code
@@ -36,5 +38,25 @@ function safeEval(code) {
 	return re;
 }
 
+/**
+ * Compare result of Esy code and JS version
+ */
+function compare(EsyCode, js){
+	js      = js || EsyCode;
+	EsyCode = compile(EsyCode);
+
+	var sandbox1    = {},   // For Esy
+		sandbox2    = {};   // For JS
+
+	const script1   = new vm.Script(EsyCode);
+	script1.runInNewContext(sandbox1);
+
+	const script2   = new vm.Script(js);
+	script2.runInNewContext(sandbox2);
+
+	return JSON.stringify(sandbox1) == JSON.stringify(sandbox2);
+}
+
 module.exports.compile  = compile;
 module.exports.safeEval = safeEval;
+module.exports.compare  = compare;
