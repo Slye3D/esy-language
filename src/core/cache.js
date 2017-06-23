@@ -66,7 +66,6 @@ function convertToBytes(size){
 }
 
 // Save cache values as constant, to have a faster access to each of theme
-var active      = configs.get('cache.active');
 const dir     = toAbsolute(configs.get('cache.dir'));
 const limit   = convertToBytes(configs.get('cache.limit'));
 
@@ -74,7 +73,7 @@ const limit   = convertToBytes(configs.get('cache.limit'));
  * Load index.json file
  */
 function load(){
-	if(!active)
+	if(!status())
 		return;
 	if(global.cache_loaded)
 		return;
@@ -177,7 +176,7 @@ function save_object(key, value){
  */
 function cache(functionality, inputs, func, only = []){
 	// Return actual function call when cache is disable
-	if(!active)
+	if(!status())
 		return func(...inputs);
 
 	// Create cache key
@@ -216,7 +215,6 @@ function cache(functionality, inputs, func, only = []){
 function clear(){
 	return new Promise(resolve => {
 		rimraf(path.join(process.cwd(), global.cache_dir), () => {
-			active = false;
 			global.cache_loaded = false;
 			global.cache_index  = {};
 			global.cache_files  = {};
@@ -230,32 +228,30 @@ function clear(){
  * @return {*}
  */
 function status(){
-	return active;
+	return configs.get('cache.active');
 }
 
 /**
  * Enable cache
  */
 function enable(){
-	if(!active)
+	if(!status())
 		configs.set('cache.active', true);
-	active = true;
 }
 
 /**
  * Disable cache
  */
 function disable(){
-	if(active)
+	if(status())
 		configs.set('cache.active', false);
-	active = false;
 }
 
 /**
  * Cleanup cache
  */
 function exitHandler() {
-	if(!active || !global.cache_loaded || limit == 0)
+	if(!status() || !global.cache_loaded || limit == 0)
 		return;
 	var size    = 0,
 		files   = [/*[key, uses_time, size],...*/];
