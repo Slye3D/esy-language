@@ -11,11 +11,12 @@
 
 const EsyError  = require('../libs/errors/esy_error');
 const Blocks    = require('./blocks');
-const keywords = require('./keywords');
+const keywords  = require('./keywords');
 const Cache     = require('./cache');
 const Beautify  = require('js-beautify').js_beautify;
 const Configs   = require('./config');
 const quotations= require('../libs/tree/quotations');
+const isPunctuator  = require('../libs/characters/punctuator');
 
 Configs.def('beautify', {
 	"indent_size": 4,
@@ -76,7 +77,7 @@ function compile(tree) {
 				return quotations.get(parseInt(match.substring(3, match.length - 1), 36))
 			});
 			re  += code;
-			if(isClose() && !re.endsWith(';') && !re.endsWith('}') && !re.endsWith(':'))
+			if(isClose() && !re.endsWith(';') && !re.endsWith('}') && !re.endsWith(':') && offset !== tree.length - 1 && !isPunctuator.endsWith(re))
 				re += ';\n'
 		};
 		var parser;
@@ -109,6 +110,8 @@ function compile(tree) {
 					if(typeof r == 'string')
 						insert(r);
 					offset  = o.index;
+				}else {
+					insert(code.head + '{' + compile(code.body) + '}');
 				}
 			}
 		}

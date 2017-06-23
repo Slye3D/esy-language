@@ -30,7 +30,7 @@ function add(name, parser){
  * @param name
  */
 add.self    = function(name){
-	add(name, a => name + ' ' + a + ';');
+	add(name, a => name + ' ' + a);
 };
 
 /**
