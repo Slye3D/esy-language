@@ -29,6 +29,11 @@ exports.builder = function (yargs) {
 			describe: 'Minify output',
 			default: false,
 			alias: 'm'
+		})
+		.option('watch', {
+			describe: 'Run program in watch mode',
+			default: false,
+			alias: 'w'
 		});
 };
 exports.handler = function (argv) {
@@ -36,33 +41,48 @@ exports.handler = function (argv) {
 		esy = require('../loader')(argv);
 	if (argv.tree && argv.files.length > 1)
 		return console.error("Error: Can not make tree for multiple files");
-	var js = '';
-	for (var file of argv.files) {
-		var data = fs.readFileSync(file).toString();
-		var tree = esy.tree(data);
-		if (argv.tree) {
-			if(argv.min)
-				js = JSON.stringify(tree);
-			else
-				js = JSON.stringify(tree, null, 4);
-		} else {
-			js += esy.compile(tree);
-			if(argv.min){
-				UglifyJS = UglifyJS || require("uglify-es");
-				js = UglifyJS.minify(js).code
+	var compile = () => {
+		var js = '';
+		for (var file of argv.files) {
+			var data = fs.readFileSync(file).toString();
+			var tree = esy.tree(data);
+			if (argv.tree) {
+				if(argv.min)
+					js = JSON.stringify(tree);
+				else
+					js = JSON.stringify(tree, null, 4);
+			} else {
+				js += esy.compile(tree);
+				if(argv.min){
+					UglifyJS = UglifyJS || require("uglify-es");
+					js = UglifyJS.minify(js).code
+				}
 			}
 		}
-	}
-	if (argv.save) {
-		var to = 'esy.js';
-		if (argv.files.length == 1) {
-			to = argv.files[0].substr(0, argv.files[0].lastIndexOf(".")) + (argv.min ? '.min' : '') + '.' + (argv.tree ? 'json' : 'js');
+		if (argv.save) {
+			var to = 'esy.js';
+			if (argv.files.length == 1) {
+				to = argv.files[0].substr(0, argv.files[0].lastIndexOf(".")) + (argv.min ? '.min' : '') + '.' + (argv.tree ? 'json' : 'js');
+			}
+			if (typeof argv.save == 'string')
+				to = argv.save;
+			fs.writeFileSync(to, js);
+			console.log(`Output saved to \`${to}\``);
+		} else {
+			console.log(js)
 		}
-		if (typeof argv.save == 'string')
-			to = argv.save;
-		fs.writeFileSync(to, js);
-		console.log(`Output saved to \`${to}\``);
-	} else {
-		console.log(js)
+	};
+	if(argv.w){
+		console.log("Watch for changes:");
+		for (var file of argv.files) {
+			var f = file;
+			fs.watchFile(file, (curr, prev) => {
+				console.log("Change detected on <"+f+">");
+				compile();
+			})
+			compile();
+		}
+	}else {
+		compile();
 	}
 };
