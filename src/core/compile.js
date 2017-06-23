@@ -40,6 +40,15 @@ Configs.def('beautify', {
 	"operator_position": "before-newline"
 });
 
+String.prototype.endsWithA  = function (array) {
+	for(var string of array){
+		if(this.endsWith(string)){
+			return true;
+		}
+	}
+	return false;
+};
+
 /**
  * Compile esy code to JavaScript and return the beautiful/nested code
  * @param tree
@@ -77,9 +86,8 @@ function compile(tree){
 					var parser  = keywords.get(name);
 					if(typeof parser == 'function'){
 						var ret = parser(tree[offset].substr(name.length).trim());
-						var lc  = ret[ret.length - 1];
 						re += ret;
-						if([')', ']', '}'].indexOf(lc) > -1){
+						if(ret.trim().endsWithA([')', ']', '}', 'return', 'break', 'continue', 'throw', 'yield', '++', '--'])){
 							if(!isPunctuators.endsWith(ret)){
 								re += ';\n'
 							}
@@ -88,9 +96,8 @@ function compile(tree){
 						throw new EsyError(`<${name}> is not a valid keyword.`);
 					}
 				}else {
-					var lastChar    = tree[offset][tree[offset].length - 1];
 					re += tree[offset];
-					if([')', ']', '}'].indexOf(lastChar) > -1){
+					if(tree[offset].trim().endsWithA([')', ']', '}', 'return', 'break', 'continue', 'throw', 'yield', '++', '--'])){
 						if(!isPunctuators.endsWith(tree[offset])){
 							re += ';\n'
 						}
