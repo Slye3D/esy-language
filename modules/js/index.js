@@ -73,10 +73,24 @@ function js(esy) {
 	// set
 	block.self(/^static\s+set\s+([$A-Z_][$A-Z_0-9]*)\s*\([^,]+?\)$/ig);
 
+	let keyword= esy.keyword.self;
+	([
+		'break'     , 'do'      , 'instanceof'  , 'typeof',
+		'case'      , 'else'    , 'new'         , 'var',
+		'catch'     , 'finally' , 'return'      , 'void',
+		'continue'  , 'for'     , 'switch'      , 'while',
+		'debugger'  , 'function', 'this'        , 'with',
+		'default'   , 'if'      , 'throw'       , 'delete',
+		'in'        , 'try'     , 'class'       , 'enum',
+		'extends'   , 'super'   , 'const'       , 'export',
+		'import'    , 'let'     , 'private'     , 'implements',
+		'public'    , 'yield'   , 'interface'   , 'package',
+		'protected' , 'static'
+	]).forEach(name => keyword(name));
 
 	return {
 		name: "Esy JavaScript",
-		version: "0.0.1",
+		version: "0.0.2",
 		author: "Slye Development Team"
 	};
 }
