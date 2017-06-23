@@ -11,22 +11,22 @@
 
 const EsyError  = require('../libs/errors/esy_error');
 
-// Save all keyboards and their parsers
-global.keyboards    = global.keyboards || {};
+// Save all keywords and their parsers
+global.keywords    = global.keywords || {};
 
 /**
- * Add a new keyboard parser
+ * Add a new keyword parser
  * @param name
  * @param parser
  */
 function add(name, parser){
 	if(typeof parser !== 'function')
 		throw new EsyError("Second argument of add function must be a function.");
-	global.keyboards[name] = parser;
+	global.keywords[name] = parser;
 }
 
 /**
- * Add a mirror keyboard
+ * Add a mirror keyword
  * @param name
  */
 add.self    = function(name){
@@ -34,12 +34,12 @@ add.self    = function(name){
 };
 
 /**
- * Get parser for a special keyboard
+ * Get parser for a special keyword
  * @param name
  * @return {*}
  */
 function get(name){
-	return global.keyboards[name];
+	return global.keywords[name];
 }
 
 module.exports  = {

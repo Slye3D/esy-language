@@ -11,7 +11,7 @@
 
 const EsyError  = require('../libs/errors/esy_error');
 const Blocks    = require('./blocks');
-const Keyboards = require('./keyboards');
+const keywords = require('./keywords');
 const Cache     = require('./cache');
 const Beautify  = require('js-beautify').js_beautify;
 const Configs   = require('./config');
@@ -58,7 +58,7 @@ function compile(tree){
 			var regex   = /^(\/\*[\s\S]*?\*\/|\/\/[^\u000A\u000D\u2028\u2029]*|<!--[\s\S]*?-->)$/g;
 			return regex.test(code.trim());
 		};
-		var isKeyboard  = code => {
+		var iskeyword  = code => {
 			var regex   = /^\s*\w+\s+/ig;
 			return regex.test(code);
 		};
@@ -67,14 +67,14 @@ function compile(tree){
 				// Now we don't support any replace process on codes, now we just replace blocks
 				if(isComment(tree[offset])){
 					re += tree[offset] + '\n'
-				}else if(isKeyboard(tree[offset])){
+				}else if(iskeyword(tree[offset])){
 					var regex   = /^\s*(\w+)\s+/ig;
 					var exec    = regex.exec(tree[offset]);
 					while (exec === null){
 						exec    = regex.exec(tree[offset]);
 					}
 					var name    = exec[1];
-					var parser  = Keyboards.get(name);
+					var parser  = keywords.get(name);
 					if(typeof parser == 'function'){
 						var ret = parser(tree[offset].substr(name.length).trim());
 						var lc  = ret[ret.length - 1];
@@ -85,7 +85,7 @@ function compile(tree){
 							}
 						}
 					}else {
-						throw new EsyError(`<${name}> is not a valid keyboard.`);
+						throw new EsyError(`<${name}> is not a valid keyword.`);
 					}
 				}else {
 					var lastChar    = tree[offset][tree[offset].length - 1];
