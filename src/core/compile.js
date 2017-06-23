@@ -77,7 +77,16 @@ function compile(tree) {
 				return quotations.get(parseInt(match.substring(3, match.length - 1), 36))
 			});
 			re  += code;
-			if(isClose() && !re.endsWith(';') && !re.endsWith('}') && !re.endsWith(':') && offset !== tree.length - 1 && !isPunctuator.endsWith(re))
+			if(
+				isClose() && !re.endsWith(';') && !re.endsWith('}') && !re.endsWith(':') &&
+				offset !== tree.length - 1 &&
+				(!isPunctuator.endsWith(re) ||
+					(
+						re.endsWith('++') || re.endsWith(')') ||
+						re.endsWith('--') || re.endsWith(']')
+					)
+				)
+			)
 				re += ';\n'
 		};
 		var parser;
