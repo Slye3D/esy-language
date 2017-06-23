@@ -15,7 +15,7 @@ const keywords = require('./keywords');
 const Cache     = require('./cache');
 const Beautify  = require('js-beautify').js_beautify;
 const Configs   = require('./config');
-const isPunctuators = require('../libs/characters/punctuator');
+const quotations= require('../libs/tree/quotations');
 
 Configs.def('beautify', {
 	"indent_size": 4,
@@ -40,26 +40,13 @@ Configs.def('beautify', {
 	"operator_position": "before-newline"
 });
 
-String.prototype.endsWithA  = function (array) {
-	for(var string of array){
-		if(this.endsWith(string)){
-			return true;
-		}
-	}
-	return false;
-};
-
-/**
- * Compile esy code to JavaScript and return the beautiful/nested code
- * @param tree
- * @returns {string}
- */
-function compile(tree){
+function compile(tree) {
 	var e;
 	if(typeof tree !== 'object') {
 		e   = new EsyError('tree argument must be type of array');
 		throw e;
 	}
+
 	var re  = Cache.cache('compile', tree, function () {
 		var offset  = 0,
 			re      = '';
@@ -71,57 +58,65 @@ function compile(tree){
 			var regex   = /^\s*\w+\s+/ig;
 			return regex.test(code);
 		};
+		var oc  = {
+			'(' : 0,
+			')' : 0,
+			'[' : 0,
+			']' : 0
+		};
+		var keys    = Object.keys(oc);
+		var isClose = () => oc['('] == oc[')'] && oc['['] == oc[']'];
+		var insert  = (code) => {
+			code    = quotations.encode(code);
+			for(var i = 0;i < code.length;i++){
+				if(keys.indexOf(code[i]) > -1)
+					oc[code[i]]++;
+			}
+			code    = code.replace(/\\q{(\w+?)}/ig, (match) => {
+				return quotations.get(parseInt(match.substring(3, match.length - 1), 36))
+			});
+			re  += code;
+			if(isClose() && !re.endsWith(';') && !re.endsWith('}') && !re.endsWith(':'))
+				re += ';\n'
+		};
+		var parser;
 		for(; offset < tree.length;offset++){
-			if(typeof tree[offset] == 'string'){
-				// Now we don't support any replace process on codes, now we just replace blocks
-				if(isComment(tree[offset])){
-					re += tree[offset] + '\n'
-				}else if(iskeyword(tree[offset])){
+			var code    = tree[offset];
+			if(typeof code == 'string'){
+				if(isComment(code)){
+					re += code + '\n';
+				}else if(iskeyword(code)){
 					var regex   = /^\s*(\w+)\s+/ig;
 					var exec    = regex.exec(tree[offset]);
 					while (exec === null){
 						exec    = regex.exec(tree[offset]);
 					}
 					var name    = exec[1];
-					var parser  = keywords.get(name);
+					parser  = keywords.get(name);
 					if(typeof parser == 'function'){
-						var ret = parser(tree[offset].substr(name.length).trim());
-						re += ret;
-						if(ret.trim().endsWithA([')', ']', '}', 'return', 'break', 'continue', 'throw', 'yield', '++', '--'])){
-							if(!isPunctuators.endsWith(ret)){
-								re += ';\n'
-							}
-						}
+						code    = parser(tree[offset].substr(name.length).trim());
 					}else {
 						throw new EsyError(`<${name}> is not a valid keyword.`);
 					}
-				}else {
-					re += tree[offset];
-					if(tree[offset].trim().endsWithA([')', ']', '}', 'return', 'break', 'continue', 'throw', 'yield', '++', '--'])){
-						if(!isPunctuators.endsWith(tree[offset])){
-							re += ';\n'
-						}
-					}
 				}
+				insert(code);
 			}else {
-				var block   = tree[offset];
-				var b       = Blocks.search(block.head);
-				if(b){
+				parser = Blocks.search(code.head);
+				if(parser){
 					// Sth like passing a variable by it's reference
 					var o   = {index: offset};
-					var r   = b.parser(b.matches, block, tree, o);
-					if(r)
-						re += r;
+					var r   = parser.parser(parser.matches, code, tree, o);
+					if(typeof r == 'string')
+						insert(r);
 					offset  = o.index;
-				}else {
-					re  += block.head + '{' + compile(block.body) + '}';
 				}
 			}
 		}
-		return re;
+		return re
 	});
+
 	return Cache.cache('beautify', [re, Configs.get('beautify')], () => {
 		return Beautify(re, Configs.get('beautify'))
 	})
 }
-module.exports  = compile;
+module.exports = compile;
