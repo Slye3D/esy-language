@@ -10,6 +10,7 @@
  */
 
 var PrettyError = require('pretty-error');
+var UglifyJS;
 
 exports.command = 'compile <files..>';
 exports.desc = 'Compile Esy file to JavaScript';
@@ -24,6 +25,11 @@ exports.builder = function (yargs) {
 			describe: 'Just print parsed code tree',
 			default: false,
 			alias: 't'
+		})
+		.option('min', {
+			describe: 'Minify output',
+			default: false,
+			alias: 'm'
 		});
 };
 exports.handler = function (argv) {
@@ -36,15 +42,22 @@ exports.handler = function (argv) {
 		var data = fs.readFileSync(file).toString();
 		var tree = esy.tree(data);
 		if (argv.tree) {
-			js = JSON.stringify(tree, null, 4);
+			if(argv.min)
+				js = JSON.stringify(tree);
+			else
+				js = JSON.stringify(tree, null, 4);
 		} else {
 			js += esy.compile(tree);
+			if(argv.min){
+				UglifyJS = UglifyJS || require("uglify-es");
+				js = UglifyJS.minify(js).code
+			}
 		}
 	}
 	if (argv.save) {
 		var to = 'esy.js';
 		if (argv.files.length == 1) {
-			to = argv.files[0].substr(0, argv.files[0].lastIndexOf(".")) + '.' + (argv.tree ? 'json' : 'js');
+			to = argv.files[0].substr(0, argv.files[0].lastIndexOf(".")) + (argv.min ? '.min' : '') + '.' + (argv.tree ? 'json' : 'js');
 		}
 		if (typeof argv.save == 'string')
 			to = argv.save;
