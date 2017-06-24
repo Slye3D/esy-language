@@ -655,7 +655,7 @@ strict{
 ```
 Run codes in strict mode.
 
-##Example
+## Example
 ```esy
 strict{
     with (Math){x = cos(2)}; // This will cause an error
