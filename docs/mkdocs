@@ -2,9 +2,13 @@
 rm AllInOne.md
 touch AllInOne.md
 function dir {
+    echo "" >> AllInOne.md
+    echo "" >> AllInOne.md
     echo "<!--- " $1 " -->" >> AllInOne.md
-    find $1  -maxdepth 1 -name "README.md" | xargs cat >> AllInOne.md
-    find $1  -maxdepth 1 -name "*.md" ! -name "README.md" ! -name "AllInOne.md" | sort | xargs cat >> AllInOne.md
+    echo "" >> AllInOne.md
+    echo "" >> AllInOne.md
+    find $1  -maxdepth 1 -name "README.md" | while read file; do cat $file; echo ""; done >> AllInOne.md
+    find $1  -maxdepth 1 -name "*.md" ! -name "README.md" ! -name "AllInOne.md" | sort | while read file; do cat $file; echo ""; done >> AllInOne.md
 }
 IFS=$'\n'       # make newlines the only separator
 for d in $(find . -type d | sort)

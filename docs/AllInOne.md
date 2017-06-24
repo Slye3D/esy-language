@@ -1,4 +1,8 @@
+
+
 <!---  .  -->
+
+
 # Esy Docs
 
 ### Table of contents:
@@ -6,7 +10,12 @@
 2. [Installation](https://github.com/Slye-team/esy-language/tree/master/docs/02-installation)
 3. [CLI](https://github.com/Slye-team/esy-language/tree/master/docs/03-CLI)
 4. [Blocks](https://github.com/Slye-team/esy-language/tree/master/docs/04-blocks)
-<!-- 5. [~~Core API~~](https://github.com/Slye-team/esy-language/tree/master/docs/05-api) --><!---  ./01-introduction  -->
+<!-- 5. [~~Core API~~](https://github.com/Slye-team/esy-language/tree/master/docs/05-api) -->
+
+
+<!---  ./01-introduction  -->
+
+
 # Introduction
 **Esy** is a JavaScript preprocessor, which means it compiles `*.esy` files into `*.js`
 
@@ -36,7 +45,12 @@ which is more readable than the standard JavaScript code.
 > timeout is one of Esy's predefined blocks.
 
 ## Run example
-To run the example code just go to [chapter 2](../02-installation)<!---  ./02-installation  -->
+To run the example code just go to [chapter 2](../02-installation)
+
+
+<!---  ./02-installation  -->
+
+
 # Installation
 **Esy** is available as an NPM package, you can install it by running:
 ```bash
@@ -60,7 +74,12 @@ It'll print the result in your terminal, to save the output file, run:
 ```bash
 esy compile hello.esy -s [filename.js]
 ```
-If you don't pass the filename, it would be `hello.js` as default.<!---  ./03-CLI  -->
+If you don't pass the filename, it would be `hello.js` as default.
+
+
+<!---  ./03-CLI  -->
+
+
 # CLI
 **Esy** has a much easy to use command line interface (CLI) that you can manage your project with
 
@@ -72,6 +91,7 @@ If you don't pass the filename, it would be `hello.js` as default.<!---  ./03-CL
 4. [Build](./03-build.md)
 5. [Cache](./04-cache.md)
 6. [Modules](./05-modules.md)
+
 # CLI Options
 Along with specific options that exists for special commands (like: compile,cache,etc..), there are some `Global Options` that you can use in every scope of program.
 
@@ -89,7 +109,8 @@ Like `--help` option that shows you all possible options and commands.
 to store the project configs. (Default file is `esy.json`)
 
 **environments, -e**: Use this option to set set change `program's environments` just in run time.
-> To read more about `program's environments` visit the docs on `env block`# Compile
+> To read more about `program's environments` visit the docs on `env block`
+# Compile
 Let's start with the most useful command: `compile`
 
 Use this command to compile `Esy` files to JavaScript
@@ -119,7 +140,8 @@ Options:
 **--save, -s**: Use this option to save output to a file instead of terminal.
 
 **--tree, -t**: If turn this option on, It'll show you generated Esy `Structure Tree` in JSON format.
-> Note: -tree option won't work with multiple files# Config
+> Note: -tree option won't work with multiple files
+# Config
 Usage: `esy config <command> <key> [values..]`
 
 Basically `config` command is used to manage project's configurations, there are some operations you can do on configs like `set` a new value or `get` value of existing commands.
@@ -296,7 +318,8 @@ But what happens if we run this command on a non-array type, like `a` which is a
 Usage: `esy config lrem <key> <values..>`
 
 It's completely like `lpush` command but it removes a value from a list.
-> Read `lpush` section to find more about this command# Build
+> Read `lpush` section to find more about this command
+# Build
 > :warning: To understand this manual please read [this](../04-blocks/02-env.md) first.
 
 Imagine you're working on a web application, you have multiple builds, in this case you might have a JS version for `Electron` 
@@ -356,7 +379,8 @@ even you can enter name of more than one platform.
 ## Config: build_dest
 Default: `build`
 
-Directory you want to save your builds.# Cache
+Directory you want to save your builds.
+# Cache
 Usage: `esy cache <command>`
 
 Esy uses a cache system which saves the function returns into files in `cache directory`
@@ -386,7 +410,8 @@ Enable cache functionality.
 ## Status
 Usage: `esy cache status`
 
-Determine cache system status, `active` or `deactive`# Modules
+Determine cache system status, `active` or `deactive`
+# Modules
 Usage: `esy modules <command> [..]`
 
 Esy is completely modular even the main functionalities are defined to esy engine as modules.
@@ -409,7 +434,12 @@ List all active modules
 **--json, -j**: Just like config's `--json` option, prints output in JSON format.
 
 **--beauty, -b**: Print JSON data in human-readable mode.
-> Note: `--beauty` only works with `--json` option<!---  ./04-blocks  -->
+> Note: `--beauty` only works with `--json` option
+
+
+<!---  ./04-blocks  -->
+
+
 # Blocks
 Custom Blocks are main part of `Esy` and the reason of why something like `Esy` even exist.
 
@@ -423,7 +453,8 @@ till now we have these blocks:
 5. [Promise](./05-promise.md)
 6. [Readline](./06-readline.md)
 7. [ReadlineSync](./07-readlinesync.md)
-8. [Strict](./08-strict.md)# Timers
+8. [Strict](./08-strict.md)
+# Timers
 Syntax:
 ```esy
 (timeout|interval) [dely] [<pass1,pass2,..>] [(arg1,arg2,..)]{
@@ -455,7 +486,8 @@ vsr i   = interval 1000 <a.a, a.b> (a,b){
     console.log(a,b);
     clearInterval(i);
 }
-```# Env
+```
+# Env
 Syntax:
 ```esy
 env [names..]{
@@ -484,6 +516,7 @@ Even you can turn `test` env on by default:
 esy config lpush environment test
 esy compile a.esy -s 
 ```
+
 # Enc
 Syntax:
 ```esy
@@ -559,7 +592,8 @@ This is the output of following command:
  To change a config like `controlFlowFlattening` run this code:
  ```bash
  esy config set obfuscator.controlFlowFlattening true
- ```# Wait
+ ```
+# Wait
 Syntax:
 ```esy
 wait [for] sth(a,b,...) [as result]{
@@ -585,7 +619,8 @@ wait for sum(5,10){
 }
 ```
 Result:
-`Sum: 15`# Promise
+`Sum: 15`
+# Promise
 Syntax:
 ```esy
 promise function(a1,a2,...) [<resolve[,reject]>]{
@@ -613,7 +648,8 @@ promise sum(a,b) <resolve>{
 promise wrong(a,b) <resolve, reject>{
     reject("Test")
 }
-```# Readline
+```
+# Readline
 Syntax:
 ```esy
 readline <input>{
@@ -631,7 +667,8 @@ console.log("What is your name?")
 readline <name>{
     console.log(`Hello ${name}`)
 }
-```# ReadlineSync
+```
+# ReadlineSync
 Syntax
 ```esy
 readlinesync <input>;
@@ -646,7 +683,8 @@ console.log("What is your name?")
 readlinesync <name>;
 console.log(`Hello ${name}`)
 console.log("Bye")
-```# Strict
+```
+# Strict
 Syntax:
 ```
 strict{
