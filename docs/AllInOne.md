@@ -421,7 +421,8 @@ till now we have these blocks:
 3. [Enc](./03-enc.md)
 4. [Wait](./04-wait.md)
 5. [Promise](./05-promise.md)
-5. [Readline](./06-readline.md)# Timers
+6. [Readline](./06-readline.md)
+7. [ReadlineSync](./06-readlinesync.md)# Timers
 Syntax:
 ```esy
 (timeout|interval) [dely] [<pass1,pass2,..>] [(arg1,arg2,..)]{
@@ -629,4 +630,20 @@ console.log("What is your name?")
 readline <name>{
     console.log(`Hello ${name}`)
 }
+```# ReadlineSync
+Syntax
+```esy
+readlinesync <input>{
+    ...code
+}
+```
+`ReadlineSync` is used to read line from STDIN synchronously.
+
+## Example
+```esy
+console.log("What is your name?")
+readlinesync <name>{
+	console.log(`Hello ${name}`)
+}
+console.log("Bye")
 ```

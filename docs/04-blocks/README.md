@@ -9,4 +9,5 @@ till now we have these blocks:
 3. [Enc](./03-enc.md)
 4. [Wait](./04-wait.md)
 5. [Promise](./05-promise.md)
-5. [Readline](./06-readline.md)
+6. [Readline](./06-readline.md)
+7. [ReadlineSync](./06-readlinesync.md)

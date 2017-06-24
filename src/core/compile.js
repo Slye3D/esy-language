@@ -18,7 +18,7 @@ const Configs   = require('./config');
 const quotations= require('../libs/tree/quotations');
 const head      = require('./head');
 const isPunctuator  = require('../libs/characters/punctuator');
-
+global.calledCompile    = global.calledCompile || 1;
 Configs.def('beautify', {
 	"indent_size": 4,
 	"indent_char": " ",
@@ -43,6 +43,7 @@ Configs.def('beautify', {
 });
 
 function compile(tree) {
+	global.calledCompile++;
 	var e;
 	if(typeof tree !== 'object') {
 		e   = new EsyError('tree argument must be type of array');
@@ -79,7 +80,7 @@ function compile(tree) {
 			});
 			re  += code;
 			if(
-				isClose() && !re.endsWith(';') && !re.endsWith('}') && !re.endsWith(':') &&
+				isClose() && !re.endsWith(';') && !re.endsWith('\n') && !re.endsWith('}') && !re.endsWith(':') &&
 				offset !== tree.length - 1 &&
 				(!isPunctuator.endsWith(re) ||
 					(
@@ -134,7 +135,8 @@ function compile(tree) {
 			}
 		}
 		// Add file header
-		re = head.get() + '\n' + re;
+		if(global.calledCompile == 2)
+			re = head.get() + '\n' + re;
 		return re
 	});
 

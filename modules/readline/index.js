@@ -14,25 +14,28 @@
  * @param esy
  */
 function readline(esy){
-	esy.block(/^readline\s*<([$A-Z_][$A-Z_0-9]*)>$/ig, (matches, block) => {
-		var name        = matches[1];
+	esy.block(/^readline(sync)?\s*<([$A-Z_][$A-Z_0-9]*)>$/ig, (matches, block, parent, offset) => {
+		var isSync      = Boolean(matches[1]);
+		var name        = matches[2];
 		var callback    = esy.compile(block.body);
-		var header      = `
-const readline = require('readline');
-	`;
+		var syncCode    = '';
+		if(isSync && offset.index !== parent.length - 1){
+			syncCode        = '\n' + esy.compile(parent.slice(offset.index + 1, parent.length));
+			offset.index    = parent.length;
+		}
+		var header      = `const readline = require('readline');`;
 		esy.head('esy-readline-0.0.1', header);
 		var random  = Math.floor(Math.random() * 100);
-		var code    = `
+		return  `
 const rl${random} = readline.createInterface({
   input: process.stdin,
   output: process.stdout
 });
 rl${random}.on('line', (${name}) => {
   ${callback}
-  rl${random}.close();
+  rl${random}.close();${syncCode}
 });
 `;
-		return code;
 	});
 	return {
 		name    : "Esy Readline",
