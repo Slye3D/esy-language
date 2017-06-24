@@ -85,7 +85,9 @@ function Tree(code, first_call = true){
 					var body    = Tree(code.substring(offset + 1, e), false),
 						head_len= find(preCode),
 						head    = preCode.substr(preCode.length - head_len);
-					preCode = preCode.substr(0, preCode.length - head_len);
+					preCode = preCode.substr(0, preCode.length - head_len).trim();
+					if(preCode.endsWith('return'))
+						preCode += '~';
 					insert();
 					preCode = '';
 					re.push({

@@ -128,7 +128,7 @@ exports.handler = function (argv) {
 					return ask_files();
 				rl.question('Environments (separate with ",")::', (environments) => {
 					environments = split(environments);
-					esy.configs.set(`builds.${name}`, {
+					configs.set(`builds.${name}`, {
 						files: files,
 						environments: environments
 					});

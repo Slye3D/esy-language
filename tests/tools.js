@@ -102,7 +102,7 @@ function run(JsCode, time = 0){
 				re()
 			}, time)
 		}catch (e){
-			reject();
+			reject(e);
 		}
 	})
 }

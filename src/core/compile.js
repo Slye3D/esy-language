@@ -85,9 +85,12 @@ function compile(tree) {
 						re.endsWith('++') || re.endsWith(')') ||
 						re.endsWith('--') || re.endsWith(']')
 					)
-				)
+				) &&
+				!(code.endsWith('~'))
 			)
-				re += ';\n'
+				re += ';\n';
+			if(code.endsWith('~'))
+				re = re.substr(0, re.length - 1) + ' '
 		};
 		var parser;
 		for(; offset < tree.length;offset++){
