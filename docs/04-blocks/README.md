@@ -10,4 +10,5 @@ till now we have these blocks:
 4. [Wait](./04-wait.md)
 5. [Promise](./05-promise.md)
 6. [Readline](./06-readline.md)
-7. [ReadlineSync](./06-readlinesync.md)
+7. [ReadlineSync](./07-readlinesync.md)
+8. [Strict](./08-strict.md)

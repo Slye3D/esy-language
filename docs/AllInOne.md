@@ -422,7 +422,8 @@ till now we have these blocks:
 4. [Wait](./04-wait.md)
 5. [Promise](./05-promise.md)
 6. [Readline](./06-readline.md)
-7. [ReadlineSync](./06-readlinesync.md)# Timers
+7. [ReadlineSync](./07-readlinesync.md)
+8. [Strict](./08-strict.md)# Timers
 Syntax:
 ```esy
 (timeout|interval) [dely] [<pass1,pass2,..>] [(arg1,arg2,..)]{
@@ -645,4 +646,20 @@ console.log("What is your name?")
 readlinesync <name>;
 console.log(`Hello ${name}`)
 console.log("Bye")
+```# Strict
+Syntax:
 ```
+strict{
+    ...code
+}
+```
+Run codes in strict mode.
+
+##Example
+```esy
+strict{
+    with (Math){x = cos(2)}; // This will cause an error
+}
+
+```
+This will cause an error because the with statement is not allowed in strict mode
