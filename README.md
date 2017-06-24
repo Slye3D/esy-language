@@ -48,8 +48,7 @@ Esy
  # Blocks
  There are 3 types of blocks, `General Blocks`, `Angular Blocks` and `Redis Blocks`, maybe we support other things like `jQuery` in the future.
  
-    This project is not complete yet, we're working on the following abilities.
- ## General Blocks
+## General Blocks
  - [x] Timeout
  - [x] Interval
  - [x] Env

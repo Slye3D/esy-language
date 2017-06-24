@@ -16,6 +16,7 @@ const Cache     = require('./cache');
 const Beautify  = require('js-beautify').js_beautify;
 const Configs   = require('./config');
 const quotations= require('../libs/tree/quotations');
+const head      = require('./head');
 const isPunctuator  = require('../libs/characters/punctuator');
 
 Configs.def('beautify', {
@@ -132,6 +133,8 @@ function compile(tree) {
 				}
 			}
 		}
+		// Add file header
+		re = head.get() + '\n' + re;
 		return re
 	});
 
