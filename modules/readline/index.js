@@ -36,7 +36,7 @@ rl${random}.on('line', (${name}) => {
   rl${random}.close();${syncCode}
 });
 `;
-	});
+	}).keyword('readlinesync');
 	return {
 		name    : "Esy Readline",
 		version : "0.0.1",

@@ -16,6 +16,7 @@ const spaces    = require('./spaces');
 const quotations= require('./quotations');
 const AF        = require('./arrow_function');
 const OBL       = require('./one_line_blocks');
+const K2B       = require('./keywords2block');
 const EsyError  = require('../errors/esy_error');
 const Cache     = require('../../core/cache');
 
@@ -102,7 +103,7 @@ function Tree(code, first_call = true){
 		}
 		insert();
 		if(first_call)
-			re = OBL(re);
+			re = OBL(K2B(re));
 		return re;
 	});
 }

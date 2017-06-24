@@ -17,6 +17,7 @@ const EsyError  = require('../libs/errors/esy_error');
  */
 global.blocks   = global.blocks     || [];
 global.patterns = global.patterns   || [];
+global.blockKeys= global.blockKeys  || {};
 
 /**
  *
@@ -33,6 +34,13 @@ function add(esy){
 			throw new EsyError('Error adding new block parser, callback must be type of function');
 		global.patterns.push(pattern);
 		global.blocks.push(callback);
+		var re = {
+			keyword(keyword) {
+				global.blockKeys[keyword.toLowerCase()] = pattern;
+				return re;
+			}
+		};
+		return re;
 	}
 	Block['self'] = (pattern) => {
 		Block(pattern, (matches, block) => {
