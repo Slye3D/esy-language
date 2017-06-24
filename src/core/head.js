@@ -19,11 +19,13 @@ global.header   = global.header || {};
 exports.get = function(){
 	var re  = [];
 	// Convert object to array
-	for(var o of global.header){
-		re.push(o)
+	for(var k in global.header){
+		re.push(global.header[k])
 	}
 	// Sort it by second element (portion)
 	re.sort((a,b) => b[1] - a[1]);
+	// Just get strings
+	re = re.map(a => a[0]);
 	//Convert it to string
 	re  = re.join('\n');
 

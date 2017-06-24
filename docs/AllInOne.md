@@ -420,7 +420,8 @@ till now we have these blocks:
 2. [Env](./02-env.md)
 3. [Enc](./03-enc.md)
 4. [Wait](./04-wait.md)
-5. [Promise](./05-promise.md)# Timers
+5. [Promise](./05-promise.md)
+5. [Readline](./06-readline.md)# Timers
 Syntax:
 ```esy
 (timeout|interval) [dely] [<pass1,pass2,..>] [(arg1,arg2,..)]{
@@ -609,5 +610,23 @@ promise sum(a,b) <resolve>{
 }
 promise wrong(a,b) <resolve, reject>{
     reject("Test")
+}
+```# Readline
+Syntax:
+```esy
+readline <input>{
+    ...code
+}
+```
+Readline block is used when you want to read a line from STDIN.
+
+Esy uses default Node's readline module so this block is **NOT** working in `web browsers` and it's just Node.js compatible.
+
+## Example
+```esy
+console.log("What is your name?")
+// Read user's name from STDIN
+readline <name>{
+    console.log(`Hello ${name}`)
 }
 ```
