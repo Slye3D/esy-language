@@ -26,6 +26,7 @@ function encode(code){
 	var comment = '';
 	var open_comments   = 0;
 	var close_comments  = 0;
+	var olc             = false;    //olc: One Line Comment (//foo)
 	for(var offset = 0; offset < code.length; offset++){
 		var l = code[offset];
 		if(in_q){
@@ -42,18 +43,30 @@ function encode(code){
 				bs = false;
 			}
 		}else {
+			comment = (l == '/' && code[offset + 1] && code[offset + 1] == '*');
+			if(l == '/' && code[offset + 1] && code[offset + 1] == '/'){
+				comment = true;
+				olc = true;
+				open_comments++;
+			}
+			if(comment)
+				open_comments++;
+
+
+			if(l == '/' && code[offset - 1] && code[offset - 1] == '*')
+				close_comments++;
+			if(olc && (l == '\n' || l == '\r')){
+				close_comments++;
+				olc = false;
+			}
+
 			if(quotation_signs.indexOf(l) > -1){
-				comment = (l == '/' && code[offset + 1] && code[offset + 1] == '*');
-				if(comment)
-					open_comments++;
 				if(open_comments == close_comments){
 					// It's start of a quotation
 					start   = offset;
 					l_q     = l;
 					in_q    = true;
 				}
-				if(l == '/' && code[offset - 1] && code[offset - 1] == '*')
-					close_comments++;
 			}
 		}
 	}

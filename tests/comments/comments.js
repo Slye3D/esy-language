@@ -76,3 +76,17 @@ exports.$mixed  = function(assert) {
 		assert(false);
 	});
 };
+
+exports.$quotations = function (assert) {
+	var code    = `
+	var a = 5
+	// This is a comment containing ' 
+	console.log(a)
+	// '
+	`;
+	compare(code).then(re => {
+		assert(re)
+	}, () =>  {
+		assert(false);
+	});
+};
