@@ -45,77 +45,39 @@ Esy
   npm install esy-language --save
   ```
   
- # Blocks
- There are 3 types of blocks, `General Blocks`, `Angular Blocks` and `Redis Blocks`, maybe we support other things like `jQuery` in the future.
- 
-## General Blocks
- - [x] Timeout
- - [x] Interval
- - [x] Env
- - [x] Encrypt
- - [x] Wait [for] sth() as [(data)]{...}error{...}
- - [x] Promise sth(a1,a2,...)[(resolve, reject)]{....}
- - [ ] Cache [lifetime] sth(a1,a2,...){...}[key{...}]
- - [ ] Class
- - [ ] Block
- - [ ] Doc
- - [ ] Todo
- - [ ] Test
- 
- ## Angular Blocks
- - [ ] Directive
- - [ ] Controller
- - [ ] $Timeout
- - [ ] $Interval
- ## Redis blocks
- - [ ] Redis [command]\(...args) [(re)]{...} [error [(err)]{...}]
-
- # CLI
- Esy has a simple command line interface you can use to compile your code from `.esy` to `.js`, the `esy` command will be available on your system as you install this package globally with `npm`, read the [install](#install) part for more detail.
- 
- List of all commands:
- - [x] esy cache dir
- - [x] esy cache clean
- - [x] esy cache status
- - [x] esy cache disable
- - [x] esy cache enable
- - [x] esy config get \<key>
- - [x] esy config set \<key> \<value>
- - [x] esy config lpush \<key> \<values..>
- - [x] esy config lrem \<key> \<values..>
- - [x] esy compile \<file>
- - [x] esy build [env]
- - [ ] esy todo [owner]
- - [ ] esy docs [env]
- - [ ] esy test
- - [x] esy modules list
- - [x] esy modules install \<name>
- - [x] esy modules uninstall \<name>
-
-Use `--config` option to set path of `esy.json` file manually.
-
-and you can use `--help` option to get help about a command,
-```
-   _____ __              ______
-  / ___// /_  _____     / ____/______  __
-  \__ \/ / / / / _ \   / __/ / ___/ / / /
- ___/ / / /_/ /  __/  / /___(__  ) /_/ /
-/____/_/\__, /\___/  /_____/____/\__, /
-       /____/                   /____/
-Esy is a new JS preprocessor allows you to use custom block structures.
-
-Commands:
-  build [platforms..]  Compile files from build configs
-  cache <command>      Mange cache storage
-  compile <files..>    Compile Esy file to JavaScript
-  config <command>     Manage config values
-  modules <command>    Manage Esy modules
-
-Options:
-  --help              Show help                                        [boolean]
-  --config, -c        config.json src             [string] [default: "esy.json"]
-  --environments, -e  Set project's environments                         [array]
-
-for more information, find our manual at:
-    https://github.com/Slye-team/esy-language
-```
+  # Example
+  After installing the `Esy`, save this file as `ex.esy`
+  ```esy
+  // Cache sum for 500ms
+  cache 500 sum(a,b){
+  	console.log('Computing...');
+  	return a+b;
+  } key (c,d){
+  	// We don't care about numbers order in sum function (a+b=b+a)
+  	return [c, d].sort();
+  }
+  
+  // Compute 5+7 once
+  console.log(sum(5,7))
+  
+  // Load theme from cache without computing
+  console.log(sum(5,7))
+  console.log(sum(7,5))
+  
+  // Wait 100ms more than cache's lifetime.
+  timeout 600{
+  	// It should compute 5+7 again
+  	console.log(sum(7,5))
+  }
+  ```
+  and then cd to the directory that your file is and run this command to run program:
+  ```
+  esy ex.esy
+  ```
+  for saving result to a file run:
+  ```
+  esy compile ex.esy -s
+  ```
+  
+  # Docs
+  Read [official docs](https://github.com/Slye-team/esy-language/tree/master/docs) for more details.

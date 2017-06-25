@@ -23,9 +23,15 @@ Options:
   --environments, -e  Set project's environments                         [array]
   --save, -s          Save file in same directory               [default: false]
   --tree, -t          Just print parsed code tree               [default: false]
+  --min, -m           Minify output                             [default: false]
+  --watch, -w         Run program in watch mode                 [default: false]
 
 ```
 **--save, -s**: Use this option to save output to a file instead of terminal.
 
 **--tree, -t**: If turn this option on, It'll show you generated Esy `Structure Tree` in JSON format.
 > Note: -tree option won't work with multiple files
+
+**--min, -m**: Minify output using `uglify-es`
+
+**--watch, -w**: Run compiler in watch mode.
