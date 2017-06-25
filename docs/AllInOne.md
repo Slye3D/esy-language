@@ -455,6 +455,7 @@ till now we have these blocks:
 7. [ReadlineSync](./07-readlinesync.md)
 8. [Strict](./08-strict.md)
 9. [Cache](./09-cache.md)
+10. [Extract](./10-extract.md)
 # Timers
 Syntax:
 ```esy
@@ -747,4 +748,57 @@ Computing...
 12
 Computing...
 12
+```
+# Extract
+syntax:
+```
+extract object{
+    ...code
+}
+```
+Extract do the same thing that the With block do, but there is 2 difference:
+ 1. It's cross-browser
+    
+    You can run generated code where ever you want. 
+    
+ 2. You can use it in `strict mode`
+ 
+ ## Example
+ ```esy
+ extract Math{
+ 	console.log(PI)
+ }
+ ```
+
+# Foreach
+Syntax:
+```
+foreach(obj|array as [key:]value){
+    ...code
+}
+```
+The idea behind this block comes from PHP's foreach block, and its syntax is completely like PHP.
+
+> Tip: like the For block, Foreach supports one line without the braces. (Look at first example)
+## Examples
+1)
+```esy
+ages = {ali:5, john:20, 'qti3e': 16}
+foreach(a as name:age)
+	console.log(name, ' is ', age, ' years old);
+```
+
+2)
+```esy
+a = [5,7]
+foreach(a as k:v){
+	console.log(k,v)
+}
+```
+3)
+```esy
+a = [5,7,8]
+foreach(a as v){
+	console.log(v * 5)
+}
 ```

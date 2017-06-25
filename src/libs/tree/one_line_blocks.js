@@ -10,7 +10,7 @@
  */
 
 function one_line_blocks(tree){
-	const keys  =   ['if', 'else', 'for'];
+	const keys  =   ['if', 'else', 'for', 'foreach'];
 	const len   = keys.length;
 	var offset, k;
 	for(offset = tree.length - 1;offset >= 0;offset--){
