@@ -17,6 +17,7 @@ const vm    = require('vm');
  */
 function compile(code) {
 	var esy     = require('../src/index');
+	esy.configs.load();
 	esy.configs.run('cache.active', false);
 	var tree    = esy.tree(code);
 	return esy.compile(tree);

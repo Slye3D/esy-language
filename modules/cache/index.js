@@ -14,7 +14,7 @@
  * @param esy
  */
 function cache(esy) {
-	var cache_pattern   = /^cache\s+(?:(.+)\s+)?([$A-Z_][$A-Z_0-9]*)?\s*\(((?:(?:\s*[$A-Z_][$A-Z_0-9]*\s*)(?:,(?=\s*[$A-Z_]+))?)+)?\)$/ig;
+	var cache_pattern   = /^cache\s+(?:(\d+)\s+)?([$A-Z_][$A-Z_0-9]*)?\s*\(((?:(?:\s*[$A-Z_][$A-Z_0-9]*\s*)(?:,(?=\s*[$A-Z_]+))?)+)?\)$/ig;
 	var key_pattern     = /^key\s*(?:\(((?:(?:\s*[$A-Z_][$A-Z_0-9]*\s*)(?:,(?=\s*[$A-Z_]+))?)+)?\)\s*)?$/ig;
 	esy.block.self(key_pattern);
 	esy.block(cache_pattern, (matches, block, parent, offset) => {

@@ -1,0 +1,10 @@
+{
+    "environment": [
+        "test",
+        "t2"
+    ],
+    "foo": "bar",
+    "cache": {
+        "active": false
+    }
+}

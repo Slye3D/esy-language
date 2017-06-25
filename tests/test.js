@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 /**
  *    _____ __
  *   / ___// /_  _____
@@ -35,12 +36,15 @@ var queue   = [],
 	passed  = 0;
 function test() {
 	if(i == queue.length) {
-		_console.log('_____________________'.gray, `\nResult:`);
+		_console.log('_'.repeat(59).gray);
+		var m;
 		if(failed == 0){
-			_console.log(`${checkmark} All tests passed.`.green)
+			m = `${checkmark} All tests passed.`;
+			_console.log(' '.repeat(Math.floor((59 - m.length) / 2)), m.green);
 			process.exit();
 		}else {
-			_console.log(`${xmark} ${failed} test${failed == 1 ? '' : 's'} failed.`.red)
+			m = `${xmark} ${failed} test${failed == 1 ? '' : 's'} failed.`;
+			_console.log(' '.repeat(Math.floor((59 - m.length) / 2)), m.red);
 			process.exit(1);
 		}
 		return;
@@ -58,12 +62,15 @@ function test() {
 			return;
 		called  = true;
 		clearTimeout(timeout);
+		var s = '0'.repeat(queue.length.toString().length - (i+1).toString().length);
+		var m = `Test #${s}${i + 1} <${name}> `;
+		m += (' '.repeat(50 - m.length));
 		if(result){
 			passed++;
-			_console.log(`${checkmark}Test #${i}<${name}> passed.`.cyan)
+			_console.log(m + `${checkmark} passed`.cyan)
 		}else {
 			failed++;
-			_console.error(`${xmark}Test #${i}<${name}> failed.${timeout ? ' (timeout)' : ''}`.red)
+			_console.log(m + `${xmark} failed${timeout ? ' (timeout)' : ''}`.red)
 		}
 		i++;
 		test();
@@ -85,7 +92,7 @@ glob('*/*.js', {cwd: __dirname}, function (err, files) {
 				var keys = Object.keys(tests).filter(name => name.startsWith('$'));
 				for(var j = 0; j < keys.length;j++) {
 					name = keys[j];
-					names.push(file + ':' + name);
+					names.push(file.substr(0, file.lastIndexOf('.')) + ':' + name.substr(1));
 					if(tests.hasOwnProperty(name))
 						queue.push(tests[name])
 				}

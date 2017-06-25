@@ -17,7 +17,7 @@
 function promise(esy){
 	const promise   = /^promise\s*([$A-Z_][$A-Z_0-9]*)?\s*\(((?:(?:\s*[$A-Z_][$A-Z_0-9]*\s*)(?:,(?=\s*[$A-Z_]+))?)+)?\)\s*(?:<([$A-Z_][$A-Z_0-9]*)(?:\s*,\s*([$A-Z_][$A-Z_0-9]*))?>)?$/ig;
 	const wait      = /^wait\s+(?:for\s+)?(.+?)(?:\s*as\s*([$_A-Z][$_A-Z0-9]*))?$/ig;
-	const error     = /^(?:error|catch)(?:\s+\(([$_A-Z][$_A-Z]*)\))?$/ig;
+	const error     = /^(?:error|catch)(?:\s*\(([$_A-Z][$_A-Z]*)\))?$/ig;
 	esy.block.self(error);
 	/**
 	 * Promise Block
@@ -40,7 +40,7 @@ function promise(esy){
 	 * Wait [for] block
 	 */
 	esy.block(wait, (matches, block, parent, offset) => {
-		var func    = matches[1];
+		var func    = matches[1].substr(0, matches[1].lastIndexOf(';') > -1 ? matches[1].lastIndexOf(';') : matches[1].length);
 		var result  = matches[2] || 'result';
 		var body    = esy.compile(block.body);
 
@@ -71,7 +71,7 @@ function promise(esy){
 	});
 	return {
 		name    : "Esy Promise",
-		version : "0.0.2",
+		version : "0.0.3",
 		author  : "Slye Development Team"
 	};
 }
