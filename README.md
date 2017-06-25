@@ -81,3 +81,11 @@ Esy
   
   # Docs
   Read [official docs](https://github.com/Slye-team/esy-language/tree/master/docs) for more details.
+  
+  # Run tests
+  To run tests just run:
+  ```bash
+  git clone https://github.com/Slye-team/esy-language.git
+  cd esy-language/tests
+  node test.js
+  ```
