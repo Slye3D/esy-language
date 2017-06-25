@@ -10,11 +10,7 @@
  *       Licence: MIT License
  */
 
-var names   = [];
-for(var name in global){
-	names.push(name)
-}
-global.sandbox_names = names;
+global.sandbox_names = Object.keys(global);
 
 pe = require('pretty-error').start();
 const head = 

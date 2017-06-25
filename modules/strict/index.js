@@ -18,12 +18,12 @@ function strict(esy){
 	/**
 	 * strict{...code}
 	 */
-	esy.block(/^strict\s*$/ig, (matches, block) => {
+	esy.block(/^strict$/ig, (matches, block) => {
 		var code = esy.compile(block.body);
 		return `(function(){
 		"use strict";
 		${code}
-		)();`
+		})();`
 	});
 	return {
 		name    : "Esy Strict",
