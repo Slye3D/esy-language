@@ -12,3 +12,4 @@ till now we have these blocks:
 6. [Readline](./06-readline.md)
 7. [ReadlineSync](./07-readlinesync.md)
 8. [Strict](./08-strict.md)
+9. [Cache](./09-cache.md)

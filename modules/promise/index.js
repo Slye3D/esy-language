@@ -18,6 +18,7 @@ function promise(esy){
 	const promise   = /^promise\s*([$A-Z_][$A-Z_0-9]*)?\s*\(((?:(?:\s*[$A-Z_][$A-Z_0-9]*\s*)(?:,(?=\s*[$A-Z_]+))?)+)?\)\s*(?:<([$A-Z_][$A-Z_0-9]*)(?:\s*,\s*([$A-Z_][$A-Z_0-9]*))?>)?$/ig;
 	const wait      = /^wait\s+(?:for\s+)?(.+?)(?:\s*as\s*([$_A-Z][$_A-Z0-9]*))?$/ig;
 	const error     = /^(?:error|catch)(?:\s+\(([$_A-Z][$_A-Z]*)\))?$/ig;
+	esy.block.self(error);
 	/**
 	 * Promise Block
 	 */
@@ -70,7 +71,7 @@ function promise(esy){
 	});
 	return {
 		name    : "Esy Promise",
-		version : "0.0.1",
+		version : "0.0.2",
 		author  : "Slye Development Team"
 	};
 }
