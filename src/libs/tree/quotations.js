@@ -43,7 +43,7 @@ function encode(code){
 				bs = false;
 			}
 		}else {
-			comment = (l == '/' && code[offset + 1] && code[offset + 1] == '*');
+			comment = (l == '/' && code[offset + 1] && code[offset + 1] == '*') && !olc;
 			if(l == '/' && code[offset + 1] && code[offset + 1] == '/'){
 				comment = true;
 				olc = true;
@@ -53,20 +53,21 @@ function encode(code){
 				open_comments++;
 
 
-			if(l == '/' && code[offset - 1] && code[offset - 1] == '*')
-				close_comments++;
-			if(olc && (l == '\n' || l == '\r')){
-				close_comments++;
-				olc = false;
+			if(open_comments !== close_comments){
+				if(!olc && l == '/' && code[offset - 1] && code[offset - 1] == '*') {
+					close_comments++;
+				}
+				if(olc && (l == '\n' || l == '\r')){
+					close_comments++;
+					olc = false;
+				}
 			}
 
-			if(quotation_signs.indexOf(l) > -1){
-				if(open_comments == close_comments){
-					// It's start of a quotation
-					start   = offset;
-					l_q     = l;
-					in_q    = true;
-				}
+			if(open_comments == close_comments && quotation_signs.indexOf(l) > -1) {
+				// It's start of a quotation
+				start = offset;
+				l_q = l;
+				in_q = true;
 			}
 		}
 	}

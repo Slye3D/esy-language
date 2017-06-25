@@ -90,3 +90,77 @@ exports.$quotations = function (assert) {
 		assert(false);
 	});
 };
+
+exports.$quotations2 = function (assert) {
+	var code    = `
+	var a = 5
+	/* This is a comment containing ' */ 
+	console.log(a)
+	/* ' */
+	`;
+	compare(code).then(re => {
+		assert(re)
+	}, () =>  {
+		assert(false);
+	});
+};
+
+exports.$quotations3 = function (assert) {
+	var code    = `
+	var a = 5
+	/* This is a comment containing ' */ 
+	console.log(a)
+	// '
+	`;
+	compare(code).then(re => {
+		assert(re)
+	}, () =>  {
+		assert(false);
+	});
+};
+
+exports.$quotations4 = function (assert) {
+	var code    = `
+	var a = 5
+	// This is a comment containing ' 
+	console.log(a)
+	/* ' */
+	`;
+	compare(code).then(re => {
+		assert(re)
+	}, () =>  {
+		assert(false);
+	});
+};
+
+exports.$quotations5 = function (assert) {
+	var code    = `
+	var a = 5
+	// This is a comment containing ' */
+	console.log(a)
+	/* ' */
+	`;
+	compare(code).then(re => {
+		assert(re)
+	}, () =>  {
+		assert(false);
+	});
+};
+
+exports.$quotations6 = function (assert) {
+	var code    = `
+	var a = 5,
+		b = 7
+	// This is a comment containing ' */
+	console.log(a)
+	/* ' // test */
+	console.log(b)
+	// Test
+	console.log(a+b)
+	`;
+	compare(code).then(re => {
+		assert(re)
+	}, () =>  {
+		assert(false);
+	});
+};

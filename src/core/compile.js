@@ -102,7 +102,7 @@ function compile(tree) {
 				if(isComment(code.trim())){
 					code = code.trim()
 					if(code[1] == '/'){
-						re += '/*'+code.substr(2)+'*/\n'
+						re += '/*'+code.substr(2).replace('*/', '*\\/')+'*/\n'
 					}else {
 						re += code + '\n';
 					}
