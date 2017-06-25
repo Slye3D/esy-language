@@ -15,5 +15,5 @@ exports.builder = function (yargs) {
 };
 exports.handler = function (argv) {
 	var esy = require('../../loader')(argv);
-	console.log(esy.cache.status() ? 'active' : 'deactive');
+	console.log(esy.cache.status() ? 'enable' : 'disable');
 };

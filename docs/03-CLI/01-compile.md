@@ -6,7 +6,7 @@ Use this command to compile `Esy` files to JavaScript
 ## Usage
 `esy compile [files..]`
 
-This command gives name of some Esy files and convert them to JavaScript, by default it shows output in Terminal.
+This command takes the name of some Esy files and converts them to JavaScript, by default it shows output in Terminal.
 
 Example: 
 ```
@@ -27,7 +27,7 @@ Options:
   --watch, -w         Run program in watch mode                 [default: false]
 
 ```
-**--save, -s**: Use this option to save output to a file instead of terminal.
+**--save, -s**: Use this option to save the output to a file instead of STDOUT.
 
 **--tree, -t**: If turn this option on, It'll show you generated Esy `Structure Tree` in JSON format.
 > Note: -tree option won't work with multiple files

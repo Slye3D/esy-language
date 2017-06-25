@@ -28,4 +28,4 @@ Enable cache functionality.
 ## Status
 Usage: `esy cache status`
 
-Determine cache system status, `active` or `deactive`
+Determine cache system status, `enable` or `disable`

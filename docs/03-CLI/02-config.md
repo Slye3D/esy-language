@@ -1,7 +1,8 @@
 # Config
 Usage: `esy config <command> <key> [values..]`
 
-Basically `config` command is used to manage project's configurations, there are some operations you can do on configs like `set` a new value or `get` value of existing commands.
+Basically, `config` command is used to manage project's configurations, there are some operations you can do on configs 
+like `set` a new value or `get` the value of existing commands.
 
 Let's see these operations in detail.
 
@@ -120,7 +121,7 @@ Result:
 ```
 Now every thing is fine!
 > Note: if you compare the sample file and the outputs you see a lot of differences, 
-that's because `Esy` use a lot of configurations by default.
+that's because `Esy` uses a lot of configurations by default.
 
 ## lpush
 Usage: `esy config lpush <key> [values..]`
@@ -174,5 +175,5 @@ But what happens if we run this command on a non-array type, like `a` which is a
 ## lrem
 Usage: `esy config lrem <key> <values..>`
 
-It's completely like `lpush` command but it removes a value from a list.
+It's completely like the `lpush` command but it removes a value from a list.
 > Read `lpush` section to find more about this command

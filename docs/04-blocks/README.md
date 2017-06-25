@@ -1,5 +1,5 @@
 # Blocks
-Custom Blocks are main part of `Esy` and the reason of why something like `Esy` even exist.
+Custom Blocks are main part of `Esy` and the reason of why something like `Esy` even exists.
 
 There are many blocks we want to make ([see this](https://github.com/Slye-team/esy-language/blob/master/README.md)), but 
 till now we have these blocks:

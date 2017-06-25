@@ -22,7 +22,7 @@ interval 1000 <a.a, a.b> (a,b){
 ```
 
 ## Variable assignment
-To clear a timeout/interval event you can assign it to variable and use one of `clearInterval` or `clearTimeout` functions.
+To clear a timeout/interval event you can assign it to variable and use one of the `clearInterval` or `clearTimeout` functions.
 ### Example
 ```esy
 var a   = {a:"Hello",b:"World!"};

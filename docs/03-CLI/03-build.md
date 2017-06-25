@@ -1,10 +1,10 @@
 # Build
 > :warning: To understand this manual please read [this](../04-blocks/02-env.md) first.
 
-Imagine you're working on a web application, you have multiple builds, in this case you might have a JS version for `Electron` 
+Imagine you're working on a web application, you have multiple builds, in this case, you might have a JS version for `Electron` 
 and one JS code for your online app.
 
-In this case you can easily use `env` block in your code like this:
+In this case, you can easily use `env` block in your code like this:
 ```esy
 env electron{
     var fs  = require('fs')
@@ -23,9 +23,9 @@ esy compile index.esy -e "electron" -s electron.js
 ```
 
 But what happens when your project starts becoming too big with so many included files and different platforms and environments?
-In this case you can use `Esy One Step Build` to solve the problem
+In this case, you can use `Esy One Step Build` to solve the problem
 
-By now each build has a :
+By now each build has a:
 1. Unique Name
 2. List of included files
 3. List of environments
@@ -40,7 +40,7 @@ Tips:
 ## Add new build
 Command: `esy build --add`
 
-Run that command to add a new config, the program will asks you some questions and it'll generate the configuration it self.
+Run that command to add a new config, the program will ask you some questions and it'll generate the configuration itself.
 
 ## Build
 Usage: `esy build [platforms..]`
@@ -58,4 +58,4 @@ even you can enter name of more than one platform.
 ## Config: build_dest
 Default: `build`
 
-Directory you want to save your builds.
+The directory you want to save your builds.
