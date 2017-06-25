@@ -18,7 +18,8 @@ const Configs   = require('./config');
 const quotations= require('../libs/tree/quotations');
 const head      = require('./head');
 const isPunctuator  = require('../libs/characters/punctuator');
-global.calledCompile    = global.calledCompile || 1;
+global.calledCompile    = global.calledCompile || 0;
+global.calledCompileEnd = global.calledCompileEnd || 0;
 Configs.def('beautify', {
 	"indent_size": 4,
 	"indent_char": " ",
@@ -43,7 +44,6 @@ Configs.def('beautify', {
 });
 
 function compile(tree) {
-	var cc = global.calledCompile;
 	global.calledCompile++;
 	var e;
 	if(typeof tree !== 'object') {
@@ -135,11 +135,15 @@ function compile(tree) {
 				}
 			}
 		}
-		// Add file header
-		if(cc == 1)
-			re = head.get() + '\n' + re;
 		return re
 	});
+
+	// Add file header
+	if(global.calledCompile - 1== global.calledCompileEnd){
+		re = head.get() + '\n' + re;
+		head.clean();
+	}
+	global.calledCompileEnd++;
 
 	return Cache.cache('beautify', [re, Configs.get('beautify')], () => {
 		return Beautify(re, Configs.get('beautify'))

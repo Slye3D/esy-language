@@ -41,3 +41,10 @@ exports.get = function(){
 exports.add = function(uuid, code, position = 1){
 	global.header[uuid] = [code, position];
 };
+
+/**
+ * Clear headers
+ */
+exports.clean   = function(){
+	global.header   = {};
+};
