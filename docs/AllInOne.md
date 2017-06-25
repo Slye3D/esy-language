@@ -84,16 +84,23 @@ If you don't pass the filename, it would be `hello.js` as default.
 **Esy** has a much easy to use command line interface (CLI) that you can manage your project with
 
 ## Basics
-1. [Options](./00-options.md)
-2. [Compile](./01-compile.md)
-3. [Config](./02-config.md)
+1. [Run](./01-run.md)
+2. [Options](./02-options.md)
+3. [Compile](./03-compile.md)
+4. [Config](./04-config.md)
 ## Advanced
-4. [Build](./03-build.md)
-5. [Cache](./04-cache.md)
-6. [Modules](./05-modules.md)
+5. [Build](./05-build.md)
+6. [Cache](./06-cache.md)
+7. [Modules](./07-modules.md)
 
+# Run
+usage: `esy filename`
+
+Run command is the simplest command in Esy CLI and probably most useful command.
+
+This command takes a filename and runs it without saving file out show you compiled code.
 # CLI Options
-Along with specific options that exists for special commands (like: compile,cache,etc..), there are some `Global Options` that you can use in every scope of program.
+Along with specific options that exist for special commands (like compile, cache, etc..), there are some `Global Options` that you can use in every scope of the program.
 
 Like `--help` option that shows you all possible options and commands.
 
@@ -108,7 +115,7 @@ Like `--help` option that shows you all possible options and commands.
 **--config, -c**: Set path of Esy `Config file`, like many other programs Esy makes a configuration file in your project's directory
 to store the project configs. (Default file is `esy.json`)
 
-**environments, -e**: Use this option to set set change `program's environments` just in run time.
+**environments, -e**: Use this option to change `program's environments` just in run time.
 > To read more about `program's environments` visit the docs on `env block`
 # Compile
 Let's start with the most useful command: `compile`
@@ -118,7 +125,7 @@ Use this command to compile `Esy` files to JavaScript
 ## Usage
 `esy compile [files..]`
 
-This command gives name of some Esy files and convert them to JavaScript, by default it shows output in Terminal.
+This command takes the name of some Esy files and converts them to JavaScript, by default it shows output in Terminal.
 
 Example: 
 ```
@@ -139,7 +146,7 @@ Options:
   --watch, -w         Run program in watch mode                 [default: false]
 
 ```
-**--save, -s**: Use this option to save output to a file instead of terminal.
+**--save, -s**: Use this option to save the output to a file instead of STDOUT.
 
 **--tree, -t**: If turn this option on, It'll show you generated Esy `Structure Tree` in JSON format.
 > Note: -tree option won't work with multiple files
@@ -150,7 +157,8 @@ Options:
 # Config
 Usage: `esy config <command> <key> [values..]`
 
-Basically `config` command is used to manage project's configurations, there are some operations you can do on configs like `set` a new value or `get` value of existing commands.
+Basically, `config` command is used to manage project's configurations, there are some operations you can do on configs 
+like `set` a new value or `get` the value of existing commands.
 
 Let's see these operations in detail.
 
@@ -269,7 +277,7 @@ Result:
 ```
 Now every thing is fine!
 > Note: if you compare the sample file and the outputs you see a lot of differences, 
-that's because `Esy` use a lot of configurations by default.
+that's because `Esy` uses a lot of configurations by default.
 
 ## lpush
 Usage: `esy config lpush <key> [values..]`
@@ -323,15 +331,15 @@ But what happens if we run this command on a non-array type, like `a` which is a
 ## lrem
 Usage: `esy config lrem <key> <values..>`
 
-It's completely like `lpush` command but it removes a value from a list.
+It's completely like the `lpush` command but it removes a value from a list.
 > Read `lpush` section to find more about this command
 # Build
 > :warning: To understand this manual please read [this](../04-blocks/02-env.md) first.
 
-Imagine you're working on a web application, you have multiple builds, in this case you might have a JS version for `Electron` 
+Imagine you're working on a web application, you have multiple builds, in this case, you might have a JS version for `Electron` 
 and one JS code for your online app.
 
-In this case you can easily use `env` block in your code like this:
+In this case, you can easily use `env` block in your code like this:
 ```esy
 env electron{
     var fs  = require('fs')
@@ -350,9 +358,9 @@ esy compile index.esy -e "electron" -s electron.js
 ```
 
 But what happens when your project starts becoming too big with so many included files and different platforms and environments?
-In this case you can use `Esy One Step Build` to solve the problem
+In this case, you can use `Esy One Step Build` to solve the problem
 
-By now each build has a :
+By now each build has a:
 1. Unique Name
 2. List of included files
 3. List of environments
@@ -367,7 +375,7 @@ Tips:
 ## Add new build
 Command: `esy build --add`
 
-Run that command to add a new config, the program will asks you some questions and it'll generate the configuration it self.
+Run that command to add a new config, the program will ask you some questions and it'll generate the configuration itself.
 
 ## Build
 Usage: `esy build [platforms..]`
@@ -385,7 +393,7 @@ even you can enter name of more than one platform.
 ## Config: build_dest
 Default: `build`
 
-Directory you want to save your builds.
+The directory you want to save your builds.
 # Cache
 Usage: `esy cache <command>`
 
@@ -416,7 +424,7 @@ Enable cache functionality.
 ## Status
 Usage: `esy cache status`
 
-Determine cache system status, `active` or `deactive`
+Determine cache system status, `enable` or `disable`
 # Modules
 Usage: `esy modules <command> [..]`
 
@@ -447,7 +455,7 @@ List all active modules
 
 
 # Blocks
-Custom Blocks are main part of `Esy` and the reason of why something like `Esy` even exist.
+Custom Blocks are main part of `Esy` and the reason of why something like `Esy` even exists.
 
 There are many blocks we want to make ([see this](https://github.com/Slye-team/esy-language/blob/master/README.md)), but 
 till now we have these blocks:
@@ -486,7 +494,7 @@ interval 1000 <a.a, a.b> (a,b){
 ```
 
 ## Variable assignment
-To clear a timeout/interval event you can assign it to variable and use one of `clearInterval` or `clearTimeout` functions.
+To clear a timeout/interval event you can assign it to variable and use one of the `clearInterval` or `clearTimeout` functions.
 ### Example
 ```esy
 var a   = {a:"Hello",b:"World!"};
