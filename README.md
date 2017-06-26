@@ -1,6 +1,7 @@
 Esy
 --------------
-    Esy is a new JS preprocessor allows you to use custom block structures.
+Esy is a new JS preprocessor allows you to use custom block structures.
+
 # What does it mean?
  Right now in JavaScript and many other languages that support the [block structure](https://en.wikipedia.org/wiki/Scope_(computer_science)#Block_scope), you're only able to use some predefined structures like:
  
@@ -35,7 +36,7 @@ Esy
  ```
  That why `Esy` comes from `Easy`
  
- # Install
+# Install
   You can install this package globally by running:
   ```bash
   npm install esy-language -g
@@ -45,7 +46,7 @@ Esy
   npm install esy-language --save
   ```
   
-  # Example
+# Example
   After installing the `Esy`, save this file as `ex.esy`
   ```esy
   // Cache sum for 500ms
@@ -79,10 +80,10 @@ Esy
   esy compile ex.esy -s
   ```
   
-  # Docs
+# Docs
   Read [official docs](https://github.com/Slye-team/esy-language/tree/master/docs) for more details.
   
-  # Run tests
+# Run tests
   To run tests just run:
   ```bash
   git clone https://github.com/Slye-team/esy-language.git
