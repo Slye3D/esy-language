@@ -24,7 +24,8 @@ function run(code) {
 		else
 			sandbox[name]   = sandbox
 	}
-	sandbox['require']  = require
+	sandbox['require']  = require;
+	sandbox['module']   = module;
 	script.runInNewContext(sandbox);
 }
 

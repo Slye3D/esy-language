@@ -9,7 +9,7 @@
  *       Licence: MIT License
  */
 
-var punctuators = "{ ( ) [ ] . ... ; , < > <= >= == != === !== + ‐ * % ++ ‐‐ << >> >>> & | ^ ! ~ && || ? : = += ‐= *= %= <<= >>= >>>= &= |= ^= => ** **= / /= }".split(' ');
+var punctuators = "{ ( ) [ ] . ... ; , < > <= >= == != === !== + ‐ - * % ++ ‐‐ << >> >>> & | ^ ! ~ && || ? : = += ‐= *= %= <<= >>= >>>= &= |= ^= => ** **= / /= }".split(' ');
 punctuators = punctuators.map(c => c.trim());
 punctuators.sort((a,b) => {
 	return b.length - a.length;

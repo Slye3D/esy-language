@@ -118,14 +118,18 @@ function run(JsCode, time = 0){
 function compare(EsyCode, js, pendingTime = 0){
 	js      = js || EsyCode;
 	EsyCode = compile(EsyCode);
-	return new Promise((resolve, reject) => {
+	var debug   = false;
+	var re = new Promise((resolve, reject) => {
 		var sandbox1 = {}, sandbox2 = {},
 			pending = 2;
 		run(EsyCode, pendingTime).then(re => {
 			sandbox1 = re;
 			pending--;
-			if(pending == 0)
+			if(pending == 0) {
+				if(debug)
+					log(sandbox1, ',',sandbox2);
 				resolve(JSON.stringify(sandbox1) == JSON.stringify(sandbox2))
+			}
 		}, err => {
 			reject(err)
 		});
@@ -133,12 +137,19 @@ function compare(EsyCode, js, pendingTime = 0){
 		run(js, pendingTime).then(re => {
 			sandbox2 = re;
 			pending--;
-			if(pending == 0)
+			if(pending == 0) {
+				if(debug)
+					log(sandbox1, ',', sandbox2);
 				resolve(JSON.stringify(sandbox1) == JSON.stringify(sandbox2))
-		}, err => {
+			}		}, err => {
 			reject(err);
 		});
-	})
+	});
+	re.debug = function () {
+		debug = true;
+		return re;
+	};
+	return re;
 }
 
 module.exports.compile  = compile;
