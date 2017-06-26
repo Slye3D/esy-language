@@ -19,22 +19,22 @@ function load(argv) {
 	esy.cache.load();
 
 	// Load all extra modules that starts with esy-
-	var dependencies = [];
-	try{
-		var stdout = require('child_process').execSync('npm ls --json');
-		dependencies = Object.keys((JSON.parse(stdout))['dependencies']);
-	} catch (e){
-		console.error(`Can not load list of modules.`)
-	}finally {
-		dependencies = dependencies.filter(n => n !== 'esy-language' && n.startsWith('esy-'))
-		for (var dependency of dependencies) {
-			try {
-				esy.modules.load(dependency)
-			} catch (e) {
-				console.error(`Can not load module <${dependency }>`);
-			}
-		}
-	}
+	// var dependencies = [];
+	// try{
+	// 	var stdout = require('child_process').execSync('npm ls --json');
+	// 	dependencies = Object.keys((JSON.parse(stdout))['dependencies']);
+	// } catch (e){
+	// 	console.error(`Can not load list of modules.`)
+	// }finally {
+	// 	dependencies = dependencies.filter(n => n !== 'esy-language' && n.startsWith('esy-'))
+	// 	for (var dependency of dependencies) {
+	// 		try {
+	// 			esy.modules.load(dependency)
+	// 		} catch (e) {
+	// 			console.error(`Can not load module <${dependency }>`);
+	// 		}
+	// 	}
+	// }
 
 	if (argv.environments)
 		esy.configs.set('environments', argv.environments, false);

@@ -15,7 +15,7 @@ const comments  = require('./comments');
 const spaces    = require('./spaces');
 const quotations= require('./quotations');
 const AF        = require('./arrow_function');
-const OBL       = require('./one_line_blocks');
+const OLB       = require('./OLB');
 const K2B       = require('./keywords2block');
 const EsyError  = require('../errors/esy_error');
 const Cache     = require('../../core/cache');
@@ -31,6 +31,7 @@ function prepare_code(code) {
 		code    = comments.encode(code);
 		code    = spaces(code);
 		code    = AF(code);
+		code    = OLB(code);
 		return code;
 	})
 }
@@ -102,8 +103,9 @@ function Tree(code, first_call = true){
 			}
 		}
 		insert();
-		if(first_call)
-			re = OBL(K2B(re));
+		if(first_call) {
+			re = K2B(re);
+		}
 		return re;
 	});
 }
