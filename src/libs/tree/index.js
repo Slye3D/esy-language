@@ -94,12 +94,7 @@ function Tree(code, first_call = true){
 					preCode = '';
 					if(head == ''){
 						// This is an object
-						if(body.length < 2) {
-							if (typeof re[re.length - 1] == 'string')
-								re[re.length - 1] += '{' + body + '}';
-							else
-								re.push('{' + body + '}')
-						}else {
+						if(body.length > 0) {
 							if(typeof body[0] == 'string')
 								body[0] = '{' + body[0];
 							else
@@ -117,6 +112,12 @@ function Tree(code, first_call = true){
 								}else {
 									re.push(k)
 								}
+							}
+						}else {
+							if(typeof re[re.length - 1] == 'string'){
+								re[re.length - 1] += '{}';
+							}else {
+								re.push('{}');
 							}
 						}
 					}else {
