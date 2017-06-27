@@ -10,7 +10,8 @@
  */
 
 const fs        = require('fs');
-const path = require('path');
+const path      = require('path');
+const md5       = require('md5');
 const EsyError  = require('../libs/errors/esy_error');
 
 global.configs  = global.configs    || {
@@ -37,10 +38,10 @@ function load(filename = 'esy.json'){
 		} catch (e){
 			// e   = new EsyError('Config file is not a valid JSON string.');
 			// throw e;
-			fs.writeFileSync(filename, JSON.stringify({}, null, 4));
+			// fs.writeFileSync(filename, JSON.stringify({}, null, 4));
 		}
 	}else{
-		fs.writeFileSync(filename, JSON.stringify({}, null, 4))
+		// fs.writeFileSync(filename, JSON.stringify({}, null, 4))
 	}
 	global.configs.file = path.join(process.cwd(), filename);
 }
@@ -157,11 +158,19 @@ function run(name, value) {
 	setByPath(global.configs.run, name, value);
 }
 
+/**
+ * Hash configs
+ */
+function hash() {
+	return md5(JSON.stringify([global.configs.configs, global.configs.defaults, global.configs.run]));
+}
+
 module.exports  = {
 	load: load,
 	set : set,
 	get : get,
-	def: def,
-	run: run,
+	def : def,
+	run : run,
+	hash: hash,
 	file: () => global.configs.file
 };

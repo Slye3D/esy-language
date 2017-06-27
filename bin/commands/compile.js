@@ -30,6 +30,11 @@ exports.builder = function (yargs) {
 			default: false,
 			alias: 'm'
 		})
+		.option('dest', {
+			describe: 'Output destination',
+			alias: 'd',
+			type: 'string'
+		})
 		.option('watch', {
 			describe: 'Run program in watch mode',
 			default: false,
@@ -41,6 +46,9 @@ exports.handler = function (argv) {
 		esy = require('../loader')(argv);
 	if (argv.tree && argv.files.length > 1)
 		return console.error("Error: Can not make tree for multiple files");
+	if(argv.dest == '')
+		return console.error("Please specify output destination with --dest option.");
+	argv.save = argv.s = Boolean(argv.dest) || Boolean(argv.s);
 	var compile = () => {
 		var js = '';
 		for (var file of argv.files) {
@@ -64,6 +72,7 @@ exports.handler = function (argv) {
 			if (argv.files.length == 1) {
 				to = argv.files[0].substr(0, argv.files[0].lastIndexOf(".")) + (argv.min ? '.min' : '') + '.' + (argv.tree ? 'json' : 'js');
 			}
+			to = argv.dest || to;
 			if (typeof argv.save == 'string')
 				to = argv.save;
 			fs.writeFileSync(to, js);
@@ -75,11 +84,12 @@ exports.handler = function (argv) {
 	if(argv.w){
 		console.log("Watch for changes:");
 		for (var file of argv.files) {
-			var f = file;
-			fs.watchFile(file, (curr, prev) => {
-				console.log("Change detected on <"+f+">");
-				compile();
-			})
+			(function (f) {
+				fs.watchFile(file, () => {
+					console.log("Change detected on <"+f+">");
+					compile();
+				})
+			})(file);
 			compile();
 		}
 	}else {

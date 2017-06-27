@@ -89,7 +89,7 @@ function run(JsCode, time = 0){
 
 		var re  = () => {
 			for(name in sandbox){
-				if(names.indexOf(name) > -1 && name !== 'i'){
+				if(names.indexOf(name) > -1 && ['i', 're'].indexOf(name) == -1){
 					delete sandbox[name]
 				}
 			}

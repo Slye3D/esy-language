@@ -56,7 +56,7 @@ function Tree(code, first_call = true){
 		};
 		for(;offset < code.length;offset++){
 			char    = code[offset];
-			if(char == '{'){
+			if(char == '{' && ['(',','].indexOf(code[offset - 1]) == -1){
 				var o   = 1,    // Number of open braces    {
 					c   = 0,    // Number of closed braces  }
 					e   = offset;
@@ -92,10 +92,39 @@ function Tree(code, first_call = true){
 						preCode += '~';
 					insert();
 					preCode = '';
-					re.push({
-						head: head,
-						body: body
-					});
+					if(head == ''){
+						// This is an object
+						if(body.length < 2) {
+							if (typeof re[re.length - 1] == 'string')
+								re[re.length - 1] += '{' + body + '}';
+							else
+								re.push('{' + body + '}')
+						}else {
+							if(typeof body[0] == 'string')
+								body[0] = '{' + body[0];
+							else
+								body    = ['{'].concat(body);
+
+							if(typeof body[body.length - 1] == 'string')
+								body[body.length - 1] = body[body.length - 1] + '}';
+							else
+								body.push('}');
+
+							for(var g = 0;g < body.length;g++){
+								var k = body[g];
+								if(typeof k == 'string' && typeof re[re.length - 1] == 'string'){
+									re[re.length - 1] += k;
+								}else {
+									re.push(k)
+								}
+							}
+						}
+					}else {
+						re.push({
+							head: head,
+							body: body
+						});
+					}
 				}
 				offset = e;
 			}else{

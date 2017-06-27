@@ -9,7 +9,7 @@
  *       Licence: MIT License
  */
 
-const {compile, safeEval}   = require('../tools');
+const {compare}   = require('../tools');
 
 exports.$simple  = function (assert) {
 	var code    = `
@@ -18,12 +18,12 @@ re = {
 	b: 6
 }
 	`;
-	try {
-		var esy = compile(code);
-		assert(JSON.stringify(safeEval(esy)) == JSON.stringify(safeEval(code)));
-	}catch (e){
+
+	compare(code).then(re => {
+		assert(re)
+	}, () =>  {
 		assert(false);
-	}
+	});
 };
 
 exports.$function   = function(assert){
@@ -36,12 +36,12 @@ re = {
 }
 re.b(7)
 	`;
-	try {
-		var esy = compile(code);
-		assert(safeEval(esy) == 35);
-	}catch (e){
+
+	compare(code).then(re => {
+		assert(re)
+	}, () =>  {
 		assert(false);
-	}
+	});
 };
 
 
@@ -56,12 +56,12 @@ re = {
 }
 re.b
 	`;
-	try {
-		var esy = compile(code);
-		assert(safeEval(esy) == 7);
-	}catch (e){
+
+	compare(code).then(re => {
+		assert(re)
+	}, () =>  {
 		assert(false);
-	}
+	});
 };
 
 exports.$setter = function(assert){
@@ -77,12 +77,11 @@ re = {
 }
 re.b = 8
 	`;
-	try {
-		var esy = compile(code);
-		eval(esy);
-		assert(j);
-	}catch (e){
+
+	compare(code).then(re => {
+		assert(re)
+	}, () =>  {
 		assert(false);
-	}
+	});
 };
 

@@ -11,6 +11,30 @@
 
 const {compare} = require('../tools');
 
+exports.$switch  = function(assert){
+	var code    = `
+var re = [];
+for(var a = 5;a < 12;a++){
+	switch(a){
+		case 5:
+		case 6:
+			re.push(1);
+			break;
+		case 8:
+			re.push(2)
+			break;
+		default:
+			re.push(3)
+	}
+}
+`;
+	compare(code).then(re => {
+		assert(re)
+	}, () => {
+		assert(false);
+	})
+};
+
 exports.$test1  = function(assert){
 	var code    = `
 const isPrime = num => {

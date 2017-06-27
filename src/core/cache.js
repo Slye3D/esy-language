@@ -184,13 +184,13 @@ function cache(functionality, inputs, func, only = []){
 	if(typeof inputs == 'string')
 		inputs = [inputs];
 	if(only.length == 0){
-		key =   md5(functionality + '-' +JSON.stringify(inputs));
+		key =   md5(configs.hash() + func.toString() + '-' +JSON.stringify(inputs));
 	}else {
 		keys    = [];
 		for(i   = 0;i < only.length;i++){
 			keys.push(inputs[only[i]])
 		}
-		key = md5(functionality + '-' + JSON.stringify(keys));
+		key = md5(configs.hash() + func.toString() + '-' + JSON.stringify(keys));
 	}
 
 	if(global.cache_index.files[key]){

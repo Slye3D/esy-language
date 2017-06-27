@@ -57,3 +57,24 @@ var v2 = c(12)
 		assert(false);
 	});
 };
+exports.$test1  = function (assert) {
+	var code    = `
+	function c(x){
+		return Math.cos(x)
+	}
+	function s(x){
+		return Math.sin(x)
+	}
+	
+	function d({x,y}, {a,b}){
+		return Math.sqrt(Math.pow(a - x, 2) + Math.pow(b - y, 2))
+	}
+	console.log(d({x: 5, y: c(Math.PI) * 78}, {a: 8, b: 9}));
+	`;
+
+	compare(code).then(re => {
+		assert(re)
+	}, () =>  {
+		assert(false);
+	});
+};
