@@ -262,3 +262,27 @@ re.c = re.b.f(4)`;
 		assert(false);
 	});
 };
+
+
+exports.$test8  = function (assert) {
+	var code    = `
+re = {
+	c: 8,
+	b : {
+		f(x){
+			return x + 8
+		}
+	},
+	a: 5
+};
+(function(x){
+	re.c = re.b.f(x)
+})(8)
+`;
+
+	compare(code).then(re => {
+		assert(re)
+	}, () =>  {
+		assert(false);
+	});
+};

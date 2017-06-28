@@ -426,3 +426,34 @@ var decompressed = lzw.decompress(compressed);
 		assert(false);
 	})
 };
+
+exports.$test14 = function (assert) {
+	var code = `
+  var cartesianProduct = (function () {
+    var result;
+
+    function cartesianProduct(sets, index, current) {
+      if (index === sets.length) {
+        return result.push(current.slice());
+      }
+      for (var i = 0; i < sets[index].length; i += 1) {
+        current[index] = sets[index][i];
+        cartesianProduct(sets, index + 1, current);
+      }
+    }
+
+    return function (sets) {
+      result = [];
+      cartesianProduct(sets, 0, []);
+      return result;
+    };
+  }());
+
+  var result = cartesianProduct([[1, 2, 3], [3, 2, 1]]);
+`;
+	compare(code).then(re => {
+		assert(re)
+	}, () => {
+		assert(false);
+	})
+};

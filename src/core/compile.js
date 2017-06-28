@@ -133,8 +133,6 @@ function compile(tree) {
 				}else {
 					insert(code.head + '{' + compile(code.body) + '}');
 				}
-				if(re.endsWith('}') && typeof tree[offset + 1] == 'string' && tree[offset + 1].startsWith('('))
-					re += ';'
 			}
 		}
 		return re

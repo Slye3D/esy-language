@@ -108,7 +108,7 @@ for(var a of boolean)
             re.push(4)
 `;
 
-	compare(code).debug().then(re => {
+	compare(code).then(re => {
 		assert(re)
 	}, () =>  {
 		assert(false);

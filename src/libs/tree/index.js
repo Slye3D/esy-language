@@ -32,7 +32,6 @@ function prepare_code(code) {
 		code    = spaces(code);
 		code    = AF(code);
 		code    = OLB(code);
-		console.log(code)
 		return code;
 	})
 }
@@ -47,11 +46,21 @@ function Tree(code, first_call = true){
 			char;
 		var insert  = () => {
 			preCode = preCode.trim();
-			if(preCode.length > 0 && preCode !== ';'){
+			if(preCode.length > 0){
+				var e = preCode.endsWith(';');
 				preCode = preCode.split(';');
-				preCode.forEach(value => {
-					if(value !== ';' && value.length > 0)
+				var l = preCode.length - 1;
+				preCode.forEach((value,k) => {
+					if(value.length > 0) {
+						if(k == l){
+							if(e){
+								value += ';'
+							}
+						}else {
+							value += ';';
+						}
 						re.push(value)
+					}
 				})
 			}
 		};
@@ -102,9 +111,9 @@ function Tree(code, first_call = true){
 								body    = ['{'].concat(body);
 
 							if(typeof body[body.length - 1] == 'string')
-								body[body.length - 1] = body[body.length - 1] + '}';
+								body[body.length - 1] = body[body.length - 1] + '}' + (code[e + 1] == ';' ? ';' : '');
 							else
-								body.push('}');
+								body.push('}'  + (code[e + 1] == ';' ? ';' : ''));
 
 							for(var g = 0;g < body.length;g++){
 								var k = body[g];
@@ -116,9 +125,9 @@ function Tree(code, first_call = true){
 							}
 						}else {
 							if(typeof re[re.length - 1] == 'string'){
-								re[re.length - 1] += '{}';
+								re[re.length - 1] += '{}' + (code[e + 1] == ';' ? ';' : '');
 							}else {
-								re.push('{}');
+								re.push('{}' + (code[e + 1] == ';' ? ';' : ''));
 							}
 						}
 					}else {
@@ -126,6 +135,8 @@ function Tree(code, first_call = true){
 							head: head,
 							body: body
 						});
+						if(code[e + 1] == ';' && code[e + 2] == '(')
+							re.push(';')
 					}
 				}
 				offset = e;
