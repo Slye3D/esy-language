@@ -38,3 +38,79 @@ for(var a of boolean){
 		assert(false);
 	});
 };
+
+exports.$test2  = function (assert) {
+	var code    = `
+re = []
+var boolean = [true, false]
+for(var a of boolean){
+    for(var b of boolean)
+        if(a)
+            if(b)
+                re.push(1)
+            else
+                re.push(2)
+        else
+            if(b)
+                re.push(3)
+            else
+                re.push(4)
+}
+`;
+
+	compare(code).then(re => {
+		assert(re)
+	}, () =>  {
+		assert(false);
+	});
+};
+
+exports.$test3  = function (assert) {
+	var code    = `
+re = []
+var boolean = [true, false]
+for(var a of boolean)
+    for(var b of boolean)
+        if(a)
+            if(b)
+                re.push(1)
+            else
+                re.push(2)
+        else
+            if(b)
+                re.push(3)
+            else
+                re.push(4)
+`;
+
+	compare(code).then(re => {
+		assert(re)
+	}, () =>  {
+		assert(false);
+	});
+};
+
+exports.$test4  = function (assert) {
+	var code    = `
+re = []
+var boolean = [true, false]
+for(var a of boolean)
+    for(var b of boolean)
+        if(a)
+            if(b)
+                re.push(1)
+            else
+                if(b)
+                    re.push(2)
+                else
+                    re.push(3)
+        else
+            re.push(4)
+`;
+
+	compare(code).debug().then(re => {
+		assert(re)
+	}, () =>  {
+		assert(false);
+	});
+};
