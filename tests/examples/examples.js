@@ -457,3 +457,112 @@ exports.$test14 = function (assert) {
 		assert(false);
 	})
 };
+
+exports.$test15 = function (assert) {
+	var code = `
+  var cartesianProduct = (function () {
+    var result;
+
+    function cartesianProduct(sets, index, current) {
+      if (index === sets.length) {
+        return result.push(current.slice());
+      }
+      for (var i = 0; i < sets[index].length; i += 1) {
+        current[index] = sets[index][i];
+        cartesianProduct(sets, index + 1, current);
+      }
+    }
+
+    return function (sets) {
+      result = [];
+      cartesianProduct(sets, 0, []);
+      return result;
+    };
+  }());
+
+  var result = cartesianProduct([[1, 2, 3], [3, 2, 1]]);
+`;
+	compare(code).then(re => {
+		assert(re)
+	}, () => {
+		assert(false);
+	})
+};
+
+exports.$test16 = function (assert) {
+	var code = `
+  function drawPoint(x, y) {
+    console.log(x, y);
+  }
+  
+  function drawLine(x1, y1, x2, y2, draw) {
+    var drawPointStrategy = draw || drawPoint;
+    var dx = Math.abs(x2 - x1);
+    var dy = Math.abs(y2 - y1);
+    var cx = (x1 < x2) ? 1 : -1;
+    var cy = (y1 < y2) ? 1 : -1;
+    var error = dx - dy;
+    var doubledError;
+
+    while (x1 !== x2 || y1 !== y2) {
+      drawPointStrategy(x1, y1);
+      doubledError = error + error;
+      if (doubledError > -dy) {
+        error -= dy;
+        x1 += cx;
+      }
+      if (doubledError < dx) {
+        error += dx;
+        y1 += cy;
+      }
+    }
+  }
+drawLine(0,-5,10,30)
+`;
+	compare(code).then(re => {
+		assert(re)
+	}, () => {
+		assert(false);
+	})
+};
+
+exports.$test17 = function (assert) {
+	var code = `
+  function shuffle(array) {
+    var size = array.length;
+    var rand;
+    for (var i = 0; i < size; i += 1) {
+      rand = Math.floor(i + 3 * (size - i));
+      [array[rand], array[i]] = [array[i], array[rand]];
+    }
+    return array;
+  }
+  console.log(shuffle([1,2,3,4,5]))
+`;
+	compare(code).then(re => {
+		assert(re)
+	}, () => {
+		assert(true);
+	})
+};
+
+exports.$test18 = function (assert) {
+	var code = `
+function maxSubarray(array) {
+    var currentMax = 0;
+    var max = 0;
+
+    for (var i = 0; i < array.length; i += 1) {
+      currentMax = Math.max(0, currentMax + array[i]);
+      max = Math.max(max, currentMax);
+    }
+    return max;
+}
+var re = maxSubarray([-2, 1, -3, 4, -1, 2, 1, -5, 4])
+`;
+	compare(code).then(re => {
+		assert(re)
+	}, () => {
+		assert(true);
+	})
+};
