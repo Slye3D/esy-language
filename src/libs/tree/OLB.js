@@ -61,7 +61,18 @@ function OLB2(code){
 			var h = code.substr(offset);
 			if(h.startsWithA(OLBs)){
 				var c = OLB2(h);
-				re  +=  '{' + c.substr(0, c.indexOf('}')) + '}' + c.substr(c.indexOf('}'));
+				var io = 0,
+					ob = -1,
+					cb = -1;
+				while(ob !== cb || ob == -1){
+					if(c[io] == '{')
+						ob++;
+					if(c[io] == '}')
+						cb++;
+					io++;
+				}
+				io--;
+				re  +=  '{' + c.substr(0, io) + '}' + c.substr(io);
 				break;
 			}else {
 				re += '{';
