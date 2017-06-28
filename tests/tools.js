@@ -118,7 +118,8 @@ function run(JsCode, time = 0){
 function compare(EsyCode, js, pendingTime = 0){
 	js      = js || EsyCode;
 	EsyCode = compile(EsyCode);
-	var debug   = false;
+	var debug   = false,
+		json    = false;
 	var re = new Promise((resolve, reject) => {
 		var sandbox1 = {}, sandbox2 = {},
 			pending = 2;
@@ -126,8 +127,12 @@ function compare(EsyCode, js, pendingTime = 0){
 			sandbox1 = re;
 			pending--;
 			if(pending == 0) {
-				if(debug)
-					log(sandbox1, ',',sandbox2);
+				if(debug) {
+					if (!json)
+						log(sandbox1, ',', sandbox2);
+					else
+						log(JSON.stringify(sandbox1), ',', JSON.stringify(sandbox2));
+				}
 				resolve(JSON.stringify(sandbox1) == JSON.stringify(sandbox2))
 			}
 		}, err => {
@@ -138,15 +143,19 @@ function compare(EsyCode, js, pendingTime = 0){
 			sandbox2 = re;
 			pending--;
 			if(pending == 0) {
-				if(debug)
-					log(sandbox1, ',', sandbox2);
-				resolve(JSON.stringify(sandbox1) == JSON.stringify(sandbox2))
+				if(debug) {
+					if (!json)
+						log(sandbox1, ',', sandbox2);
+					else
+						log(JSON.stringify(sandbox1), ',', JSON.stringify(sandbox2));
+				}				resolve(JSON.stringify(sandbox1) == JSON.stringify(sandbox2))
 			}		}, err => {
 			reject(err);
 		});
 	});
-	re.debug = function () {
+	re.debug = function (out_json = false) {
 		debug = true;
+		ison = out_json;
 		return re;
 	};
 	return re;

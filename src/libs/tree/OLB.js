@@ -59,6 +59,8 @@ function OLB2(code){
 			// Finding braces
 
 			var h = code.substr(offset);
+			if(h[0] == ';')
+				h = h.substr(1)
 			if(h.startsWithA(OLBs)){
 				var c = OLB2(h);
 				var io = 0,
@@ -70,6 +72,16 @@ function OLB2(code){
 					if(c[io] == '}')
 						cb++;
 					io++;
+				}
+				if(c.substr(io, 4) == 'else'){
+					var fOB = ob;
+					while(ob !== cb || ob == fOB){
+						if(c[io] == '{')
+							ob++;
+						if(c[io] == '}')
+							cb++;
+						io++;
+					}
 				}
 				io--;
 				re  +=  '{' + c.substr(0, io) + '}' + c.substr(io);

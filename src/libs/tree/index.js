@@ -32,6 +32,7 @@ function prepare_code(code) {
 		code    = spaces(code);
 		code    = AF(code);
 		code    = OLB(code);
+		console.log(code)
 		return code;
 	})
 }
