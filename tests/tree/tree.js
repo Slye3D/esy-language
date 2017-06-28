@@ -32,7 +32,7 @@ for(var a of boolean){
 }
 `;
 
-	compare(code).debug().then(re => {
+	compare(code).then(re => {
 		assert(re)
 	}, () =>  {
 		assert(false);
