@@ -51,7 +51,8 @@ function OLB2(code){
 		isAfter = false,
 		opens   = -1,
 		closed  = -1,
-		isEnd   = false;
+		isEnd   = false,
+		fOB ;
 	for(; offset < code.length;offset++){
 		if(!isEnd)
 			re += code[offset];
@@ -60,7 +61,7 @@ function OLB2(code){
 
 			var h = code.substr(offset);
 			if(h[0] == ';')
-				h = h.substr(1)
+				h = h.substr(1);
 			if(h.startsWithA(OLBs)){
 				var c = OLB2(h);
 				var io = 0,
@@ -74,7 +75,7 @@ function OLB2(code){
 					io++;
 				}
 				if(c.substr(io, 4) == 'else'){
-					var fOB = ob;
+					fOB = ob;
 					while(ob !== cb || ob == fOB){
 						if(c[io] == '{')
 							ob++;
@@ -88,10 +89,18 @@ function OLB2(code){
 				break;
 			}else {
 				re += '{';
+				var ob = 0,
+					cb = 0;
 				do{
+					if(code[offset] == '{')
+						ob++;
+					if(code[offset] == '}')
+						cb++;
 					re  += code[offset];
 					offset++;
-				}while(code[offset] !== ';');
+				}while(code[offset] !== ';' && (code[offset] !== '}' || ob != cb));
+				if(code[offset] == '}')
+					re += '}';
 				re += '}';
 			}
 			isEnd = false;
@@ -127,6 +136,10 @@ function OLB2(code){
 					j++
 				}
 				// j = OLBs[s].length
+				var nc = code[offset + j];
+				if(nc >= 'A' && nc <= 'z'){
+					p = false;
+				}
 				if(p){
 					var l = 1;
 					while(l < j){

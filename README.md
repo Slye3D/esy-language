@@ -87,6 +87,8 @@ Esy is a new JS preprocessor allows you to use custom block structures.
   To run tests just run:
   ```bash
   git clone https://github.com/Slye-team/esy-language.git
-  cd esy-language/tests
+  cd esy-language
+  mkdir tmp
+  cd tests
   node test.js
   ```

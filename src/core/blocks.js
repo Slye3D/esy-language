@@ -121,7 +121,8 @@ function find(code){
 			var j   = 0;
 			matches[j]  = matches[j].trim();
 			var len = matches[j].length;
-			if(isClosed(matches[j])) {
+			var ll  = code[code.length - len - 1];
+			if(isClosed(matches[j]) && ll !== '.') {
 				results.push(len);
 			}
 		}

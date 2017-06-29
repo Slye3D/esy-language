@@ -14,7 +14,6 @@ const {find}    = require('../../core/blocks');
 const comments  = require('./comments');
 const spaces    = require('./spaces');
 const quotations= require('./quotations');
-const AF        = require('./arrow_function');
 const OLB       = require('./OLB');
 const K2B       = require('./keywords2block');
 const EsyError  = require('../errors/esy_error');
@@ -30,7 +29,6 @@ function prepare_code(code) {
 		code    = quotations.encode(code);
 		code    = comments.encode(code);
 		code    = spaces(code);
-		code    = AF(code);
 		code    = OLB(code);
 		return code;
 	})
@@ -103,10 +101,14 @@ function Tree(code, first_call = true){
 					insert();
 					preCode = '';
 					if(head == ''){
+						if(['var', 'const', 'let', 'import'].indexOf(re[re.length - 1]) == -1)
+							re.push('');
+						else
+							re[re.length - 1] += ' ';
 						// This is an object
 						if(body.length > 0) {
 							if(typeof body[0] == 'string')
-								body[0] = '{' + body[0];
+								body[0] = '\{' + body[0];
 							else
 								body    = ['{'].concat(body);
 

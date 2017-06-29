@@ -33,7 +33,8 @@ var queue   = [],
 	i       = 0,
 	names   = [],
 	failed  = 0,
-	passed  = 0;
+	passed  = 0,
+	failed_n= [];
 function test() {
 	if(i == queue.length) {
 		_console.log('_'.repeat(59).gray);
@@ -43,8 +44,10 @@ function test() {
 			_console.log(' '.repeat(Math.floor((59 - m.length) / 2)), m.green);
 			process.exit();
 		}else {
-			m = `${xmark} ${failed} test${failed == 1 ? '' : 's'} failed.`;
-			_console.log(' '.repeat(Math.floor((59 - m.length) / 2)), m.red);
+			m = `${xmark} Failed at ${failed} test${failed == 1 ? '' : 's'}:`;
+			_console.log(m.red);
+			var j = 0, l = failed_n.length.toString().length;
+			_console.log(('    ' + failed_n.map(n => (j++, '0'.repeat(l - j.toString().length) + j + '- ' + n)).join('\n    ')).red);
 			process.exit(1);
 		}
 		return;
@@ -70,6 +73,7 @@ function test() {
 			_console.log(m + `${checkmark} passed`.cyan)
 		}else {
 			failed++;
+			failed_n.push(name);
 			_console.log(m + `${xmark} failed${timeout ? ' (timeout)' : ''}`.red)
 		}
 		i++;
