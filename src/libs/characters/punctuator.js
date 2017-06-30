@@ -25,11 +25,15 @@ function IsPunctuator(char) {
 }
 
 IsPunctuator.chars  = punctuators;
-IsPunctuator.regex  = '(' + punctuators.map(a => a.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, '\\$&')).slice(punctuators, punctuators.length - 1).join('|') + ')';
+IsPunctuator.regex  = '(' + punctuators.slice(1).map(a => a.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, '\\$&')).join('|') + ')';
 IsPunctuator.endsWith   = string => {
+	if(string.endsWith('from'))
+		return true;
 	return (new RegExp(IsPunctuator.regex + '$', 'g')).test(string)
 };
 IsPunctuator.startsWith = string => {
+	if(string.startsWith('from'))
+		return true;
 	return (new RegExp('^' + IsPunctuator.regex, 'g')).test(string)
 };
 module.exports  = IsPunctuator;
