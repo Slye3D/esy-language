@@ -96,7 +96,7 @@ function Tree(code, first_call = true){
 						head_len= find(preCode),
 						head    = preCode.substr(preCode.length - head_len);
 					preCode = preCode.substr(0, preCode.length - head_len).trim();
-					if(preCode.endsWith('return'))
+					if(preCode.endsWith('return') || preCode.endsWith('export'))
 						preCode += '~';
 					insert();
 					preCode = '';
