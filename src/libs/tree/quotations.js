@@ -47,7 +47,6 @@ function encode(code){
 			if(l == '/' && code[offset + 1] && code[offset + 1] == '/'){
 				comment = true;
 				olc = true;
-				open_comments++;
 			}
 			if(comment)
 				open_comments++;
