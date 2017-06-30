@@ -25,14 +25,15 @@ function angular(esy) {
 		let [, app, func, param1, modules] = matches;
 		body = compile(body);
 		param1 = (param1 ? param1.length : 0) > 0 ? param1 + ', ' : '';
-		return `${app}.${func}(${param1}[${modules}, function(${modules}){
+		let module_names    = "'" + modules.split(',').join("','") + "'";
+		return `${app}.${func}(${param1}[${module_names}, function(${modules}){
 			${body}
 		}])`;
 	});
 
 	return {
 		name    : "Esy Angular",
-		version : "0.0.1",
+		version : "0.0.2",
 		author  : "Slye Development Team"
 	};
 }
