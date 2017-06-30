@@ -25,7 +25,7 @@ function angular(esy) {
 		let [, app, func, param1, modules] = matches;
 		body = compile(body);
 		param1 = (param1 ? param1.length : 0) > 0 ? param1 + ', ' : '';
-		let module_names    = "'" + modules.split(',').join("','") + "'";
+		let module_names    = "'" + modules.split(',').map(a => a.trim()).join("','") + "'";
 		return `${app}.${func}(${param1}[${module_names}, function(${modules}){
 			${body}
 		}])`;
