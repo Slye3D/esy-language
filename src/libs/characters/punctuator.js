@@ -25,7 +25,7 @@ function IsPunctuator(char) {
 }
 
 IsPunctuator.chars  = punctuators;
-IsPunctuator.regex  = '(' + punctuators.map(a => a.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, '\\$&')).join('|') + ')';
+IsPunctuator.regex  = '(' + punctuators.map(a => a.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, '\\$&')).slice(punctuators, punctuators.length - 1).join('|') + ')';
 IsPunctuator.endsWith   = string => {
 	return (new RegExp(IsPunctuator.regex + '$', 'g')).test(string)
 };

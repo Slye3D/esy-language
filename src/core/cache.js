@@ -66,13 +66,15 @@ function convertToBytes(size){
 }
 
 // Save cache values as constant, to have a faster access to each of theme
-const dir     = toAbsolute(configs.get('cache.dir'));
-const limit   = convertToBytes(configs.get('cache.limit'));
+var dir     = toAbsolute(configs.get('cache.dir'));
+var limit   = convertToBytes(configs.get('cache.limit'));
 
 /**
  * Load index.json file
  */
 function load(){
+	var dir     = toAbsolute(configs.get('cache.dir'));
+	var limit   = convertToBytes(configs.get('cache.limit'));
 	if(!status())
 		return;
 	if(global.cache_loaded)
@@ -309,5 +311,5 @@ module.exports  = {
 	status  : status,
 	enable  : enable,
 	disable : disable,
-	dir     : () => dir
+	dir     : () => toAbsolute(configs.get('cache.dir'))
 };
