@@ -89,6 +89,5 @@ Esy is a new JS preprocessor allows you to use custom block structures.
   git clone https://github.com/Slye-team/esy-language.git
   cd esy-language
   mkdir tmp
-  cd tests
-  node test.js
+  npm run test
   ```
