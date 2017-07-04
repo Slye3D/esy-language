@@ -16,6 +16,7 @@ const blocks    = require('./core/blocks');
 const keywords  = require('./core/keywords');
 const configs   = require('./core/config');
 const cache     = require('./core/cache');
+const regex     = require('./core/regex');
 const head      = require('./core/head');
 const glob      = require('glob');
 const path      = require('path');
@@ -26,7 +27,8 @@ var esy_lang  = {
 	cache   : cache,
 	configs : configs,
 	keyword : keywords.add,
-	head    : head.add
+	head    : head.add,
+	regex   : regex
 };
 esy_lang['block']   = blocks.add(esy_lang);
 esy_lang['modules'] = modules._esy(esy_lang);
