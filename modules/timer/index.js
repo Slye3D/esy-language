@@ -14,7 +14,33 @@
  * @param esy
  */
 function timer(esy){
-	esy.block(/^(interval|timeout)(?:\s+(?=\d+)(\d+))?(?:\s*<(.*)>)?(?:\s*\(([\w\s,]*)\))?$/ig, (matches, block) => {
+	var {regex} = esy;
+	var pattern = (new regex(
+		regex.beginning(),
+
+		regex.text('timeout', 'interval').capture('type'),
+
+		regex.or(
+			regex.number(),
+			regex.identifier()
+		).optional().capture('time'),
+
+		regex.group(
+			regex.text('<'),
+			regex.callParameters().capture('parameters'),
+			regex.text('>')
+		).optional(),
+
+		regex.group(
+			regex.text('('),
+			regex.arguments().capture('arguments'),
+			regex.text(')')
+		).optional(),
+
+		regex.end()
+	)).autoSpace();
+
+	esy.block(pattern.toObj(), (matches, block) => {
 		var func        = matches[1].toLowerCase() == 'timeout' ? 'setTimeout' : 'setInterval';
 		var callback    = esy.compile(block.body);
 		var delay       = matches[2] || 0;
@@ -31,7 +57,7 @@ function timer(esy){
 	});
 	return {
 		name    : "Esy Timer",
-		version : "0.0.1",
+		version : "0.0.2",
 		author  : "Slye Development Team"
 	};
 }

@@ -54,3 +54,96 @@ exports.$parameters  = function (assert) {
 		assert(false);
 	});
 };
+
+exports.$hex = function (assert) {
+	var esy = `
+	c = 0;
+	timeout 0x10 <"Hello", "World!"> (a,b){
+        console.log(a, b);
+        c = 100;
+    }
+	`;
+	var js  = `
+	c = 40;
+	setTimeout(function(a,b){
+		console.log(a,b)    // Just test a real-world-example usage for comments
+		c = 100
+	}, 0x10, "Hello", "World!")
+	`;
+	compare(esy, js, 0x10 + 10).then(re => {
+		assert(re)
+	}, () =>  {
+		assert(false);
+	});
+};
+
+
+exports.$octal  = function (assert) {
+	var esy = `
+	c = 0;
+	timeout 0o10 <"Hello", "World!"> (a,b){
+        console.log(a, b);
+        c = 100;
+    }
+	`;
+	var js  = `
+	c = 40;
+	setTimeout(function(a,b){
+		console.log(a,b)    // Just test a real-world-example usage for comments
+		c = 100
+	}, 0o10, "Hello", "World!")
+	`;
+	compare(esy, js, 0o10 + 10).then(re => {
+		assert(re)
+	}, () =>  {
+		assert(false);
+	});
+};
+
+
+exports.$bin    = function (assert) {
+	var esy = `
+	c = 0;
+	timeout 0b1000 <"Hello", "World!"> (a,b){
+        console.log(a, b);
+        c = 100;
+    }
+	`;
+	var js  = `
+	c = 40;
+	setTimeout(function(a,b){
+		console.log(a,b)    // Just test a real-world-example usage for comments
+		c = 100
+	}, 0b1000, "Hello", "World!")
+	`;
+	compare(esy, js, 0b1000 + 10).then(re => {
+		assert(re)
+	}, () =>  {
+		assert(false);
+	});
+};
+
+
+exports.$var    = function (assert) {
+	var esy = `
+	c = 0;
+	var delay = 100;
+	timeout delay <"Hello", "World!"> (a,b){
+        console.log(a, b);
+        c = 100;
+    }
+	`;
+	var js  = `
+	c = 40;
+	var delay = 100;
+	setTimeout(function(a,b){
+		console.log(a,b)    // Just test a real-world-example usage for comments
+		c = 100
+	}, delay, "Hello", "World!")
+	`;
+	compare(esy, js, 110).then(re => {
+		assert(re)
+	}, () =>  {
+		assert(false);
+	});
+};
