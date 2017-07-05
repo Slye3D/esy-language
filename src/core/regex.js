@@ -52,6 +52,11 @@ class Expr{
 		return this;
 	}
 
+	lookAfterNot(...patterns){
+		this._afterNot = (new Regex(...patterns)).toString();
+		return this;
+	}
+
 	forceGroup(){
 		this.force_group = true;
 		return this;
@@ -76,7 +81,7 @@ class Expr{
 		var a = '(';
 		if(!this._capture)
 			a += '?:';
-		if(this._after){
+		if(this._after || this._afterNot){
 			a += '(?:'
 		}
 		a += this.regex;
@@ -84,6 +89,9 @@ class Expr{
 
 		if(this._after){
 			a += `(?=${this._after}))`
+		}
+		if(this._afterNot){
+			a += `(?!${this._afterNot}))`
 		}
 
 		if(this._min == this._max && !this._exact)
@@ -217,13 +225,13 @@ class Regex{
 	}
 
 	static functionCall(){
-		return this.group(
-			this.identifier(),
-			this.raw('.*'),
-			this.text('('),
-			this.callParameters(),
-			this.text(')'),
-			this.text(';').optional()
+		return this.raw('[$A-Z_][$A-Z_0-9]*.*?\\(.*?\\);?');
+	}
+
+	static rightHand(){
+		return this.or(
+			this.number(),
+			this.raw('[$A-Z_][$A-Z_0-9]*.*?(?:\\(.*?\\);?)?')
 		)
 	}
 }

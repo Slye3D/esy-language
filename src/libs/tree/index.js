@@ -64,7 +64,7 @@ function Tree(code, first_call = true){
 		};
 		for(;offset < code.length;offset++){
 			char    = code[offset];
-			if(char == '{' && ['(',','].indexOf(code[offset - 1]) == -1){
+			if(char == '{' && ['(',',', '<'].indexOf(code[offset - 1]) == -1){
 				var o   = 1,    // Number of open braces    {
 					c   = 0,    // Number of closed braces  }
 					e   = offset;
@@ -94,7 +94,7 @@ function Tree(code, first_call = true){
 				}else {
 					var a = 0,
 						l = re.length - 1;
-					while(a < 5 && typeof re[l - a] == 'string'){
+					while(a < 5 && typeof re[l - a] == 'string' && !(re[l - a].startsWith('//') || re[l - a].startsWith('/*'))){
 						preCode = re[l - a] + preCode;
 						re.splice(l - a, 1);
 						a++;
@@ -160,5 +160,6 @@ function Tree(code, first_call = true){
 		return re;
 	});
 }
+Tree.prepare = prepare_code;
 
 module.exports = Tree;
