@@ -22,7 +22,7 @@ class Expr{
 	}
 
 	optional(){
-		this._optional  = true;
+		this._repeat  = '?';
 		return this;
 	}
 
@@ -54,6 +54,21 @@ class Expr{
 
 	forceGroup(){
 		this.force_group = true;
+		return this;
+	}
+
+	oneOrMore(){
+		this._repeat    = '+';
+		return this;
+	}
+
+	oneOrNotAtAll(){
+		this._repeat    = '?';
+		return this;
+	}
+
+	zeroOrMore(){
+		this._repeat    = '*';
 		return this;
 	}
 
@@ -93,8 +108,8 @@ class Expr{
 				}
 			}
 		}
-		if(this._optional && s)
-			a += '?';
+		if(this._repeat && s)
+			a += this._repeat;
 		if(!this._after && a.startsWith('(?:') && a.endsWith(')') && !this.force_group)
 			return a.substr(3, a.length - 4);
 		return a;
@@ -160,11 +175,12 @@ class Regex{
 	}
 
 	static arguments(){
-		return new Expr('(?:(?:\\s*[$A-Z_][$A-Z_0-9]*\\s*)(?:,(?=\\s*[$A-Z_]+))?)+')
+		// return new Expr('(?:(?:\\s*(?:[$A-Z_][$A-Z_0-9]*|\\{.+?\\}|\\[.+?\\])\\s*)(?:,(?=\\s*[\\{\\[$A-Z_]+))?)+')
+		return new Expr('.*');
 	}
 
 	static callParameters(){
-		return new Expr('.*?')
+		return new Expr('.*')
 	}
 
 	static identifier(){
@@ -194,6 +210,21 @@ class Regex{
 
 	static or(...patterns){
 		return new Expr(patterns.map(r => new Expr(r).forceGroup()).join('|')).forceGroup();
+	}
+
+	static raw(regex){
+		return new Expr(regex);
+	}
+
+	static functionCall(){
+		return this.group(
+			this.identifier(),
+			this.raw('.*'),
+			this.text('('),
+			this.callParameters(),
+			this.text(')'),
+			this.text(';').optional()
+		)
 	}
 }
 Regex.expr  = Expr;

@@ -92,6 +92,13 @@ function Tree(code, first_call = true){
 						preCode = '';
 					}
 				}else {
+					var a = 0,
+						l = re.length - 1;
+					while(a < 5 && typeof re[l - a] == 'string'){
+						preCode = re[l - a] + preCode;
+						re.splice(l - a, 1);
+						a++;
+					}
 					var body    = Tree(code.substring(offset + 1, e), false),
 						head_len= find(preCode),
 						head    = preCode.substr(preCode.length - head_len);
