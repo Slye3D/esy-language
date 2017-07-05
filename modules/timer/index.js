@@ -20,10 +20,7 @@ function timer(esy){
 
 		regex.text('timeout', 'interval').capture('type'),
 
-		regex.or(
-			regex.number(),
-			regex.identifier()
-		).optional().capture('time'),
+		regex.rightHand().capture('time'),
 
 		regex.group(
 			regex.text('<'),
@@ -44,8 +41,11 @@ function timer(esy){
 		var func        = matches[1].toLowerCase() == 'timeout' ? 'setTimeout' : 'setInterval';
 		var callback    = esy.compile(block.body);
 		var delay       = matches[2] || 0;
+		if(delay.endsWith(';'))
+			delay = delay.substr(0, delay.length - 1);
 		var pass_args   = matches[3];
 		var func_args   = matches[4];
+		console.log(matches)
 		var re  = func + '(function(';
 		if(func_args)
 			re  += func_args;

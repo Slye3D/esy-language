@@ -146,4 +146,61 @@ exports.$var    = function (assert) {
 	}, () =>  {
 		assert(false);
 	});
+}
+
+exports.$func   = function (assert) {
+	var esy = `
+	c = 0;
+	function delay(){
+		return 100;
+	}
+	timeout delay() <"Hello", "World!"> (a,b){
+        console.log(a, b);
+        c = 100;
+    }
+	`;
+	var js  = `
+	c = 40;
+	function delay(){
+		return 100;
+	}
+	setTimeout(function(a,b){
+		console.log(a,b)    // Just test a real-world-example usage for comments
+		c = 100
+	}, delay(), "Hello", "World!")
+	`;
+	compare(esy, js, 110).then(re => {
+		assert(re)
+	}, () =>  {
+		assert(false);
+	});
+};
+
+
+exports.$es6args   = function (assert) {
+	var esy = `
+	c = 0;
+	function delay(){
+		return 100;
+	}
+	timeout delay() <{a:"Hello"}, ["World!"]> ({a},[b]){
+        console.log(a, b);
+        c = 100;
+    }
+	`;
+	var js  = `
+	c = 40;
+	function delay(){
+		return 100;
+	}
+	setTimeout(function(a,b){
+		console.log(a,b)    // Just test a real-world-example usage for comments
+		c = 100
+	}, delay(), "Hello", "World!")
+	`;
+	compare(esy, js, 110).then(re => {
+		assert(re)
+	}, () =>  {
+		assert(false);
+	});
 };

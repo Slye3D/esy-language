@@ -14,12 +14,36 @@
  * @param esy
  */
 function cache(esy) {
-	var cache_pattern   = /^cache\s+(?:(\d+)\s+)?([$A-Z_][$A-Z_0-9]*)?\s*\(((?:(?:\s*[$A-Z_][$A-Z_0-9]*\s*)(?:,(?=\s*[$A-Z_]+))?)+)?\)$/ig;
-	var key_pattern     = /^key\s*(?:\(((?:(?:\s*[$A-Z_][$A-Z_0-9]*\s*)(?:,(?=\s*[$A-Z_]+))?)+)?\)\s*)?$/ig;
+	const {regex, block} = esy;
+	var cache_pattern   = new regex(
+		regex.beginning(),
+		regex.text('cache'),
+		regex.space(),
+		regex.rightHand().optional().capture(),
+		regex.identifier().optional().capture(),
+		regex.text('('),
+		regex.arguments().optional().capture(),
+		regex.text(')'),
+		regex.end()
+	).autoSpace().toObj();
+
+	var key_pattern = new regex(
+		regex.beginning(),
+		regex.text('key'),
+		regex.group(
+			regex.text('('),
+			regex.arguments().capture(),
+			regex.text(')')
+		).optional(),
+		regex.end()
+	).autoSpace().toObj();
+
 	esy.block.self(key_pattern);
 	esy.block(cache_pattern, (matches, block, parent, offset) => {
 		var body    = esy.compile(block.body);
 		var timer   = matches[1] ? matches[1] : 0;
+		if(timer.endsWith(';'))
+			timer = timer.substr(0, timer.length - 1);
 		var name    = matches[2];
 		var args    = matches[3];
 		var key     = 'return arguments;';
@@ -66,7 +90,7 @@ function cache(esy) {
 
 	return {
 		name: "Esy Cache",
-		version: "0.0.1",
+		version: "0.0.2",
 		author: "Slye Development Team"
 	};
 }

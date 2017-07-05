@@ -11,17 +11,36 @@
 
 /**
  * Support for angular.js
- * This version (0.0.1) supports:
+ * This version (0.0.3) supports:
  *  config
  *  controller
  * @param esy
  */
 function angular(esy) {
-	let {block, compile} = esy;
+	let {block, compile, regex} = esy;
 
-	const regex = /(\$[$A-Z_0-9]*)\.(config|controller)\s*(?:<(.+)>\s*)?\(((?:(?:\s*[$A-Z_][$A-Z_0-9]*\s*)(?:,(?=\s*[$A-Z_]+))?)+)?\)$/ig;
+	const pattern   = new regex(
+		regex.beginning(),
+		regex.group(
+			regex.text('$'),
+			regex.identifier()
+		).capture(),
+		regex.text('.'),
+		regex.text('config', 'controller').capture(),
+		regex.group(
+			regex.text('<'),
+			regex.callParameters().capture(),
+			regex.text('>')
+		).optional(),
+		regex.group(
+			regex.text('('),
+			regex.arguments().optional().capture(),
+			regex.text(')')
+		),
+		regex.end()
+	).autoSpace();
 
-	block(regex, (matches, {body, head}) => {
+	block(pattern.toObj(), (matches, {body}) => {
 		let [, app, func, param1, modules] = matches;
 		body = compile(body);
 		param1 = (param1 ? param1.length : 0) > 0 ? param1 + ', ' : '';
@@ -33,7 +52,7 @@ function angular(esy) {
 
 	return {
 		name    : "Esy Angular",
-		version : "0.0.2",
+		version : "0.0.3",
 		author  : "Slye Development Team"
 	};
 }
