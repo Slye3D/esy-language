@@ -14,7 +14,7 @@
  * @param esy
  */
 function readline(esy){
-	esy.block(/^readline(sync)?\s*<([$A-Z_][$A-Z_0-9]*)>$/ig, (matches, block, parent, offset) => {
+	esy.block(/^readline(sync)?\s*([$A-Z_][$A-Z_0-9]*)$/ig, (matches, block, parent, offset) => {
 		var isSync      = Boolean(matches[1]);
 		var name        = matches[2];
 		var callback    = esy.compile(block.body);
@@ -39,7 +39,7 @@ rl${random}.on('line', (${name}) => {
 	}).keyword('readlinesync');
 	return {
 		name    : "Esy Readline",
-		version : "0.0.1",
+		version : "0.0.2",
 		author  : "Slye Development Team"
 	};
 }

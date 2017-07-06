@@ -671,7 +671,7 @@ promise wrong(a,b) <resolve, reject>{
 # Readline
 Syntax:
 ```esy
-readline <input>{
+readline input{
     ...code
 }
 ```
@@ -683,23 +683,21 @@ Esy uses default Node's readline module so this block is **NOT** working in `web
 ```esy
 console.log("What is your name?")
 // Read user's name from STDIN
-readline <name>{
+readline name{
     console.log(`Hello ${name}`)
 }
 ```
 # ReadlineSync
 Syntax
 ```esy
-readlinesync <input>;
+readlinesync input
 ```
 `ReadlineSync` is used to read line from STDIN synchronously.
-
-``Note: It is necessary to have the semicolon at the end of the line.``
 
 ## Example
 ```esy
 console.log("What is your name?")
-readlinesync <name>;
+readlinesync name;
 console.log(`Hello ${name}`)
 console.log("Bye")
 ```

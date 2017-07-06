@@ -1,7 +1,7 @@
 # Readline
 Syntax:
 ```esy
-readline <input>{
+readline input{
     ...code
 }
 ```
@@ -13,7 +13,7 @@ Esy uses default Node's readline module so this block is **NOT** working in `web
 ```esy
 console.log("What is your name?")
 // Read user's name from STDIN
-readline <name>{
+readline name{
     console.log(`Hello ${name}`)
 }
 ```
