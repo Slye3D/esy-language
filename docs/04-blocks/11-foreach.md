@@ -12,8 +12,8 @@ The idea behind this block comes from PHP's foreach block, and its syntax is com
 1)
 ```esy
 ages = {ali:5, john:20, 'qti3e': 16}
-foreach(a as name:age)
-	console.log(name, ' is ', age, ' years old);
+foreach(ages as name:age)
+	console.log(name, ' is ', age, ' years old');
 ```
 
 2)
