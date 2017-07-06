@@ -92,3 +92,18 @@ exports.$ForOf  = function (assert) {
 		assert(false);
 	});
 };
+
+
+exports.$OLB  = function (assert) {
+	var code    = `
+	var a = [1,5,7];
+	var sum = 0;
+	for(var value of a)
+		sum += value;
+`;
+	compare(code).then(re => {
+		assert(re)
+	}, () =>  {
+		assert(false);
+	});
+};

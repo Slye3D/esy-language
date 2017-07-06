@@ -92,6 +92,9 @@ function run(JsCode, time = 0){
 				if(names.indexOf(name) > -1 && ['i', 're'].indexOf(name) == -1){
 					delete sandbox[name]
 				}
+				if(name.startsWith('_tmp') || name.startsWith('__')){
+					delete sandbox[name]
+				}
 			}
 			resolve(sandbox)
 		};
