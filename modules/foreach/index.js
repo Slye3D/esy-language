@@ -18,22 +18,22 @@ function foreach(esy){
 		var body    = compile(block.body);
 		var random  = Math.floor(Math.random() * 1000);
 		return `
-var feO${random}    = ${obj};
-var fe${random} = function (${value}${key}) {
+var _tmpFEO${random}    = ${obj};
+var _tmpFE${random} = function (${value}${key}) {
 	${body}
 };
-if(feO${random}.forEach){
-	feO${random}.forEach(fe${random});
+if(_tmpFEO${random}.forEach){
+	_tmpFEO${random}.forEach(_tmpFE${random});
 }else{
-	for(var __key${random} in feO${random}){
-		fe${random}(feO${random}[__key${random}], __key${random})
+	for(var __key${random} in _tmpFEO${random}){
+		_tmpFE${random}(_tmpFEO${random}[__key${random}], __key${random})
 	}
 }`
 	});
 
 	return {
 		name: "Esy Foreach",
-		version: "0.0.1",
+		version: "0.0.2",
 		author: "Slye Development Team"
 	};
 }
