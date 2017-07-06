@@ -22,6 +22,8 @@ function k2b(tree){
 				if(row.toLowerCase().startsWith(keyword)){
 					if(['<', ' ', '('].indexOf(row[keyword.length]) > -1){
 						var p = new RegExp(keywords[keyword]);
+						if(row.endsWith(';'))
+							row = row.substr(0, row.length - 1);
 						if(p.test(row)){
 							return {
 								head: row,
