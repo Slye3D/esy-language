@@ -473,6 +473,7 @@ till now we have these blocks:
 8. [Strict](./08-strict.md)
 9. [Cache](./09-cache.md)
 10. [Extract](./10-extract.md)
+11. [Angular](./11-angular.md)
 # Timers
 Syntax:
 ```esy
@@ -815,5 +816,47 @@ foreach(a as k:v){
 a = [5,7,8]
 foreach(a as v){
 	console.log(v * 5)
+}
+```
+# Angular
+Esy provides a way to work with angular.js with it's special blocks.
+
+**Syntax**:
+
+config:
+```
+($appname).config([...services]){
+
+}
+```
+controller:
+```
+($appname).controller<name>([...services]){
+
+}
+```
+
+> Note: In Esy you must start your app name with $
+
+Example:
+let **$**app = angular.module(...)
+
+# Example
+This is just a complete example show you how to work with Angular.js in Esy
+```esy
+let $app = angular.module('slye', [
+        'ngRoute',
+        'slye.dashboard'
+]);
+
+$app.config($routeProvider){
+        $routeProvider.when('/dashboard', {
+                templateUrl : 'views/slye.dashboard.html',
+                controller  : 'DashboardCtrl'
+        });
+        $routeProvider.otherwise({redirectTo: '/dashboard'});
+}
+$app.controller<"DashboardCtrl">($route, $routeParams){
+
 }
 ```

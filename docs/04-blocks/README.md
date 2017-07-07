@@ -14,3 +14,4 @@ till now we have these blocks:
 8. [Strict](./08-strict.md)
 9. [Cache](./09-cache.md)
 10. [Extract](./10-extract.md)
+11. [Angular](./11-angular.md)
