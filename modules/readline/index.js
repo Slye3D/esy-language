@@ -32,14 +32,15 @@ const rl${random} = readline.createInterface({
   output: process.stdout
 });
 rl${random}.on('line', (${name}) => {
-  ${callback}
-  rl${random}.close();${syncCode}
+	rl${random}.close();  
+	${callback}
+	${syncCode}
 });
 `;
 	}).keyword('readlinesync');
 	return {
 		name    : "Esy Readline",
-		version : "0.0.2",
+		version : "0.0.3",
 		author  : "Slye Development Team"
 	};
 }
