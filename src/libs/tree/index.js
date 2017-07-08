@@ -105,6 +105,10 @@ function Tree(code, first_call = true){
 					preCode = preCode.substr(0, preCode.length - head_len).trim();
 					if(preCode.endsWith('return') || preCode.endsWith('export'))
 						preCode += '~';
+					var gh = preCode;
+					preCode = preCode.substring(0, preCode.indexOf('{'));
+					insert();
+					preCode = gh.substring(gh.indexOf('{'));
 					insert();
 					preCode = '';
 					if(head == ''){
@@ -115,7 +119,7 @@ function Tree(code, first_call = true){
 						// This is an object
 						if(body.length > 0) {
 							if(typeof body[0] == 'string')
-								body[0] = '\{' + body[0];
+								body[0] = '{' + body[0];
 							else
 								body    = ['{'].concat(body);
 

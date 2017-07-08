@@ -18,6 +18,8 @@ const Configs   = require('./config');
 const quotations= require('../libs/tree/quotations');
 const head      = require('./head');
 const isPunctuator  = require('../libs/characters/punctuator');
+const errors    = require('../libs/errors');
+
 global.calledCompile    = global.calledCompile || 0;
 global.calledCompileEnd = global.calledCompileEnd || 0;
 Configs.def('beautify', {
@@ -52,6 +54,7 @@ function compile(tree) {
 	}
 
 	var re  = Cache.cache('compile', tree, function () {
+		errors(tree);
 		var offset  = 0,
 			re      = '';
 		var isComment = code => {

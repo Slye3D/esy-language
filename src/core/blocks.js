@@ -105,6 +105,7 @@ function find(code){
 			source = source.substr(1);
 			h   = true;
 		}
+		source = '(?:\\W|^)' + source;
 		// Add $ to the end of source if not exists
 		if(!source.endsWith('$'))
 			source  += '$';
@@ -121,7 +122,9 @@ function find(code){
 			var j   = 0;
 			matches[j]  = matches[j].trim();
 			var len = matches[j].length;
-			var ll  = code[code.length - len - 1];
+			if(/\W/.test(matches[j][0]))
+				len--;
+				var ll  = code[code.length - len - 1];
 			if(isClosed(matches[j]) && ll !== '.') {
 				results.push(len);
 			}
