@@ -26,14 +26,14 @@ function errors(tree){
 			if(/^\w+\s+.+$/.test(code)){
 				keyword = code.substr(0, code.indexOf(' '));
 				if(!getKeyword(keyword)){
-					if(!code.endsWith(';') && tree[offset + 1] && tree[offset + 1].startsWith('{')){
+					if(!code.endsWith(';') && typeof tree[offset + 1] == 'string' && tree[offset + 1].startsWith('{')){
 						e = `Unknown header <${code}>`
 					}else {
 						e = `Unknown keyword <${code}>`
 					}
 				}
 			}else if(
-				(/^\w+$/.test(code) && tree[offset + 1] && tree[offset + 1].startsWith('{')) ||
+				(/^\w+$/.test(code) && typeof tree[offset + 1] == 'string' && tree[offset + 1].startsWith('{')) ||
 				(/^\w+\{.*$/.test(code))
 			){
 				if(code.indexOf('{') > -1)
@@ -41,7 +41,7 @@ function errors(tree){
 
 				e = `Unknown header <${code}>`
 			}
-			if(code.startsWith('{') && tree[offset - 1] && !isPunctuator.endsWith(tree[offset - 1])){
+			if(code.startsWith('{') && typeof tree[offset - 1] == 'string' && !isPunctuator.endsWith(tree[offset - 1])){
 				code = tree[offset - 1];
 				e = `Unknown header <${code}>`;
 			}
