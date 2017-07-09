@@ -1,6 +1,6 @@
 {
   "name": "esy-language",
-  "version": "1.1.4",
+  "version": "1.2.0",
   "description": "Esy is a new JS preprocessor allows you to use custom block structures.",
   "main": "src/index.js",
   "scripts": {
