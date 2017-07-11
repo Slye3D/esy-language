@@ -32,10 +32,7 @@ function errors(tree){
 						e = `Unknown keyword <${code}>`
 					}
 				}
-			}else if(
-				(/^\w+$/.test(code) && typeof tree[offset + 1] == 'string' && tree[offset + 1].startsWith('{')) ||
-				(/^\w+\{.*$/.test(code))
-			){
+			}else if(/^\w+\{.*$/.test(code)){
 				if(code.indexOf('{') > -1)
 					code = code.substr(0, code.indexOf('{'));
 
