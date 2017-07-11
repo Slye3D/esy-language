@@ -18,6 +18,7 @@ const OLB       = require('./OLB');
 const K2B       = require('./keywords2block');
 const EsyError  = require('../errors/esy_error');
 const Cache     = require('../../core/cache');
+const keywords	= require('./keywords');
 
 /**
  * Prepare code to use in Tree function
@@ -160,6 +161,7 @@ function Tree(code, first_call = true){
 		insert();
 		if(first_call) {
 			re = K2B(re);
+			re = keywords(re);
 		}
 		return re;
 	});
