@@ -41,10 +41,10 @@ function errors(tree){
 
 				e = `Unknown header <${code}>`
 			}
-			if(code.startsWith('{') && typeof tree[offset - 1] == 'string' && !isPunctuator.endsWith(tree[offset - 1])){
-				code = tree[offset - 1];
-				e = `Unknown header <${code}>`;
-			}
+			// if(code.startsWith('{') && typeof tree[offset - 1] == 'string' && !isPunctuator.endsWith(tree[offset - 1])){
+				// code = tree[offset - 1];
+				// e = `Unknown header <${code}>`;
+			// }
 		}
 		if(e){
 			throw new EsyError(e);
