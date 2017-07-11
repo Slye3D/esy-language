@@ -24,7 +24,7 @@ function keywords(tree){
                 tree[offset] += ' ' + tree[offset + 1]
                 tree[offset + 1] = undefined;
             }
-        }else {
+        }else if(typeof tree[offset] == 'object'){
             tree[offset]['body']    = keywords(tree[offset]['body']);
         }
     }
