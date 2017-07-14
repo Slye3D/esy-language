@@ -14,12 +14,16 @@ const glob      = require('glob');
 const esy       = require('../src');
 const colors    = require('colors');
 const path      = require('path');
+const fs		= require('fs');
 
 const xmark     = '✗ ',
 	checkmark   = '✓ ';
 
 const TIMEOUT   = 3000;
 
+try{
+	fs.mkdirSync('../tmp')
+} catch (e){}
 esy.configs.load('../tmp/esy.json');
 esy.configs.set('cache_dir', '../tmp/.cache');
 esy.cache.load();
