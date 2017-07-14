@@ -1,6 +1,5 @@
 # Esy
 
-[![Join the chat at https://gitter.im/Slye-team/esy-language](https://badges.gitter.im/Slye-team/esy-language.svg)](https://gitter.im/Slye-team/esy-language?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 [![NPM](https://nodei.co/npm/esy-language.png?compact=true)](https://npmjs.org/package/esy-language)
 
 [![CircleCI](https://circleci.com/gh/Slye-team/esy-language/tree/master.svg?style=shield)](https://circleci.com/gh/Slye-team/esy-language/tree/master)
@@ -8,7 +7,7 @@
 [![downloads](https://img.shields.io/npm/dm/esy-language.svg)](https://www.npmjs.com/package/badges)
 [![dependencies](https://img.shields.io/david/slye-team/esy-language.svg)](https://www.npmjs.com/package/badges)
 [![license](https://img.shields.io/npm/l/esy-language.svg)](./LICENSE)
-[![Gitter chat](https://badges.gitter.im/gitterHQ/gitter.png)](https://gitter.im/Slye-team/esy-language)
+[![Join the chat at https://gitter.im/Slye-team/esy-language](https://badges.gitter.im/Slye-team/esy-language.svg)](https://gitter.im/Slye-team/esy-language?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 ![Esy Logo](./logo.png)
 
