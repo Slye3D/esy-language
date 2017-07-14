@@ -1,5 +1,6 @@
 # Esy
 [![NPM](https://nodei.co/npm/esy-language.png?compact=true)](https://npmjs.org/package/esy-language)
+
 [![CircleCI](https://circleci.com/gh/Slye-team/esy-language/tree/master.svg?style=shield)](https://circleci.com/gh/Slye-team/esy-language/tree/master)
 [![npm version](https://badge.fury.io/js/esy-language.svg)](https://badge.fury.io/js/esy-language)
 [![downloads](https://img.shields.io/npm/dm/esy-language.svg)](https://www.npmjs.com/package/badges)
