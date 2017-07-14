@@ -1,10 +1,11 @@
 # Esy
+[![CircleCI](https://circleci.com/gh/Slye-team/esy-language/tree/master.svg?style=shield)](https://circleci.com/gh/Slye-team/esy-language/tree/master)
 
 Esy is a new JS preprocessor allows you to use custom block structures.
 
 # What does it mean?
  Right now in JavaScript and many other languages that support the [block structure](https://en.wikipedia.org/wiki/Scope_(computer_science)#Block_scope), you're only able to use some predefined structures like:
- 
+
  1. if (){...}
  2. for (){...}
  3. while (){...}
@@ -15,7 +16,7 @@ Esy is a new JS preprocessor allows you to use custom block structures.
  8. catch (){...}
  9. finally (){...}
  10. etc...
- 
+
  Those are all familiar structures to you, but have you ever thought about the following structure?
  ```esy
  timeout 200 {
@@ -35,7 +36,7 @@ Esy is a new JS preprocessor allows you to use custom block structures.
  }, 200);
  ```
  That why `Esy` comes from `Easy`
- 
+
 # Install
   You can install this package globally by running:
   ```bash
@@ -45,7 +46,7 @@ Esy is a new JS preprocessor allows you to use custom block structures.
   ```bash
   npm install esy-language --save
   ```
-  
+
 # Example
   After installing the `Esy`, save this file as `ex.esy`
   ```esy
@@ -57,14 +58,14 @@ Esy is a new JS preprocessor allows you to use custom block structures.
   	// We don't care about numbers order in sum function (a+b=b+a)
   	return [c, d].sort();
   }
-  
+
   // Compute 5+7 once
   console.log(sum(5,7))
-  
+
   // Load theme from cache without computing
   console.log(sum(5,7))
   console.log(sum(7,5))
-  
+
   // Wait 100ms more than cache's lifetime.
   timeout 600{
   	// It should compute 5+7 again
@@ -79,15 +80,14 @@ Esy is a new JS preprocessor allows you to use custom block structures.
   ```
   esy compile ex.esy -s
   ```
-  
+
 # Docs
   Read [official docs](https://github.com/Slye-team/esy-language/tree/master/docs) for more details.
-  
-# Run tests
+
+# Testing
   To run tests just run:
   ```bash
   git clone https://github.com/Slye-team/esy-language.git
   cd esy-language
-  mkdir tmp
   npm run test
   ```
