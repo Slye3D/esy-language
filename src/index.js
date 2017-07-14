@@ -20,8 +20,11 @@ const regex     = require('./core/regex');
 const head      = require('./core/head');
 const glob      = require('glob');
 const path      = require('path');
+const fs		= require('fs');
+const {version}	= JSON.parse(fs.readFileSync(__dirname + '/../package.json'));
 
 var esy_lang  = {
+	version	: version,
 	tree    : tree,
 	compile : compile,
 	cache   : cache,
