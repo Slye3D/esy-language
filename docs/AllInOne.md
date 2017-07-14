@@ -1,5 +1,6 @@
 
 
+---
 <!---  .  -->
 
 
@@ -13,6 +14,7 @@
 <!-- 5. [~~Core API~~](https://github.com/Slye-team/esy-language/tree/master/docs/05-api) -->
 
 
+---
 <!---  ./01-introduction  -->
 
 
@@ -48,6 +50,7 @@ which is more readable than the standard JavaScript code.
 To run the example code just go to [chapter 2](../02-installation)
 
 
+---
 <!---  ./02-installation  -->
 
 
@@ -77,6 +80,7 @@ esy compile hello.esy -s [filename.js]
 If you don't pass the filename, it would be `hello.js` as default.
 
 
+---
 <!---  ./03-CLI  -->
 
 
@@ -454,6 +458,7 @@ List all active modules
 > Note: `--beauty` only works with `--json` option
 
 
+---
 <!---  ./04-blocks  -->
 
 
@@ -474,6 +479,7 @@ till now we have these blocks:
 9. [Cache](./09-cache.md)
 10. [Extract](./10-extract.md)
 11. [Angular](./11-angular.md)
+12. [Events](./13-events.md)
 # Timers
 Syntax:
 ```esy
@@ -821,6 +827,7 @@ foreach(a as v){
 # Angular
 Esy provides a way to work with angular.js with it's special blocks.
 
+## .Config & .Controller
 **Syntax**:
 
 config:
@@ -841,7 +848,7 @@ controller:
 Example:
 let **$**app = angular.module(...)
 
-# Example
+### Example
 This is just a complete example show you how to work with Angular.js in Esy
 ```esy
 let $app = angular.module('slye', [
@@ -860,3 +867,135 @@ $app.controller<"DashboardCtrl">($route, $routeParams){
 
 }
 ```
+
+## Timers
+** Syntax **:
+```
+$(timeout|interval) [dely] [<pass1,pass2,..>] [(arg1,arg2,..)]{
+    // body
+}
+```
+Just like [Normal Timers](./01-timers.md) but you should type $ sign before function name.
+(You should use $timeout/$interval in your controller dependencies)
+### Basic Usage:
+```esy
+$app.controller<"DashboardCtrl">($timeout){
+    $timeout 500{
+        console.log("Hi");
+    }
+}
+```
+
+# Events
+This syntax is a little bit weird but you can understand it by looking at examples.
+
+## Normal
+Syntax:
+```
+#var[<event>](callback_args...)[.func = '.on']{
+
+}
+```
+### Examples
+1)
+```esy
+#io<'connection'> (client) {
+	console.log('Client connected...');
+}
+```
+Compiles to:
+```js
+io.on('connection', function(client){
+    console.log('Client connected...');
+})
+```
+2)
+```esy
+#server<PORT>().listen{
+	console.log("App started on port ", PORT)
+}
+```
+Compiles to:
+```js
+server.listen(PORT, function(){
+    console.log("App started on port ", PORT)
+})
+```
+
+---
+## Nested
+Syntax:
+```
+#var[<def_func = 'on'>]{
+    <event1>(callback_args1...)[.func = def_func]{
+
+    }
+
+    <event2>(callback_args2...)[.func = def_func]{
+
+    }
+}
+```
+
+### Examples
+1)
+```esy
+#client{
+    <'join'>(data){
+        console.log(data)
+    }
+    <'messages'>(data){
+        client.emit('broad', data);
+        client.broadcast.emit('broad',data);
+    }
+}
+```
+Compiles to:
+```js
+client.on('join', function(data){
+    console.log(data)
+})
+client.on('message', function(data){
+    client.emit('broad', data);
+    client.broadcast.emit('broad',data);
+})
+```
+
+2)
+```esy
+#app<all>{
+	<'/'>(req, res, next){
+		res.sendFile(__dirname + '/view/index.html', () => {
+			next();
+		})
+	}
+	<'/index.html'>(req, res, next).get{
+		res.redirect('/')
+		next()
+	}
+	<'/config.json'>(req, res, next){
+		res.send(JSON.stringify({
+			host: req.headers.host,
+			port: PORT
+		}))
+		next();
+	}
+}
+```
+Compiles to:
+```js
+app.all('/', function(req, res, next){
+    res.sendFile(__dirname + '/view/index.html', () => {
+        next();
+    })
+})
+app.get('/index.html', function(req, res, next).get{
+    res.redirect('/')
+    next()
+})
+app.all('/config.json', function(req, res, next).get{
+    res.redirect('/')
+    next()
+})
+```
+

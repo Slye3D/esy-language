@@ -4,6 +4,7 @@ touch AllInOne.md
 function dir {
     echo "" >> AllInOne.md
     echo "" >> AllInOne.md
+    echo "---" >> AllInOne.md
     echo "<!--- " $1 " -->" >> AllInOne.md
     echo "" >> AllInOne.md
     echo "" >> AllInOne.md
