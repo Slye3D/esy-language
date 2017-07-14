@@ -17,6 +17,7 @@ const EsyError  = require('../libs/errors/esy_error');
 const rimraf    = require('rimraf');
 const os        = require('os');
 const {Buffer}  = require('buffer');
+const mkdirp	= require('mkdirp');
 
 // Set default config values
 configs.def('cache', {
@@ -86,7 +87,7 @@ function load(){
 
 	// Check if cache directory exists
 	if(!fs.existsSync(dir)){
-		fs.mkdirSync(dir);
+		mkdirp.sync(dir);
 	}
 	// Check if `dir` path refers to a directory not file or something else
 	if(!fs.lstatSync(dir).isDirectory()){
