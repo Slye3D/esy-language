@@ -6,6 +6,7 @@
 [![downloads](https://img.shields.io/npm/dm/esy-language.svg)](https://www.npmjs.com/package/badges)
 [![dependencies](https://img.shields.io/david/slye-team/esy-language.svg)](https://www.npmjs.com/package/badges)
 [![license](https://img.shields.io/npm/l/esy-language.svg)](./LICENSE)
+[![Gitter chat](https://badges.gitter.im/gitterHQ/gitter.png)](https://gitter.im/esy-lang/Lobby)
 
 ![Esy Logo](./logo.png)
 
