@@ -114,3 +114,16 @@ for(var a of boolean)
 		assert(false);
 	});
 };
+
+exports.$test5	= function (assert){
+	var code    = `
+	var x = {a:5, b:6}
+	let {a, b, c} = x;
+`;
+
+	compare(code).then(re => {
+		assert(re)
+	}, () =>  {
+		assert(false);
+	});
+}
