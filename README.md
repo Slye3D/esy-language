@@ -1,5 +1,11 @@
 # Esy
+[![NPM](https://nodei.co/npm/esy-language.png?compact=true)](https://npmjs.org/package/esy-language)
 [![CircleCI](https://circleci.com/gh/Slye-team/esy-language/tree/master.svg?style=shield)](https://circleci.com/gh/Slye-team/esy-language/tree/master)
+[![npm version](https://badge.fury.io/js/esy-language.svg)](https://badge.fury.io/js/esy-language)
+[![downloads](https://img.shields.io/npm/dm/esy-language.svg)](https://www.npmjs.com/package/badges)
+[![dependencies](https://img.shields.io/david/slye-team/esy-language.svg)](https://www.npmjs.com/package/badges)
+[![license](https://img.shields.io/npm/l/esy-language.svg)](./LICENSE)
+
 
 Esy is a new JS preprocessor allows you to use custom block structures.
 
