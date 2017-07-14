@@ -1,4 +1,6 @@
 # Esy
+
+[![Join the chat at https://gitter.im/Slye-team/esy-language](https://badges.gitter.im/Slye-team/esy-language.svg)](https://gitter.im/Slye-team/esy-language?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 [![NPM](https://nodei.co/npm/esy-language.png?compact=true)](https://npmjs.org/package/esy-language)
 
 [![CircleCI](https://circleci.com/gh/Slye-team/esy-language/tree/master.svg?style=shield)](https://circleci.com/gh/Slye-team/esy-language/tree/master)
