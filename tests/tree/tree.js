@@ -114,3 +114,53 @@ for(var a of boolean)
 		assert(false);
 	});
 };
+
+exports.$test5	= function (assert){
+	var code    = `
+	var x = {a:5, b:6}
+	let {a, b, c} = x;
+`;
+
+	compare(code).then(re => {
+		assert(re)
+	}, () =>  {
+		assert(false);
+	});
+}
+
+exports.$test6	= function (assert){
+	var code    = `
+	var x = Math.abs((1 - 9) * 100),
+		y = 6,
+		z = 8;
+	let {a, b, c} = x;
+`;
+
+	compare(code).then(re => {
+		assert(re)
+	}, () =>  {
+		assert(false);
+	});
+}
+
+exports.$test7	= function (assert){
+	var code    = `
+	let x = [true, false];
+	for(var a = 0;a <= 1;a++){
+		for(var b = 0;b <= 1;b++){
+			for(var c = 0;c <= 1;c++){
+				if(a) console.log(1)
+				else if (b) console.log(2)
+				else if (c) console.log(3)
+				else console.log(4)
+			}
+		}
+	}
+`;
+
+	compare(code).then(re => {
+		assert(re)
+	}, () =>  {
+		assert(false);
+	});
+}

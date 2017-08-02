@@ -6,6 +6,7 @@
 2. [Options](./02-options.md)
 3. [Compile](./03-compile.md)
 4. [Config](./04-config.md)
+4. [Version](./08-version.md)
 ## Advanced
 5. [Build](./05-build.md)
 6. [Cache](./06-cache.md)

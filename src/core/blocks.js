@@ -122,7 +122,7 @@ function find(code){
 			var j   = 0;
 			matches[j]  = matches[j].trim();
 			var len = matches[j].length;
-			if(/\W/.test(matches[j][0]))
+			if(!(new RegExp(global.patterns[i], 'gi')).test(matches[j]) && /\W/.test(matches[j][0]))
 				len--;
 				var ll  = code[code.length - len - 1];
 			if(isClosed(matches[j]) && ll !== '.') {

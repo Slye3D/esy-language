@@ -1,1 +1,4 @@
 tmp
+docs
+tests
+.circleci
