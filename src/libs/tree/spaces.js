@@ -49,15 +49,18 @@ function spaces(code){
 	var re      = '',
 		offset  = 0,
 		char;   // Current character
-	var insert  = () => {
+	var insert  = (x = '') => {
 		if(!re.endsWith(';'))
-			re += ';'
+			re += ';' + x
 	};
 
 	for(;offset < code.length;offset++){
 		char    = code[offset];
 		if(((/\d$/g.test(re) && /^\D$/g.test(char) && isEOL(code[offset + 1])) || /(false|true|null)$/ig.test(re)) && !isPunctuators.startsWith(code.substr(offset).trim())){
 			insert();
+		}
+		if(re.endsWith('else') && char !== '{'){
+			insert()
 		}
 		if(!isEOL(char)){
 			re += char;

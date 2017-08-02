@@ -125,6 +125,9 @@ function OLB2(code){
 			// Finding OLBs
 			if(code[offset - 1] == ' ')
 				continue;
+			let reg	= new RegExp('\\w', 'ig')
+			if(code[offset - 1] != undefined && reg.test(code[offset - 1]))
+				continue;
 			for(var s = 0;s < OLBs.length;s++){
 				var p = true,
 					j = 0;

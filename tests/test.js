@@ -83,7 +83,9 @@ function test() {
 		i++;
 		test();
 	};
-	func(assert, _console);
+	try{
+		func(assert, _console);
+	} catch(e){}
 }
 _console.log("Preparing tests...");
 glob('*/*.js', {cwd: __dirname}, function (err, files) {
