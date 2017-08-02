@@ -11,9 +11,18 @@
 
 /**
  * Support for angular.js
- * This version (0.0.3) supports:
+ * This version (0.0.6) supports:
  *  config
  *  controller
+ * 	run
+ *	directive
+ *	filter
+ *	factory
+ *	provider
+ *	service
+ *	component
+ *	decorator
+ *	$timeout/$interval
  * @param esy
  */
 function angular(esy) {
@@ -26,7 +35,7 @@ function angular(esy) {
 			regex.identifier()
 		).capture(),
 		regex.text('.'),
-		regex.text('config', 'controller', 'run').capture(),
+		regex.text('config', 'controller', 'run', 'directive', 'filter', 'factory', 'provider', 'service', 'component', 'decorator').capture(),
 		regex.group(
 			regex.text('<'),
 			regex.callParameters().capture(),
@@ -96,7 +105,7 @@ function angular(esy) {
 
 	return {
 		name    : "Esy Angular",
-		version : "0.0.5",
+		version : "0.0.6",
 		author  : "Slye Development Team"
 	};
 }
