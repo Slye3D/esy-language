@@ -9,7 +9,7 @@
  *       Licence: MIT License
  */
 
-global.quotations   = global.quotations || [];
+global._quotations   = global._quotations || [];
 
 // Define replaceBetween function to replace a substring between two indices
 String.prototype.replaceBetween = function(start, end, what) {
@@ -74,9 +74,9 @@ function encode(code){
 	for(var indices of quotations){
 		var s   = indices[0],
 			e   = indices[1],
-			i   = global.quotations.length,
+			i   = global._quotations.length,
 			c   = `\\q{${i.toString(36)}}`;
-		global.quotations[i]    = code.substring(s - f, e + 1 - f);
+		global._quotations[i]    = code.substring(s - f, e + 1 - f);
 		code = code.replaceBetween(s - f, e + 1 - f, c);
 		f   += ((e + 1) - s) - c.length;
 	}
@@ -85,5 +85,5 @@ function encode(code){
 
 module.exports = {
 	encode: encode,
-	get: i => global.quotations[i]
+	get: i => global._quotations[i]
 };

@@ -164,3 +164,17 @@ exports.$test7	= function (assert){
 		assert(false);
 	});
 }
+
+exports.$test8	= function (assert){
+	var code    = `
+	let r = new RegExp(/^\\w{3,}$/)
+	let b = r.test('aaaa')
+	console.log(b);
+`;
+
+	compare(code).then(re => {
+		assert(re)
+	}, () =>  {
+		assert(false);
+	});
+}

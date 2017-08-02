@@ -12,6 +12,7 @@
 // Load modules
 const {find}    = require('../../core/blocks');
 const comments  = require('./comments');
+const regex  	= require('./regex');
 const spaces    = require('./spaces');
 const quotations= require('./quotations');
 const OLB       = require('./OLB');
@@ -28,6 +29,7 @@ const keywords	= require('./keywords');
 function prepare_code(code) {
 	return Cache.cache('refactor', code, function () {
 		code    = quotations.encode(code);
+		code    = regex.encode(code);
 		code    = comments.encode(code);
 		code    = spaces(code);
 		code    = OLB(code);
@@ -80,17 +82,17 @@ function Tree(code, first_call = true){
 				}
 				// Now `e` is offset of last }
 
-				if(preCode.endsWith('\\q') || preCode.endsWith('\\c')){
+				if(preCode.endsWith('\\q') || preCode.endsWith('\\c') || preCode.endsWith('\\r')){
 					var id  = parseInt(code.substring(offset + 1, e), 36);
-					var ewq = preCode.endsWith('q');
-					var get = (ewq ? quotations : comments).get;
+					var ewc = preCode.endsWith('c');
+					var get = (ewc ? comments : (preCode.endsWith('r') ? regex : quotations)).get;
 					preCode = preCode.substr(0, preCode.length - 2);
-					if(ewq){
-						preCode+= get(id);
-					}else {
+					if(ewc){
 						insert();
 						re.push(get(id));
 						preCode = '';
+					}else {
+						preCode += get(id);
 					}
 				}else {
 					var a = 0,
