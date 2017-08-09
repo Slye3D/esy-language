@@ -11,7 +11,7 @@
 
 /**
  * Support for angular.js
- * This version (0.0.6) supports:
+ * This version (0.0.8) supports:
  *  config
  *  controller
  * 	run
@@ -52,9 +52,12 @@ function angular(esy) {
 	block(pattern.toObj(), (matches, {body}) => {
 		let [, app, func, param1, modules] = matches;
 		body = compile(body);
+		modules	= modules || '';
 		param1 = (param1 ? param1.length : 0) > 0 ? param1 + ', ' : '';
-		let module_names    = "'" + modules.split(',').map(a => a.trim()).join("','") + "'";
-		return `${app}.${func}(${param1}[${module_names}, function(${modules}){
+		let module_names    = "'" + modules.split(',').map(a => a.trim()).join("','") + "'" + ',';
+		if(module_names.trim() == "'',")
+			module_names	= '';
+		return `${app}.${func}(${param1}[${module_names}function(${modules}){
 			${body}
 		}])`;
 	});
@@ -105,7 +108,7 @@ function angular(esy) {
 
 	return {
 		name    : "Esy Angular",
-		version : "0.0.6",
+		version : "0.0.8",
 		author  : "Slye Development Team"
 	};
 }
