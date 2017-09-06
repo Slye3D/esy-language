@@ -4,7 +4,7 @@
 
 [![CircleCI](https://circleci.com/gh/Slye-team/esy-language/tree/master.svg?style=shield)](https://circleci.com/gh/Slye-team/esy-language/tree/master)
 [![npm version](https://badge.fury.io/js/esy-language.svg)](https://badge.fury.io/js/esy-language)
-[![downloads](https://img.shields.io/npm/dm/esy-language.svg)](https://www.npmjs.com/package/badges)
+[![downloads](https://img.shields.io/npm/dt/esy-language.svg)](https://www.npmjs.com/package/badges)
 [![dependencies](https://img.shields.io/david/slye-team/esy-language.svg)](https://www.npmjs.com/package/badges)
 [![license](https://img.shields.io/npm/l/esy-language.svg)](./LICENSE)
 [![Join the chat at https://gitter.im/Slye-team/esy-language](https://badges.gitter.im/Slye-team/esy-language.svg)](https://gitter.im/Slye-team/esy-language?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
